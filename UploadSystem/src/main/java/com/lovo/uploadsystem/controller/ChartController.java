@@ -14,10 +14,10 @@ public class ChartController {
 		
 	}
 	
-	@RequestMapping("map2")
-	private ModelAndView map2() {
+	@RequestMapping("map")
+	private ModelAndView map() {
 
-		ModelAndView mv = new ModelAndView("map2");
+		ModelAndView mv = new ModelAndView("map");
 		
 		return mv;
 		

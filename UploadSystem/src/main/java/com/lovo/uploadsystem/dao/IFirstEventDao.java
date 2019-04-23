@@ -19,14 +19,16 @@ public interface IFirstEventDao extends CrudRepository<FirstEventEntity, String>
 	public List<FirstEventEntity> findFirstEventByEventState(int eventState);
 	
 	/**
-	 * 通过事件名称、事件等级、地区名称模糊查询相关的事件信息
-	 * @param typeName 事件名称
-	 * @param eventLevel 事件等级
-	 * @param areaName 地区名称
-	 * @return 相关的事件集合
+	 * 查询所有的事件信息
+	 * @return 事件集合
 	 */
-//	@Query(value="",nativeQuery=true)
-//	public List<FirstEventEntity> findFirstEventslikeEventTypeEventLevelEventArea(String typeName,String eventLevel,String areaName);
+	@Query(value="SELECT fe.*,et.*,ea.* " + 
+			" from t_first_event as fe " + 
+			" LEFT JOIN t_event_type as et on et.type_id = fe.fk_type_id " + 
+			" LEFT JOIN t_event_area as ea on ea.area_id = fe.fk_area_id " + 
+			" where event_state=?1 " +
+			" ORDER BY fe.event_state asc, fe.event_datetime DESC",nativeQuery=true)
+	public List<FirstEventEntity> findAllFirstEvents(int eventState);
 	
 	/**
 	 * 主页面模糊查询事件信息
@@ -36,13 +38,15 @@ public interface IFirstEventDao extends CrudRepository<FirstEventEntity, String>
 	 * @param eventState 事件状态
 	 * @return 事件集合
 	 */
-	@Query(value="SELECT fe.event_name,et.type_name,fe.event_level,ea.area_name,fe.discoverer,fe.discoverer_tel,fe.event_state " + 
+	@Query(value="SELECT fe.*,et.*,ea.* " + 
 			" from t_first_event as fe " + 
 			" LEFT JOIN t_event_type as et on et.type_id = fe.fk_type_id " + 
 			" LEFT JOIN t_event_area as ea on ea.area_id = fe.fk_area_id " + 
 			" WHERE if(?1 != '',et.type_name = ?1 ,1+1) " + 
 			" and if(?2 != '',fe.event_level = ?2 ,1+1) " + 
 			" and if(?3 != '',ea.area_name = ?3 ,1+1) " + 
-			" and if(?4 != 0,fe.event_state = ?4 ,1+1)",nativeQuery=true)
+			" and if(?4 != 0,fe.event_state = ?4 ,1+1)" +
+			" ORDER BY fe.event_state asc, fe.event_datetime DESC",nativeQuery=true)
 	public List<FirstEventEntity> findFirstEventsByEventTypeEventLevelEventAreaState(String typeName,String eventLevel,String areaName,int eventState);
+	
 }

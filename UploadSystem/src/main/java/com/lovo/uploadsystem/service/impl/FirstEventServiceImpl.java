@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lovo.uploadsystem.dao.IFirstEventDao;
+import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
 import com.lovo.uploadsystem.entity.StateEntity;
 import com.lovo.uploadsystem.service.IFirstEventService;
+import com.lovo.uploadsystem.util.infoDTO;
 
 
 @Service("firstEventService")
@@ -20,25 +22,17 @@ public class FirstEventServiceImpl implements IFirstEventService{
 	private IFirstEventDao firstEventDao;
 
 	
-	public List<FirstEventEntity> findFirstEventByEventState(int eventState) {
-		
-		return firstEventDao.findFirstEventByEventState(eventState);
-	}
-
-
 	@Override
 	public void saveEvent(FirstEventEntity event) {
 		firstEventDao.save(event);
 		
 	}
+	
+public List<FirstEventEntity> findFirstEventByEventState(int eventState) {
+		
+		return firstEventDao.findFirstEventByEventState(eventState);
+	}
 
-	
-//	public List<FirstEventEntity> findFirstEventslikeEventTypeEventLevelEventArea(String typeName,
-//			String eventLevel, String areaName) {
-//		
-//		return firstEventDao.findFirstEventslikeEventTypeEventLevelEventArea(typeName, eventLevel, areaName);
-//	}
-	
 	@Override
 	public List<StateEntity> findAllFirstEventStates() {
 		List<FirstEventEntity> list1 = findFirstEventByEventState(1);
@@ -65,26 +59,54 @@ public class FirstEventServiceImpl implements IFirstEventService{
 		
 	}
 
-
 	@Override
-	public List<FirstEventEntity> findFirstEventsByEventTypeEventLevelEventAreaState(String typeName, String eventLevel,
+	public List<FirstEventAreaEventTypeDTO> findFirstEventsByEventTypeEventLevelEventAreaState(String typeName, String eventLevelStr,
 			String areaName, String eventStateStr) {
-		int eventState = 0;	
 		
-		switch (eventStateStr) {
-		case "未处理": eventState = 1;
-			break;
-		case "处理中": eventState = 2;
-			break;
-		case "结束": eventState = 3;
-			break;
+		if(typeName.equals("事件类型")) {
+			typeName = "";
+		}
+		if(eventLevelStr.equals("事件等级")) {
+			eventLevelStr = "";
+		}
+		if(areaName.equals("区域")) {
+			areaName = "";
+		}
+		if(eventStateStr.equals("事件状态")) {
+			eventStateStr = "";
 		}
 		
-		return firstEventDao.findFirstEventsByEventTypeEventLevelEventAreaState(typeName, eventLevel, areaName, eventState);
+		int eventState = 0;	
+		if(eventStateStr != null && eventStateStr != "") {
+			switch (eventStateStr) {
+			case "未处理": eventState = 1;
+				break;
+			case "处理中": eventState = 2;
+				break;
+			case "结束": eventState = 3;
+				break;
+			}
+		}
+		String eventLevel = null;
+		if(eventLevelStr != null && eventLevelStr != "") {
+			switch (eventLevelStr) {
+			case "一级事件": eventLevel = "1";
+				break;
+			case "二级事件": eventLevel = "2";
+				break;
+			case "三级事件": eventLevel = "3";
+				break;
+			}
+		}
+		
+		List<FirstEventEntity> list = firstEventDao.findFirstEventsByEventTypeEventLevelEventAreaState(typeName, eventLevel, areaName, eventState);
+		List<FirstEventAreaEventTypeDTO> dtoList = infoDTO.getDtoList(list);
+		return dtoList;
 	}
 
-	
-	
-	
-	
+	public List<FirstEventAreaEventTypeDTO> findAllFirstEvents(int eventState) {
+		List<FirstEventEntity> list = firstEventDao.findAllFirstEvents(eventState);
+		List<FirstEventAreaEventTypeDTO> dtoList = infoDTO.getDtoList(list);
+		return dtoList;
+	}
 }
