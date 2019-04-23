@@ -20,7 +20,11 @@ public interface IJournalDao extends CrudRepository<JournalEntity, Integer>{
 	@Query("select j from JournalEntity j" )
 	List<JournalEntity> showjournalListPage(Pageable pageable);
 
+	@Query("select j from JournalEntity j where j.name=?1 or j.incident=?1 ")
+	List<JournalEntity> showjournalListPageto(String too,Pageable pageable);
 	
+	@Query("select j from JournalEntity j where j.name=?1 or j.incident=?1 " )
+	List<JournalEntity> getAllPageto(String too);
 	
 	
 }
