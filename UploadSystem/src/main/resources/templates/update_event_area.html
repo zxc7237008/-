@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>区域修改</title>
+	
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link th:href="@{static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link th:href="@{static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link th:href="@{static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link th:href="@{static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+    
+</head>
+<body>
+    <div id="wrapper">
+    	<!-- 开始导航栏模块 -->
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+        	<!-- 开始upload-system模块 -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" th:href="@{ui-elements.html}"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
+				
+				<div id="sideNav" th:href="@{#}"><i class="material-icons dp48">toc</i></div>
+            </div>
+			<!-- 结束upload-system模块 -->
+            <ul class="nav navbar-top-links navbar-right"> 
+				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>张三</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+	
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a th:href="@{#}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+			</li> 
+			<li><a th:href="@{#}"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+			</li>
+		</ul>
+		<ul id="dropdown2" class="dropdown-content w250">
+			
+			<li >
+				<a th:href="@{#}">
+					<div>
+						<i class="fa fa-envelope fa-fw"></i> 未处理信息
+						<span class="pull-right text-muted small">10</span>
+					</div>
+				</a>
+			</li>
+		</ul>
+		</div>
+		<!-- 结束导航栏模块 -->
+	   <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    
+                    <li>
+                        <a th:href="@{ui-elements.html}" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 区域修改</a>
+                    </li>
+					<li>
+                        <a th:href="@{chart.html}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
+                    </li>
+                                 
+                    <li>
+                        <a th:href="@{table.html}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
+                    </li>
+                    <li>
+                        <a th:href="@{form.html}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" th:href="@{index.html}"><i class="fa fa-dashboard"></i> 统计分析</a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" th:href="@{#}"><i class="fa fa-edit"></i> 用户管理</a>
+                    </li>
+                         
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+			<div class="header"> 
+				<h1 class="page-header">
+					区域修改
+				</h1>
+					<!-- 小导航栏  -->
+					<ol class="breadcrumb">
+					  <li><a th:href="@{#}">区域修改</a></li>
+					  <li class="active">区域修改展示</li>
+					</ol> 									
+			</div>
+			
+			<div class="col-md-12">
+				<div class="card"> 
+									
+					<div class="card-content"> 
+
+					   <div style="margin-top: 10px;">
+							
+				<div class="card">
+                        <div class="card-action">
+                            <strong class="left">区域修改展示</strong>
+							<button data-toggle="dropdown" class="btn btn-primary dropdown-toggle right">添加区域 </button>
+                        </div>
+                        
+                       	 <form class="col s12">
+						      <div class="row">
+							      <div class="col s12">
+							      	<div class="col-md-9 left">
+							      		<div class="col-md-10">
+							      			<div class="input-field col s12">
+									          <input id="areaName" type="text" class="validate"/>
+									          <label for="areaName" class="">区域名</label>
+									        </div>
+							      		</div>
+							      	</div>
+							         	
+						            <div class="col-md-3">
+						            	<div class="col s3"><a th:href="@{table.html}" class="waves-effect waves-light btn">确认修改 </a></div>
+						            	<div class="col s2"></div>
+							         	<div class="col s3"><a th:href="@{table.html}" class="waves-effect waves-light btn">取消</a></div>
+										
+						        	</div>
+							       </div>
+						      </div>
+					    </form>
+                    </div>						
+				  </div> 
+				</div>
+			  </div>
+            </div>
+			
+			<!-- 页脚  -->
+			<footer>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</footer>
+     </div>
+
+    <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
+	
+	<!-- Bootstrap Js -->
+    <script th:src="@{static/assets/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{static/assets/materialize/js/materialize.min.js}"></script>
+	
+    <!-- Metis Menu Js -->
+    <script th:src="@{static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Morris Chart Js -->
+    <script th:src="@{static/assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{static/assets/js/morris/morris.js}"></script>
+	
+	
+	<script th:src="@{static/assets/js/easypiechart.js}"></script>
+	<script th:src="@{static/assets/js/easypiechart-data.js}"></script>
+	
+	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{static/assets/js/custom.js}"></script> 
+ 
+
+</body>
+
+</html>

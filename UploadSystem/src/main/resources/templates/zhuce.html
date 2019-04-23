@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>注册</title>
+	
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link th:href="@{static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link th:href="@{static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link th:href="@{static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link th:href="@{static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="ui-elements.html"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right"> 
+				
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+	
+</ul>
+<ul id="dropdown2" class="dropdown-content w250">
+						
+	<li>
+		
+	</li>
+	<li class="divider"></li>
+                       
+</ul>
+<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+	
+</ul>   
+<ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
+  <li>
+		
+	</li>
+	<li class="divider"></li>
+                       
+</ul>  
+	   <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    
+                    <li>
+                        <a href="ui-elements.html" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
+                    </li>
+					<li>
+                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
+                    </li>
+                                 
+                    <li>
+                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
+                    </li>
+                    <li>
+                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i> 统计分析</a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" href="#"><i class="fa fa-edit"></i> 用户管理</a>
+                    </li>
+                         
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+			<div class="header"> 
+				<h1 class="page-header">
+					管理界面
+				</h1>
+					
+
+			</div>
+			
+			<div class="col-md-12">
+				<div class="card col-sm-12 ">
+                           <br/><br/>
+                            <div class="card-content ">
+                                <div class="row">
+                                    <div class="icon-preview col m2">
+                                        <i class="material-icons dp48"></i>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="user_name" type="text" class="validate"/>
+                                        <label for="user_name" class="">用户名</label>
+                                    </div>
+                                </div>
+								<div class="row">
+                                    <div class="icon-preview col m2">
+                                        <i class="material-icons dp48"></i>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="user_name" type="text" class="validate"/>
+                                        <label for="user_name" class="">密码</label>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="icon-preview col m2">
+                                        <i class="material-icons dp48"></i>
+                                    </div>
+                                    <div class="input-field col s4">
+                                        <input id="password" type="password" class="validate"/>
+                                        <label for="password" class="">电话</label>
+                                    </div>
+                                </div>
+								<div class="row">
+                                    <div class="icon-preview col m2">
+                                        <i class="material-icons dp48"></i>
+                                    </div>
+                                    <div class="input-field col s4 ">
+                                        <input id="password" type="password" class="validate"/>
+                                        <label for="password" class="">邮箱</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <a class="waves-effect waves-light btn">注册</a>
+                                </div>
+                                
+                            </div>
+                       
+            </div>
+		</div>	
+			<!-- 页脚  -->
+			<footer>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</footer>
+        </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+   <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
+	
+	<!-- Bootstrap Js -->
+    <script th:src="@{static/assets/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{static/assets/materialize/js/materialize.min.js}"></script>
+	
+    <!-- Metis Menu Js -->
+    <script th:src="@{static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Morris Chart Js -->
+    <script th:src="@{static/assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{static/assets/js/morris/morris.js}"></script>
+	
+	
+	<script th:src="@{static/assets/js/easypiechart.js}"></script>
+	<script th:src="@{static/assets/js/easypiechart-data.js}"></script>
+	
+	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
+    
+	
+
+</body>
+
+</html>

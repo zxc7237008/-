@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件续报</title>
+	
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
+	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link th:href="@{static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link th:href="@{static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link th:href="@{static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link th:href="@{static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}" /> 
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" th:href="@{#}"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
+				
+		<div id="sideNav" th:href="@{#}"><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right"> 
+				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>张三</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+	<li><a th:href="@{#}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+	</li> 
+	<li><a th:href="@{#}"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+	</li>
+</ul>
+<ul id="dropdown2" class="dropdown-content w250">
+						
+	<li>
+		<a th:href="@{#}">
+			<div>
+				<i class="fa fa-envelope fa-fw"></i> 未处理信息
+				<span class="pull-right text-muted small">10</span>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+                       
+</ul>
+<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+	
+</ul>   
+<ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
+  <li>
+		<a th:href="@{#}">
+			<div>
+				<strong>张三</strong>
+				<span class="pull-right text-muted">
+					<em>Today</em>
+				</span>
+			</div>
+			<div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+                       
+</ul>  
+	   <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    
+                    <li>
+                        <a th:href="@{ui-elements.html}" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
+                    </li>
+					<li>
+                        <a th:href="@{chart.html}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
+                    </li>
+                                 
+                    <li>
+                        <a th:href="@{table.html}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
+                    </li>
+                    <li>
+                        <a th:href="@{form.html}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" th:href="@{index.html}"><i class="fa fa-dashboard"></i> 统计分析</a>
+                    </li>
+					<li>
+                        <a class="waves-effect waves-dark" th:href="@{#}"><i class="fa fa-edit"></i> 用户管理</a>
+                    </li>
+                         
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+			<div class="header"> 
+				<h1 class="page-header">
+					事件续报
+				</h1>
+					<!-- 小导航栏  -->
+					<ol class="breadcrumb">
+					  <li><a th:href="@{#}">主界面</a></li>
+					</ol> 									
+			</div>
+			
+			<div class="col-md-12">
+				<div class="card"> 
+
+		<!--初报信息展示-->
+		
+		<div class="card">
+                   <div class="card-action">
+                       <strong class="left" id="a">事件信息</strong>
+		
+                   </div>
+                 <div class="card-content" th:each="event,trState:${eventList}">
+                            
+                                事件名称：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventName}"></label>
+		   <span style="width:200px;display:inline-block;"></span>
+			报警人：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.discoverer}"></label><br/><br/>
+								
+		<!--  	事件类型：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventType.typeName}"></label>
+			<span style="width:200px;display:inline-block;"></span>
+			-->
+			报警人电话：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.discovererTel}"></label><br/><br/>
+								
+			事件等级：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventLevel}"></label>
+			<span style="width:200px;display:inline-block;"></span>
+			详细地址：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.detailAddr}"></label><br/><br/>
+		<!--	
+			发生地区：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventArea.areaName}"></label>
+			<span style="width:200px;display:inline-block;"></span>
+			Casualty-->
+			伤亡人数：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.Casualty}"></label>
+              <span style="width:200px;display:inline-block;"></span>
+			上报人员：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.reporter}"></label>
+                    
+                   </div>
+            </div>	
+							
+							
+							
+							<!--续报日志-->
+				<div class="card">
+                        <div class="card-action" id="b">
+                            <strong class="left">续报日志</strong>
+							
+                        </div>
+                        <div class="card-content">
+                            <div class="table-responsive" >
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th class="center">事件等级</th>
+                                            <th class="center">受伤人数</th>
+                                            <th class="center">续报日期</th>
+                                            <th class="center">报警人</th>
+                                            <th class="center">报警人电话</th>
+                                            <th class="center">详情描述</th>
+                                            <th class="center">续报人</th>
+                                            
+                                        </tr>
+                                    </thead>
+                                  
+                                </table>
+                            </div> 
+                        </div>
+                        
+                        
+                        <div class="card-content">
+							
+							<input  type="hidden" th:value="${pageBean.pageNum}" id="pageNum"/>
+							<input  type="hidden" th:value="${pageBean.pageAll}" id="pageAll"/>
+							<button type="button" class="btn btn-info" value="首页" name="operation">首页</button>
+							<button type="button" class="btn btn-info" value="上一页" name="operation">上一页</button>
+							<span style="width:80px;display:inline-block;" id="show"></span>
+							<button type="button" class="btn btn-info" value="下一页" name="operation">下一页</button>
+							<button type="button" class="btn btn-info" value="尾页" name="operation">尾页</button>
+				
+					</div>
+                    </div>	
+                    
+<!--添加续报-->
+				
+			   				<div class="card">
+                        <div class="card-action" id="c">
+                            <strong class="left">添加续报</strong>
+							
+                        </div>
+                        <div class="card-content">
+                            <div class="table-responsive">
+                            <form th:action="@{saveContinue}" method="post">
+                           <div class="card-content">
+                                
+                               <div class="row">
+                                    <div class="col-md-1">
+                                     <label>事件等级</label>
+                                     <select name="level" aria-controls="dataTables-example" class="form-control input-sm">
+                                     <option value="1">轻度</option>
+                                     <option value="2">中等</option>
+                                     <option value="3">严重</option>
+                                     </select>
+                                    </div>
+								</div>
+
+                                
+                                <div class="row">
+                                   
+                                    <div class="input-field col s6">
+                                        <input id="number" type="text" class="validate" name="number" required="required" maxlength="11"/>
+                                        <label for="password" class="" style="font-size:13px;">伤亡人数</label>
+                                        
+                                    </div>
+                                    <div class="input-field col s5">
+                                        <input id="detailed" type="text" class="validate" name="detailed" required="required"/>
+                                        <label for="password" class="" style="font-size:13px;">详情描述</label>
+                                    </div>
+                                </div>
+								
+								<div class="row">
+                                   
+                                    <div class="input-field col s6">
+                                        <input id="name" type="text" class="validate" name="name" required="required" maxlength="16"/>
+                                        <label for="password" class="" style="font-size:13px;">报警人</label>
+                                    </div>
+                                    <div class="input-field col s5">
+                                        <input id="phoneNumber" type="text" class="validate" name="phoneNumber" required="required" maxlength="13"/>
+                                        <label for="password" class="" style="font-size:13px;">报警人电话</label>
+                                    </div>
+                                    <input type="hidden" name="reporter" value="李四"/>
+                                </div>
+                              
+
+                            </div>
+								
+						<div class="card-action">
+							<input  type="submit" class="waves-effect waves-light btn right" value="添加续报"/>
+                        </div>
+                        </form>
+                      </div>  
+                    </div>		
+                  </div>
+			    
+			   
+						
+
+
+					
+				  
+				
+			  </div>
+            </div>
+			
+			<!-- 页脚  -->
+			<footer>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</footer>
+        </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
+	
+	<!-- Bootstrap Js -->
+    <script th:src="@{static/assets/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{static/assets/materialize/js/materialize.min.js}"></script>
+	
+    <!-- Metis Menu Js -->
+    <script th:src="@{static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Morris Chart Js -->
+    <script th:src="@{static/assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{static/assets/js/morris/morris.js}"></script>
+	
+	
+	<script th:src="@{static/assets/js/easypiechart.js}"></script>
+	<script th:src="@{static/assets/js/easypiechart-data.js}"></script>
+	
+	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{static/assets/js/custom.js}"></script> 
+
+ 
+ <script>
+//<![CDATA[ 
+	$(function(){
+		var pageNum=0;
+		  $.getJSON("changePage",{pageNum:pageNum},filldate);
+		  $(":button").click(function (){
+              var btn=this.value;
+              var pageNum=parseInt($("#pageNum").val());
+             
+              var pageAll=parseInt($("#pageAll").val());
+              
+              if(btn=="首页"){
+            	  pageNum=0;
+                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+              }else if(btn=="上一页"){
+            	  pageNum=pageNum-1;
+                  if(pageNum<0){
+                	  pageNum=0;
+                  }
+                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+              }else if(btn=="下一页"){
+            	  pageNum+=1;
+                  if(pageNum>(pageAll-1)){
+                	  pageNum=pageAll-1;
+                  }
+                  
+                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+              }else if(btn=="尾页"){
+            	  pageNum=pageAll-1;
+                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+              }
+              
+              
+              
+		  
+	});
+	})
+	//]]>
+	//<![CDATA[ 
+	function filldate(data){
+                var $table=$("table");
+                var $head=$("<tr><th>事件等级</th><th>受伤人数</th><th>续报日期</th><th>报警人</th><th>报警人电话</th><th>详情描述</th><th>续报人</th></tr>")
+                $table.empty();
+                $table.append($head);
+				
+                for(var i=0; i<data.list.length; i++)  
+                {  
+                   if(data.list[i].level=="1"){
+                	   data.list[i].level="轻度"
+                   }else if(data.list[i].level=="2"){
+                	   data.list[i].level="中等"
+                   }else if(data.list[i].level=="3"){
+                	   data.list[i].level="重度"
+                   }
+                } 
+                
+                $.each(data.list, function (i,e) {
+                   
+                    var dataTr = "<tr><td>" + e.level
+                        + "</td><td>" + e.number
+                        + "</td><td>" + e.date
+                        + "</td><td>" + e.name
+                        + "</td><td>" + e.phoneNumber
+                        + "</td><td>" + e.detailed
+                        + "</td><td>" + e.reporter
+                        + "</td></tr>";
+                    $table.append(dataTr);
+                });
+             var pageNum = data.pageNum+1;
+             var pageAll = data.pageAll;
+             //渲染 “第2页/共11页” 信息
+             $("#show").html("第" + pageNum + "页/共" + pageAll + "页");
+             //记录数据信息（当前页数和总页数）
+             $(":hidden[name=pageNum]").val(pageNum);
+             $(":hidden[name=pageAll]").val(pageAll);
+	}
+	//]]>
+    </script>
+
+
+</body>
+
+</html>
