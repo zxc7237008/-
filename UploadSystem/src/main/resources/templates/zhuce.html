@@ -68,24 +68,24 @@
                 <ul class="nav" id="main-menu">
 
                     
-                    <li>
-                        <a href="ui-elements.html" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
-                    </li>
-					<li>
-                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
-                    </li>
-                                 
-                    <li>
-                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
+                                        <li>
+                        <a th:href="@{gotoMainPage}" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
                     </li>
                     <li>
-                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
+                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
                     </li>
 					<li>
-                        <a class="waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i> 统计分析</a>
+                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
                     </li>
-					<li>
-                        <a class="waves-effect waves-dark" href="#"><i class="fa fa-edit"></i> 用户管理</a>
+                    <li>
+                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                    </li>
+                    
+                    <li>
+                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
+                    </li>
+                    <li>
+                        <a th:href="@{gotoUserManage}" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
                     </li>
                          
                 </ul>
