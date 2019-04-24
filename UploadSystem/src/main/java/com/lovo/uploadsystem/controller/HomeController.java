@@ -14,6 +14,8 @@ import com.lovo.uploadsystem.entity.EventAreaEntity;
 import com.lovo.uploadsystem.entity.EventTypeEntity;
 import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
+import com.lovo.uploadsystem.entity.HomeDTO;
+import com.lovo.uploadsystem.entity.PageBean;
 import com.lovo.uploadsystem.entity.StateEntity;
 import com.lovo.uploadsystem.service.IEventAreaService;
 import com.lovo.uploadsystem.service.IEventTypeService;
@@ -28,39 +30,22 @@ public class HomeController {
 	@Autowired
 	private IFirstEventService firstEventService;
 	
-	@RequestMapping("/findEventTypeLists")
-	public ModelAndView findEventTypeLists() {
-		ModelAndView mv = new ModelAndView("home");
-		
-		//查询所有的事件类型集合
-		List<EventTypeEntity> eventlist =  eventTypeService.findAllEventTypes();
-		//查询所有地区集合
-		List<EventAreaEntity> areaList = eventAreaService.findAllEventAreas();
-		//查询所有事件的状态
-		List<StateEntity> stateList = firstEventService.findAllFirstEventStates();
-		
-		List<FirstEventAreaEventTypeDTO> dtoList1 = firstEventService.findAllFirstEvents(1);
-		List<FirstEventAreaEventTypeDTO> dtoList2 = firstEventService.findAllFirstEvents(2);
-		List<FirstEventAreaEventTypeDTO> dtoList3 = firstEventService.findAllFirstEvents(3);
-
-		mv.addObject("eventlist", eventlist);
-		mv.addObject("areaList", areaList);
-		mv.addObject("stateList", stateList);
-		mv.addObject("dtoList1", dtoList1);
-		mv.addObject("dtoList2", dtoList2);
-		mv.addObject("dtoList3", dtoList3);
-		
-		return mv;
-	}
-	
 	@ResponseBody
-	@RequestMapping("/findFirstEventsByEventTypeEventLevelEventAreaState")
-	public List<FirstEventAreaEventTypeDTO> findFirstEventsByEventTypeEventLevelEventAreaState(String typeName,
+	@RequestMapping("/findEventTypeLists")
+	public PageBean<FirstEventAreaEventTypeDTO> findEventTypeLists(int pageNum,String typeName,
 			String eventLevel,String areaName,String eventState) {
-		List<FirstEventAreaEventTypeDTO>  list = firstEventService.findFirstEventsByEventTypeEventLevelEventAreaState(typeName, eventLevel, areaName, eventState);
+		//分页
+        int pageSize = 5;
 		
-		return list;
+        //查询所有信息的分页数
+        int pageAll = firstEventService.getFirstEventAllPages(typeName, eventLevel, areaName, eventState,pageSize);
+        List<FirstEventAreaEventTypeDTO> dtoList = firstEventService.findAllFirstEventsByPage(typeName, eventLevel, areaName, eventState, pageNum, pageSize);
+        PageBean<FirstEventAreaEventTypeDTO> pageBean = new PageBean<>();
+        pageBean.setPageNum(pageNum);
+        pageBean.setPageAll(pageAll);
+        pageBean.setList(dtoList);
 		
+		return pageBean;
 	}
 	
 	@ResponseBody
@@ -72,9 +57,35 @@ public class HomeController {
 		return num;
 	}
 	
-	/*@RequestMapping("/home")
-	public String home() {
-		return "home";
-	}*/
+	@RequestMapping("/home")
+	public ModelAndView home() {
+		ModelAndView mv = new ModelAndView("home");
+		//查询所有的事件类型集合
+		List<EventTypeEntity> eventlist =  eventTypeService.findAllEventTypes();
+		//查询所有地区集合
+		List<EventAreaEntity> areaList = eventAreaService.findAllEventAreas();
+		//查询所有事件的状态
+		List<StateEntity> stateList = firstEventService.findAllFirstEventStates();
+		
+		//分页
+		int pageNum = 0;
+        int pageSize = 5;
+		
+        //查询所有信息的分页数
+        int pageAll = firstEventService.getFirstEventAllPages("事件类型","事件等级","区域","事件状态",pageSize);
+        List<FirstEventAreaEventTypeDTO> dtoList = firstEventService.findAllFirstEventsByPage("事件类型","事件等级","区域","事件状态", pageNum, pageSize);
+        PageBean<FirstEventAreaEventTypeDTO> pageBean = new PageBean<>();
+        
+        pageBean.setPageNum(pageNum);
+        pageBean.setPageAll(pageAll);
+        pageBean.setList(dtoList);
+        
+        mv.addObject("eventlist",eventlist);
+        mv.addObject("areaList",areaList);
+        mv.addObject("stateList",stateList);
+        mv.addObject("dtoList",dtoList);
+		
+		return mv;
+	}
 	
 }
