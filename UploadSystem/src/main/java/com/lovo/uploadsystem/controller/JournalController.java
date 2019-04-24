@@ -28,7 +28,7 @@ public class JournalController {
 	private IJournalService ijournalService;
 	
 		
-		@RequestMapping("showjournalListPage")
+		@RequestMapping("gotoJournal")
 	    public ModelAndView showUserListPage(){
 	        ModelAndView modelAndView = new ModelAndView("journal");
 	        int pageNum = 0;
