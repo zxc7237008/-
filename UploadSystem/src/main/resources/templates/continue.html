@@ -120,7 +120,7 @@
 				</h1>
 					<!-- 小导航栏  -->
 					<ol class="breadcrumb">
-					  <li><a th:href="@{#}">主界面</a></li>
+					  <li><a th:href="@{gotoMainPage}">主界面</a></li>
 					</ol> 									
 			</div>
 			
@@ -192,6 +192,7 @@
 							
 							<input  type="hidden" th:value="${pageBean.pageNum}" id="pageNum"/>
 							<input  type="hidden" th:value="${pageBean.pageAll}" id="pageAll"/>
+							<input type="hidden"  th:value="${firstEventNo}" id="eventNo"/>
 							<button type="button" class="btn btn-info" value="首页" name="operation">首页</button>
 							<button type="button" class="btn btn-info" value="上一页" name="operation">上一页</button>
 							<span style="width:80px;display:inline-block;" id="show"></span>
@@ -250,6 +251,9 @@
                                     </div>
                                     <input type="hidden" name="reporter" value="李四"/>
                                 </div>
+                               
+                                    <input type="hidden" name="eventNo" th:value="${firstEventNo}" />
+                                
                               
 
                             </div>
@@ -310,7 +314,9 @@
 //<![CDATA[ 
 	$(function(){
 		var pageNum=0;
-		  $.getJSON("changePage",{pageNum:pageNum},filldate);
+		var eventNo=$("#eventNo").val();
+		
+		  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate);
 		  $(":button").click(function (){
               var btn=this.value;
               var pageNum=parseInt($("#pageNum").val());
@@ -319,23 +325,23 @@
               
               if(btn=="首页"){
             	  pageNum=0;
-                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+                  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate)
               }else if(btn=="上一页"){
             	  pageNum=pageNum-1;
                   if(pageNum<0){
                 	  pageNum=0;
                   }
-                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+                  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate)
               }else if(btn=="下一页"){
             	  pageNum+=1;
                   if(pageNum>(pageAll-1)){
                 	  pageNum=pageAll-1;
                   }
                   
-                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+                  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate)
               }else if(btn=="尾页"){
             	  pageNum=pageAll-1;
-                  $.getJSON("changePage",{pageNum:pageNum},filldate)
+                  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate)
               }
               
               
@@ -374,13 +380,13 @@
                         + "</td></tr>";
                     $table.append(dataTr);
                 });
-             var pageNum = data.pageNum+1;
+             var pageNum = data.pageNum;
              var pageAll = data.pageAll;
              //渲染 “第2页/共11页” 信息
-             $("#show").html("第" + pageNum + "页/共" + pageAll + "页");
+             $("#show").html("第" + (pageNum+1) + "页/共" + pageAll + "页");
              //记录数据信息（当前页数和总页数）
-             $(":hidden[name=pageNum]").val(pageNum);
-             $(":hidden[name=pageAll]").val(pageAll);
+             $("#pageNum").val(pageNum);
+             $("#pageAll").val(pageAll);
 	}
 	//]]>
     </script>

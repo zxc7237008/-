@@ -163,5 +163,17 @@ public class FirstEventServiceImpl implements IFirstEventService{
 		return firstEventDao.findOne(eventId);
 	}
 
+	@Override
+	public int findALLEventNumByTypeAndTime(String beginTime, String endTime, String typeCode) {
+
+		return firstEventDao.findALLEventNumByTypeAndTime(beginTime, endTime, typeCode);
+	}
+
+	@Override
+	public int findAllventNumByArea(String areaName) {
+		
+		return firstEventDao.findAllventNumByArea(areaName);
+	}
+
 	
 }
