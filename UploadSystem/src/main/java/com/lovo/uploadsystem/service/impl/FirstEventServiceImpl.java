@@ -157,6 +157,11 @@ public class FirstEventServiceImpl implements IFirstEventService{
 		List<FirstEventAreaEventTypeDTO> dtoList = infoDTO.getDtoList(list);
 		return dtoList;
 	}
+	
+	@Override
+	public FirstEventEntity findEvent(String eventId) {
+		return firstEventDao.findOne(eventId);
+	}
 
 	
 }

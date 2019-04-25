@@ -52,4 +52,10 @@ public interface IFirstEventService {
 	 */
 	public List<FirstEventAreaEventTypeDTO> findAllFirstEventsByPage(String typeName,String eventLevel,String areaName,String eventState,int pageNum, int pageSize);
 
+	/**
+	 * 通过事件初报编号获取事件初报实体
+	 * @param eventId 事件初报编号
+	 * @return 事件初报实体
+	 */
+	public FirstEventEntity findEvent(String eventId);
 }
