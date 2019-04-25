@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>登录</title>
-
+	
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
 	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
     <!-- Bootstrap Styles-->
@@ -24,6 +24,7 @@
 <body>
 		<br/><br/><br/><br/><br/><br/>
        <div class="row">
+       <form th:action="@{/login}" method="post">
                     <div class="col-sm-4"></div>
                     <div class="col-md-4">
 
@@ -39,7 +40,7 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s9">
-                                        <input id="user_name" type="text" class="validate"/>
+                                        <input id="userName" type="text" class="validate" name="userName"/>
                                         <label for="user_name" class="">用户名</label>
                                     </div>
 
@@ -49,22 +50,23 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s9">
-                                        <input id="password" type="password" class="validate"/>
+                                        <input id="password" type="password" class="validate" name="password"/>
                                         <label for="password" class="">密码</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-9"></div>
-                                    <a class="waves-effect waves-light btn">登录</a>
+                                    <input type="submit" class="waves-effect waves-light btn" value="登录"/>
                                 </div>
 
                             </div>
                         </div>
                     </div>
+                    </form>
              <!-- /. PAGE INNER  -->
             </div>
          <!-- /. PAGE WRAPPER  -->
-       
+      
        
      <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
@@ -89,12 +91,9 @@
 	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
+    <script th:src="@{static/assets/js/custom.js}"></script> 
  
-
-        
-       
-    
+	
 
 </body>
 

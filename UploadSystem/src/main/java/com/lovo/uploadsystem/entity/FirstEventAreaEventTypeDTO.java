@@ -2,6 +2,8 @@ package com.lovo.uploadsystem.entity;
 
 public class FirstEventAreaEventTypeDTO {
 	
+	private String firstEventNo;
+	
 	private String eventName;
 	
 	private String typeName;
@@ -20,9 +22,10 @@ public class FirstEventAreaEventTypeDTO {
 		super();
 	}
 
-	public FirstEventAreaEventTypeDTO(String eventName, String typeName, String eventLevel, String areaName,
+	public FirstEventAreaEventTypeDTO(String firstEventNo,String eventName, String typeName, String eventLevel, String areaName,
 			String discoverer, String discovererTel, String eventState) {
 		super();
+		this.firstEventNo= firstEventNo;
 		this.eventName = eventName;
 		this.typeName = typeName;
 		this.eventLevel = eventLevel;
@@ -30,6 +33,14 @@ public class FirstEventAreaEventTypeDTO {
 		this.discoverer = discoverer;
 		this.discovererTel = discovererTel;
 		this.eventState = eventState;
+	}
+	
+	public String getFirstEventNo() {
+		return firstEventNo;
+	}
+
+	public void setFirstEventNo(String firstEventNo) {
+		this.firstEventNo = firstEventNo;
 	}
 
 	public String getEventName() {

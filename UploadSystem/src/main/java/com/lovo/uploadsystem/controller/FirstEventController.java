@@ -30,7 +30,6 @@ import com.lovo.uploadsystem.service.IEventTypeService;
 import com.lovo.uploadsystem.service.IFirstEventService;
 import com.lovo.uploadsystem.service.IFormValueService;
 import com.lovo.uploadsystem.util.FirstEvent2DtoUtil;
-import com.lovo.uploadsystem.util.JSONChange;
 @RequestMapping("event/")
 @Controller
 public class FirstEventController{
@@ -45,10 +44,10 @@ public class FirstEventController{
 	private IEventTypeService eventTypeService;//事件类型服务对象
 	
 	@Autowired
-	private IFormValueService formValueService;
+	private IFormValueService formValueService;//表单值服务对象
 	
 	@Autowired
-    private JmsMessagingTemplate jmsTemplate;
+    private JmsMessagingTemplate jmsTemplate;//用于向MQ发送信息
 	
 	@RequestMapping("getEventState")
 	public ModelAndView getEventState(String state) {
@@ -61,6 +60,10 @@ public class FirstEventController{
 		return mv;
 	}
 	
+	/**
+	 * 请求到添加事件初报
+	 * @return 添加事件初报视图
+	 */
 	@RequestMapping("first")
 	public ModelAndView loginF() {
 		ModelAndView mv = new ModelAndView("first_report");
@@ -146,11 +149,12 @@ public class FirstEventController{
         
         formValueService.saveValue(formValue);
         
-        List<FormKeyEntity> keyList = new ArrayList<>(eventType.getKeySet());
-        FormKeyEntity keys = keyList.get(0);
+       
         
 		if(btnName.equals("保存并上报")) {
 			//上传事件
+			List<FormKeyEntity> keyList = new ArrayList<>(eventType.getKeySet());
+		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
 			Destination destination = new ActiveMQQueue("testQueue");
@@ -189,12 +193,14 @@ public class FirstEventController{
         formValueService.saveValue(formValue);
         
         if(btnName.equals("修改并上报")) {
-			//上传事件
+        	//上传事件
+        	List<FormKeyEntity> keyList = new ArrayList<>(eventType.getKeySet());
+		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
 			Destination destination = new ActiveMQQueue("testQueue");
 			
-			String message = JSONChange.objToJson(event);
+			NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
 			
 	        //将消息放入队列
 	        jmsTemplate.convertAndSend(destination, message);
@@ -207,6 +213,29 @@ public class FirstEventController{
 		ModelAndView mv = new ModelAndView("info_first");
 		FirstEventEntity event = firstEventService.findEvent(eventId);
 		mv.addObject("event",event);
+		return mv;
+	}
+	
+	@RequestMapping("uploadEvent")
+	public ModelAndView upload(String eventId) {
+		ModelAndView mv = new ModelAndView("home");
+		
+		FirstEventEntity event = firstEventService.findEvent(eventId);
+		
+		Set<FormValueEntity> valueSet = event.getValueSet();
+		FormValueEntity formValue = valueSet.iterator().next();
+		
+		//上传事件
+    	List<FormKeyEntity> keyList = new ArrayList<>(event.getEventType().getKeySet());
+	    FormKeyEntity keys = keyList.get(0);
+		event.setEventState(2);
+		
+		Destination destination = new ActiveMQQueue("testQueue");
+		
+		NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+		
+        //将消息放入队列
+        jmsTemplate.convertAndSend(destination, message);
 		return mv;
 	}
 	

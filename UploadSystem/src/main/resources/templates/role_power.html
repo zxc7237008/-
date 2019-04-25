@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>注册</title>
+    <title>角色权限</title>
 	
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
 	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
@@ -19,6 +19,10 @@
     <!-- Google Fonts-->
     <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/bootstrap-3.3.7-dist/css/bootstrap.css}"
+	type="text/css"></link>
+     <script th:src="@{staticResources/jquery-2.1.4.js}"></script>
+     <script th:src="@{staticResources/bootstrap-3.3.7-dist/js/bootstrap.js}"></script>
 </head>
 
 <body>
@@ -68,24 +72,24 @@
                 <ul class="nav" id="main-menu">
 
                     
-                                        <li>
-                        <a th:href="@{gotoMainPage}" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
-                    </li>
                     <li>
-                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
+                        <a href="ui-elements.html" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
                     </li>
 					<li>
-                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
+                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
+                    </li>
+                                 
+                    <li>
+                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
                     </li>
                     <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
                     </li>
-                    
-                    <li>
-                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
+					<li>
+                        <a class="waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i> 统计分析</a>
                     </li>
-                    <li>
-                        <a th:href="@{gotoUserManage}" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
+					<li>
+                        <a class="waves-effect waves-dark" href="#"><i class="fa fa-edit"></i> 用户管理</a>
                     </li>
                          
                 </ul>
@@ -98,62 +102,65 @@
 		<div id="page-wrapper">
 			<div class="header"> 
 				<h1 class="page-header">
-					管理界面
+				角色权限管理
 				</h1>
 					
 
 			</div>
 			
-			<div class="col-md-12">
-				<div class="card col-sm-12 ">
-                           <br/><br/>
-                           <form th:action="@{/zhuce}" method="post">
-                            <div class="card-content ">
-                                <div class="row">
-                                    <div class="icon-preview col m2">
-                                        <i class="material-icons dp48"></i>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input id="uname" type="text" class="validate" name="uname"/>
-                                        <label for="user_name"   class="uname">用户名</label>
-                                    </div>
-                                </div>
-								<div class="row">
-                                    <div class="icon-preview col m2">
-                                        <i class="material-icons dp48"></i>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input id="upasss" type="password" class="validate" name="upasss"/>
-                                        <label for="user_name" class="upasss">密码</label>
-                                    </div>
+			
+		<div class="container">
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-4">
+				<h1 th:text="${roleName}+'-权限维护'"></h1>
+			</div>
+		</div>
+		<div class="row">
 
-                                </div>
-                                <div class="row">
-                                    <div class="icon-preview col m2">
-                                        <i class="material-icons dp48"></i>
-                                    </div>
-                                    <div class="input-field col s4">
-                                        <input id="utel" type="text" class="validate" name="utel"/>
-                                        <label for="utel" class="utel">电话</label>
-                                    </div>
-                                </div>
-								<div class="row">
-                                    <div class="icon-preview col m2">
-                                        <i class="material-icons dp48"></i>
-                                    </div>
-                                    <div class="input-field col s4 ">
-                                        <input id="umaildox" type="text" class="validate" name="umaildox"/>
-                                        <label for="text" class="umaildox">邮箱</label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                  <input type="submit" class="waves-effect waves-light btn" value="注册"/>
-                                </div>
-                                
-                            </div>
-                      </form> 
-            </div>
+
+			<div class="form-group">
+				<div class="checkbox">
+					<span style="color: blue;"><b>角色拥有的权限</b></span>
+					<div class="row">
+						
+                          
+							<label class="col-sm-3 control-label h3" th:each="power,ustate:${listRolePower}">
+							 <input
+								type="checkbox" name="checkedName" checked="checked"
+								th:value="${power.pid}" th:text="${power.pname}" /> 
+							</label>
+                     
+						
+					</div>
+					<hr />
+					<span style="color: blue;"><b>角色没有拥有的权限</b></span>
+					<div class="row">
+					
+
+							<label class="col-sm-3 control-label h3" th:each="power,ustate:${noListRolePower}"> <input
+								type="checkbox" name="noCheckedName" th:value="${power.pid}" th:text="${power.pname}" />
+							</label> 
+
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-5">
+					<button type="button" class="btn btn-primary"
+						onclick="submitUserId()">提交</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+<div style="display: none;">
+	<form th:action="@{userrole}" method="post" id="addordelformId" >
+		<input type="text" id="addId" name="addName" /> 
+		<input type="text" id="delId" name="delName" /> 
+		<input type="text" th:value="${roleId}" name="roleId"/>
+			<input type="text" th:value="${roleName}" name="roleName"/>
+	</form>
+	</div>
 		</div>	
 			<!-- 页脚  -->
 			<footer>
@@ -161,7 +168,7 @@
 			</footer>
         </div>
             <!-- /. PAGE INNER  -->
-        </div>
+       
         <!-- /. PAGE WRAPPER  -->
     
     <!-- /. WRAPPER  -->
@@ -189,8 +196,31 @@
     <!-- Custom Js -->
     <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
     
+	<script type="text/javascript">
 	
-
+		
+		function submitUserId() {
+			//拼接需要添加的用户ID
+			var powerAddId = "";
+			$.each($("input:checkbox[name='noCheckedName']:checked"),
+					function() {
+			     	powerAddId += $(this).val() + ",";
+					});
+			//拼接需要删除的用户ID
+			var powerDellId = "";
+			$.each($("input:checkbox[name='checkedName']"), function() {
+				if ($(this).prop('checked') == false) {
+					powerDellId += $(this).val() + ",";
+				}
+			});
+			//把拼接好的字符串放入到隐藏表单
+			$("#addId").val(powerAddId);
+			$("#delId").val(powerDellId);
+			//提交表单
+			
+			$("#addordelformId").submit();
+		}
+	</script>
 </body>
 
 </html>

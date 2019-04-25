@@ -188,14 +188,13 @@
                                             <td class="center" th:text="${dto.eventState}"></td>
                                             <td class="col-md-4">
                                             	<div th:if="${dto.eventState eq '未处理'}">
-                                            		<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
-													<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
-													<a th:href="@{table.html}" class="waves-effect waves-light btn">上报</a>
-													<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
+                                            		<a th:href="@{event/del(firstEventNo=${dto.firstEventNo})}" class="waves-effect waves-light btn">删除</a>
+													<a th:href="@{event/update(firstEventNo=${dto.firstEventNo})}" class="waves-effect waves-light btn">修改</a>
+													<a th:href="@{event/upload(firstEventNo=${dto.firstEventNo})}" class="waves-effect waves-light btn">上报</a>
+													<a th:href="@{event/info(firstEventNo=${dto.firstEventNo})}" class="waves-effect waves-light btn">查看</a>
                                             	</div>
 												<div th:if="${dto.eventState eq '处理中'}">
-                                            		<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
-													<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
+                                            		<a th:href="@{showFirstEventMessage(firstEventNo=${dto.firstEventNo})}" class="waves-effect waves-light btn">续报</a>
 													<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
                                             	</div>
                                             	<div th:if="${dto.eventState eq '结束'}">
@@ -364,18 +363,17 @@
 							+ "<td class='center'>"+eventLevel+"</td><td class='center'>"+areaName+"</td>"
 							+ "<td class='center'>"+discoverer+"</td><td class='center'>"+discovererTel+"</td>"
 							+ "<td class='center'>"+eventState+"</td><td class='col-md-4'>"
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>删除</a>" 
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>修改</a>"
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>上报</a>"
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>查看</a>"
+							+ "<a th:href='@{event/del(firstEventNo=${dto.firstEventNo})}' class='waves-effect waves-light btn'>删除</a>" 
+							+ "<a th:href='@{event/update(firstEventNo=${dto.firstEventNo})}' class='waves-effect waves-light btn'>修改</a>"
+							+ "<a th:href='@{event/upload(firstEventNo=${dto.firstEventNo})}' class='waves-effect waves-light btn'>上报</a>"
+							+ "<a th:href='@{event/info(firstEventNo=${dto.firstEventNo})}' class='waves-effect waves-light btn'>查看</a>"
 							+ "</td></tr>");
 				}else if(eventState=="处理中"){
 					var  $tr = ("<tr><td class='center'>"+eventName+"</td><td class='center'>"+typeName+"</td>"
 							+ "<td class='center'>"+eventLevel+"</td><td class='center'>"+areaName+"</td>"
 							+ "<td class='center'>"+discoverer+"</td><td class='center'>"+discovererTel+"</td>"
 							+ "<td class='center'>"+eventState+"</td><td class='col-md-4'>"
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>删除</a>" 
-							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>修改</a>"
+							+ "<a th:href='@{showFirstEventMessage(firstEventNo=${dto.firstEventNo})}' class='waves-effect waves-light btn'>续报</a>" 
 							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>查看</a>"
 							+ "</td></tr>");
 				}else{
