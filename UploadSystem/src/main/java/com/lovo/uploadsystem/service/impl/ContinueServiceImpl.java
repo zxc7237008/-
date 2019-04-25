@@ -24,13 +24,13 @@ public class ContinueServiceImpl implements IContinueService {
 	public IFirstEventDao firstEventDao;
 	
 	@Override
-	public ContinueEntity saveContinueEntity(ContinueEntity continueEntity) {
+	public ContinueEntity saveContinueEntity(ContinueEntity continueEntity,String id) {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 		String date = df.format(new Date());// new Date()为获取当前系统时间，也可使用当前时间戳
 		continueEntity.setDate(date);
 		
 		FirstEventEntity event = new FirstEventEntity();
-		event.setFirstEventNo("dsad");
+		event.setFirstEventNo(id);
 		continueEntity.setEvent(event);
 		  return continueDao.save(continueEntity);  
 	}
@@ -48,8 +48,8 @@ public class ContinueServiceImpl implements IContinueService {
 	}
 
 	@Override
-	public int getAllPage(int pageSize) {
-		List<ContinueEntity> list = (List<ContinueEntity>) continueDao.findAll();
+	public int getAllPage(int pageSize,String id) {
+		List<ContinueEntity> list = continueDao.findAllPage(id);
 		int alljournalSize = list.size();
         if (alljournalSize % pageSize == 0){
             alljournalSize = alljournalSize / pageSize;

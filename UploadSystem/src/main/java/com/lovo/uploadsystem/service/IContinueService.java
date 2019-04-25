@@ -13,7 +13,7 @@ public interface IContinueService {
 	 * @param continueEntity 从页面获取的续报内容
 	 * @return 返回存入数据库的续报内容
 	 */
-	public ContinueEntity saveContinueEntity(ContinueEntity continueEntity);
+	public ContinueEntity saveContinueEntity(ContinueEntity continueEntity ,String id);
 	
 	/**
 	 *  根据事件初报的编号来查询当前事件的所有续报记录
@@ -33,5 +33,5 @@ public interface IContinueService {
 	public FirstEventEntity findFirstEvent(String id);
 	
 	
-	public int getAllPage(int pageSize);
+	public int getAllPage(int pageSize,String id);
 }

@@ -20,4 +20,9 @@ public interface IContinueDao extends CrudRepository<ContinueEntity, String>{
 	
 	@Query("select c from ContinueEntity c left join c.event e where e.firstEventNo=?1")
 	public List<ContinueEntity> findAllContinueEntity(String id ,Pageable pageable);
+	
+	@Query("select c from ContinueEntity c left join c.event e where e.firstEventNo=?1")
+	public List<ContinueEntity> findAllPage(String id);
+	
+	
 }
