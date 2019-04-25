@@ -121,6 +121,10 @@ public class FirstEventController{
 	
 	@RequestMapping("saveEvent")
 	public ModelAndView saveEvent(FirstEventEntity event,FormValueEntity formValue, String eventTypeId,String eventAreaId,String btnName) throws JsonProcessingException {
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("/home");
+		mv.setView(rv);
+		
 		//获取事件类型编码
 		EventTypeEntity eventType = eventTypeService.findType(eventTypeId);
 		String typeCode = eventType.getTypeCode();
@@ -165,11 +169,14 @@ public class FirstEventController{
 	        //将消息放入队列
 	        jmsTemplate.convertAndSend(destination, message);
 		}
-		return null;
+		return mv;
 	}
 	
 	@RequestMapping("updateEvent")
 	public ModelAndView updateEvent(FirstEventEntity event,FormValueEntity formValue, String eventTypeId,String eventAreaId,String btnName) throws JsonProcessingException {
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("/home");
+		mv.setView(rv);
 		
 		EventTypeEntity eventType = eventTypeService.findType(eventTypeId);
 		SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
@@ -206,7 +213,7 @@ public class FirstEventController{
 	        //将消息放入队列
 	        jmsTemplate.convertAndSend(destination, message);
 		}
-		return null;
+		return mv;
 	}
 	
 	@RequestMapping("info")
@@ -219,7 +226,9 @@ public class FirstEventController{
 	
 	@RequestMapping("upload")
 	public ModelAndView upload(String eventId) {
-		ModelAndView mv = new ModelAndView("home");
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("/home");
+		mv.setView(rv);
 		
 		FirstEventEntity event = firstEventService.findEvent(eventId);
 		
@@ -243,10 +252,15 @@ public class FirstEventController{
 	}
 	
 	@RequestMapping("del")
-	public ModelAndView delEvent() {
+	public ModelAndView delEvent(String eventId) {
 		ModelAndView mv = new ModelAndView();
 		RedirectView rv = new RedirectView("/home");
 		mv.setView(rv);
+		//删除关联的表单值
+		formValueService.delValue(eventId);
+		//删除事件
+		firstEventService.delEvent(eventId);
+		
 		return mv;
 	}
 	

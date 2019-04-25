@@ -74,5 +74,11 @@ public interface IFirstEventService {
 	 */
 	
 	public int findAllventNumByArea(String areaName);
+
+	/**
+	 * 删除初报事件
+	 * @param eventId 初报事件编号
+	 */
+	public void delEvent(String eventId);
 	
 }

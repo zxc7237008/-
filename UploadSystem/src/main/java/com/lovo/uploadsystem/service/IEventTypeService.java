@@ -25,5 +25,11 @@ public interface IEventTypeService {
 	 * @return 事件类型集合
 	 */
 	public List<EventTypeEntity> findAllEventTypes();
+
+	/**
+	 * 保存事件类型
+	 * @param eventType 事件类型实体
+	 */
+	public void saveType(EventTypeEntity eventType);
 	
 }
