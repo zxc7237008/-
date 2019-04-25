@@ -10,11 +10,11 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/websocket")
 @Component
-public class WebSocketServer {
+public class IWebSocketServer {
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
-    private static CopyOnWriteArraySet<WebSocketServer> webSocketSet = new CopyOnWriteArraySet<WebSocketServer>();
+    private static CopyOnWriteArraySet<IWebSocketServer> webSocketSet = new CopyOnWriteArraySet<IWebSocketServer>();
 
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
@@ -61,7 +61,7 @@ public class WebSocketServer {
     public void onMessage(String message, Session session) {
         System.out.println( "来自客户端的消息:" + message);
         //群发消息
-        for (WebSocketServer item : webSocketSet) {
+        for (IWebSocketServer item : webSocketSet) {
             try {
                 item.sendMessage(message);
             } catch (IOException e) {
@@ -92,7 +92,7 @@ public class WebSocketServer {
      * 群发自定义消息
      * */
     public static void sendInfo(String message) throws IOException {
-        for (WebSocketServer item : webSocketSet) {
+        for (IWebSocketServer item : webSocketSet) {
             try {
                 //这里可以设定只推送给这个sid的，为null则全部推送
                     item.sendMessage(message);
@@ -107,10 +107,10 @@ public class WebSocketServer {
     }
 
     public static synchronized void addOnlineCount() {
-        WebSocketServer.onlineCount++;
+        IWebSocketServer.onlineCount++;
     }
 
     public static synchronized void subOnlineCount() {
-        WebSocketServer.onlineCount--;
+        IWebSocketServer.onlineCount--;
     }
 }

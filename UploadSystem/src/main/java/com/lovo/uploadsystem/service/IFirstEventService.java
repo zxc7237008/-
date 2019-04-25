@@ -58,4 +58,21 @@ public interface IFirstEventService {
 	 * @return 事件初报实体
 	 */
 	public FirstEventEntity findEvent(String eventId);
+	
+	
+	/**
+	 * 通过事件发生时间和类型统计当前时间段事件总数
+	 * @param beginTime 起始时间;endTime 结尾时间; typeCode 事件编码
+	 * @return 事件总数
+	 */
+	public int findALLEventNumByTypeAndTime(String beginTime, String endTime, String typeCode);
+	
+	/**
+	 * 统计该地区事件总数
+	 * @param areaName 事件发生区域
+	 * @return 事件总数
+	 */
+	
+	public int findAllventNumByArea(String areaName);
+	
 }
