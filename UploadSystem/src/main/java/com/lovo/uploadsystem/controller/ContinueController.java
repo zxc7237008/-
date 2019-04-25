@@ -74,7 +74,7 @@ public class ContinueController {
         int pageAll = continueService.getAllPage(pageSize,eventNo);
         PageBean<ContinueEntity> pageBean = new PageBean<>();
         pageBean.setList(continueList);
-        System.out.println(pageAll+"------------------------------------------------");
+        
         pageBean.setPageAll(pageAll);
         pageBean.setPageNum(pageNum);
        return  pageBean;
