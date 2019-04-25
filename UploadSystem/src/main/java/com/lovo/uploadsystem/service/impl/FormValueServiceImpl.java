@@ -20,5 +20,17 @@ public class FormValueServiceImpl implements IFormValueService {
 		formValueDao.save(formValue);
 
 	}
+	
+	@Override
+	public FormValueEntity findValue(String eventId) {
+		return formValueDao.findValue(eventId);
+	}
+
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public void delValue(String firstEventNo) {
+		formValueDao.delValue(firstEventNo);
+		
+	}
 
 }

@@ -1,0 +1,495 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+	
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{/static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link th:href="@{/static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link th:href="@{/static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link th:href="@{/static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link th:href="@{/static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{/static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default top-navbar" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand waves-effect waves-dark" href="index.html"><i class="large material-icons">insert_chart</i> <strong>TRACK</strong></a>
+				
+		<div id="sideNav" href=""><i class="material-icons dp48">toc</i></div>
+            </div>
+
+            <ul class="nav navbar-top-links navbar-right"> 
+				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown4"><i class="fa fa-envelope fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>				
+				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown3"><i class="fa fa-tasks fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
+				  <li><a class="dropdown-button waves-effect waves-dark" href="#!" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>John Doe</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </nav>
+		<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+<li><a href="#"><i class="fa fa-user fa-fw"></i> My Profile</a>
+</li>
+<li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+</li> 
+<li><a href="#"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+</li>
+</ul>
+<ul id="dropdown2" class="dropdown-content w250">
+  <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-comment fa-fw"></i> New Comment
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                                    <span class="pull-right text-muted small">12 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-tasks fa-fw"></i> New Task
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
+                                    <span class="pull-right text-muted small">4 min</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+</ul>
+<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
+<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 1</strong>
+					<span class="pull-right text-muted">60% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+						<span class="sr-only">60% Complete (success)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 2</strong>
+					<span class="pull-right text-muted">28% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="28" aria-valuemin="0" aria-valuemax="100" style="width: 28%">
+						<span class="sr-only">28% Complete</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 3</strong>
+					<span class="pull-right text-muted">60% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
+						<span class="sr-only">60% Complete (warning)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+	<li>
+		<a href="#">
+			<div>
+				<p>
+					<strong>Task 4</strong>
+					<span class="pull-right text-muted">85% Complete</span>
+				</p>
+				<div class="progress progress-striped active">
+					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%">
+						<span class="sr-only">85% Complete (danger)</span>
+					</div>
+				</div>
+			</div>
+		</a>
+	</li>
+	<li class="divider"></li>
+</ul>   
+<ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
+  <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Doe</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Today</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since an kwilnw...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <strong>John Smith</strong>
+                                    <span class="pull-right text-muted">
+                                        <em>Yesterday</em>
+                                    </span>
+                                </div>
+                                <div>Lorem Ipsum has been the industry's standard dummy text ever since the...</div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>Read All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+</ul>  
+	   <!--/. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    <li>
+                        <a href="index.html" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="ui-elements.html" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> UI Elements</a>
+                    </li>
+					<li>
+                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> Charts</a>
+                    </li>
+                    <li>
+                        <a href="tab-panel.html" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> Tabs  Panels</a>
+                    </li>
+                    
+                    <li>
+                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> Responsive Tables</a>
+                    </li>
+                    <li>
+                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> Forms </a>
+                    </li>
+
+
+                    <li>
+                        <a href="#" class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Third Level Link</a>
+                                    </li>
+
+                                </ul>
+
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="active-menu waves-effect waves-dark" href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+		  <div class="header"> 
+                        <h1 class="page-header">
+                            事件初报详情 <small>Info First report.</small>
+                        </h1>
+						<ol class="breadcrumb">
+					  <li><a href="#">主页</a></li>
+					  <li class="active"><a href="#">事件初报详情</a></li>
+					</ol>
+									
+		</div>
+            <div id="page-inner"> 
+			
+			  <div class="row">
+                    
+                    <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-action">
+                         事件初报信息
+                        </div>        
+                         <div class="card-content">
+                             <div class="row">
+                                 <div class="input-field col s6">
+                                 	<input type="hidden" name="firstEventNo" th:value="${event.firstEventNo}"/>
+                                     <input placeholder="事件名称" id="event_name" name="eventName" type="text" class="validate" th:value="${event.eventName}"/>
+                                     <label for="event_name" class="active">事件名称</label>
+                                 </div>
+                                 <div class="input-field col s6">
+                                     <input placeholder="报警人" id="first_name" name="discoverer" type="text" class="validate" th:value="${event.discoverer}"/>
+                                     <label for="first_name" class="active">报警人</label>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>事件类型</label>
+                                     <input type="hidden" name="initType"/>
+                                     <select name="eventTypeId" class="form-control input-sm"><option value="10">群体性事件</option><option value="25">建筑工程事件</option><option value="50">房屋倒塌事件</option></select>
+                                 </div>
+                                 <div class="input-field col s6">
+                                     <input placeholder="报警人电话" id="one-tel" name="discovererTel" type="tel" class="validate" th:value="${event.discovererTel}"/>
+                                     <label for="one-tel" class="active">报警人电话</label>
+                                 </div>
+
+                             </div>
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>事件等级</label>
+                                     <select name="eventLevel" aria-controls="dataTables-example" class="form-control input-sm"><option value="1">轻度</option><option value="2">中等</option><option value="3">严重</option></select>
+                                 </div>
+                                 <div class="input-field col s6">
+                                     <input placeholder="伤亡人数" id="casualty" name="casualty" type="text" class="validate" th:value="${event.casualty}"/>
+                                     <input type="hidden" name="reporter" th:value="${event.reporter}"/>
+                                     <label for="casualty" class="active" >伤亡人数</label>
+                                 </div>
+                             </div>
+                             <div class="row">
+                                 <div class="col-md-6">
+                                     <label>发生区域</label>
+                                     <select name="eventAreaId" aria-controls="dataTables-example" class="form-control input-sm"></select>
+                                 </div>
+                                 <div class="input-field col s6">
+                                     <input placeholder="详细地址" id="detail_addr" name="detailAddr" type="text" class="validate" th:value="${event.detailAddr}"/>
+                                     <label for="detail_addr" class="active">详细地址</label>
+                                 </div>
+                             </div>
+                             <div class="row" id="dynamic">
+                             </div>
+                             <div class="row">
+                                 <div class="col-md-11"></div>
+                                 <input type="hidden" name="btnName"/>
+                                 <div class="col-md-1"><a class="waves-effect waves-light btn">返回</a></div>
+                             </div>
+							<input type="hidden"  name="dataLevel" th:value="${event.eventLevel}"/>
+							<input type="hidden" name="dataType" th:value="${event.eventType.typeId}"/>
+							<input type="hidden" name="dataArea" th:value="${event.eventArea.areaId}"/>
+
+                         </div>
+						 </div>
+                    </div>
+             	 </div>
+				 <footer><p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p></footer>
+				</div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- JS Scripts-->
+    <!-- jQuery Js -->
+    <script th:src="@{/static/jquery-2.1.4.js}"></script>
+	
+	<!-- Bootstrap Js -->
+    <script th:src="@{/static/assets/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{/static/assets/materialize/js/materialize.min.js}"></script>
+	
+    <!-- Metis Menu Js -->
+    <script th:src="@{/static/assets/js/jquery.metisMenu.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{/static/assets/js/custom.js}"></script>
+    <script th:inline="javascript">
+    	$(function(){
+    		$("input").attr("readonly","readonly");
+    		$("select").attr("disabled","disabled");
+    		var type = $("[name=eventTypeId]");
+    		
+    		$.getJSON("/event/getArea",areaData);
+    		$.getJSON("/event/getType",typeData);
+    		
+    		$("[type=submit]").click(clickEvt);
+    		
+    		function clickEvt(){
+    			$("[name=btnName]").val(this.value);
+    		}
+    		
+    	});
+    	
+    	<!-- 初始化地区下拉单选框 -->
+    	function areaData(data){
+    		var $area = $("[name=eventAreaId]");
+    		$area.empty();
+    		$.each(data,function(i,e){
+    			var $option = $("<option value="+ e.areaId +">"+e.areaName+"</option>");
+    			$area.append($option);
+    		});
+    	}
+    	
+    	<!-- 初始化事件类型下拉单选框 -->
+    	function typeData(data){
+    		var $type = $("[name=eventTypeId]");
+    		$type.empty();
+    		$.each(data,function(i,e){
+    			
+    			var $option = $("<option value="+e.typeId+">"+e.typeName+"</option>");
+    			
+        		$type.append($option);
+    		});
+    		
+    		<!-- select选中应该选中的option -->
+    		selectedEvt();
+    		
+    		var firstId = $("[name=eventTypeId]:first").val();
+    		var eventId = $("[name=firstEventNo]").val();
+    		$.getJSON("/event/getKeyAndValue",{"eventId":eventId,"typeId":firstId},keyData);
+    		
+    	}
+    	
+    	<!-- 添加动态模块 -->
+    	//<![CDATA[ 
+    		function keyData(data){
+        		$("#dynamic").empty();
+        		$.each(data.keyList,function(i,e){
+        			var keyList = new Array();
+        			keyList.push(e.key1,e.key2,e.key3,e.key4,e.key5,e.key6);
+        			var valueList = new Array();
+        			if(data.value != null){
+	        			valueList.push(data.value.value1,data.value.value2,data.value.value3,data.value.value4,data.value.value5,data.value.value6);
+        			}
+        			
+        			for(var j = 0,len = keyList.length; j < len; j++){
+        			    if(keyList[j] == null || keyList[j].length == 0){
+        			    	break;
+        			    } else {
+        			    	dynamicAdd(keyList[j],valueList[j],j);
+        			    }
+        			}
+        			
+        		});
+        		
+        	}
+			//]]>
+    	
+    	
+    	<!-- 向动态模板添加input表单 -->
+    	//<![CDATA[
+    	function dynamicAdd(key,value,j){
+    		var val ="value="+value;
+    		if(value == null){
+    			val = "";
+    		}
+    		$("#dynamic").append("<div class='input-field col s6'>"+
+            "<input readonly='readonly' id="+ key +" name='value"+ (j+1) +"' type='text' class='value'"+ val +" />"+
+                "<label for="+ key +" class='active'>"+ key +"</label></div>");  
+    	}
+    	//]]>
+    	
+    	<!-- select选中应该选中的option -->
+    	function selectedEvt(){
+    		var dataType = $("[name=dataType]").val();
+    		var dataLevel = $("[name=dataLevel]").val();
+    		var dataArea = $("[name=dataArea]").val();
+    		$("[name=eventTypeId] option").each(function(i,e){
+    			if(this.value == dataType){
+    				$(this).prop("selected","selected");
+    				$("[name=initType]").val(this.value);
+    				return false;
+    			}
+    		});
+    		$("[name=eventLevel] option").each(function(i,e){
+    			if(this.value == dataLevel){
+    				$(this).prop("selected","selected");
+    				return false;
+    			}
+    		});
+    		$("[name=eventAreaId] option").each(function(i,e){
+    			if(this.value == dataArea){
+    				$(this).prop("selected","selected");
+    				return false;
+    			}
+    		});
+    	}
+
+    </script>
+</body>
+
+</html>

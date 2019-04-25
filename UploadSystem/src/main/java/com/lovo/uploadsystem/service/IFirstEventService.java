@@ -2,6 +2,7 @@ package com.lovo.uploadsystem.service;
 
 import java.util.List;
 
+import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
 import com.lovo.uploadsystem.entity.StateEntity;
 
@@ -22,21 +23,39 @@ public interface IFirstEventService {
 	 */
 	public void saveEvent(FirstEventEntity event);
 
-	
-	/**
-	 * 通过事件名称、事件等级、地区名称模糊查询相关的事件信息
-	 * @param typeName 事件名称
-	 * @param eventLevel 事件等级
-	 * @param areaName 地区名称
-	 * @return 相关的事件集合
-	 */
-//	public List<FirstEventEntity> findFirstEventslikeEventTypeEventLevelEventArea(String typeName,String eventLevel,String areaName);
-	
-	public List<FirstEventEntity> findFirstEventsByEventTypeEventLevelEventAreaState(String typeName,String eventLevel,String areaName,String eventState);
-	
 	/**
 	 * 查询所有事件状态
 	 * @return 事件状态集合
 	 */
 	public List<StateEntity> findAllFirstEventStates();
+	
+	/**
+	  * 得到所有事件按照pageSize大小分配的总页数
+	 * @param typeName 事件名称
+	 * @param eventLevel 事件等级
+	 * @param areaName 地区名称
+	 * @param eventState 事件状态
+	 * @param pageSize 每页的条数
+	 * @return 分的页数
+	 */
+	public int getFirstEventAllPages(String typeName,String eventLevel,String areaName,String eventState,int pageSize);
+	
+	/**
+	 * 根据条件查询事件，并分页
+	 * @param typeName 事件名称
+	 * @param eventLevel 事件等级
+	 * @param areaName 地区名称
+	 * @param eventState 事件状态
+	 * @param pageNum 页码起始位置
+	 * @param pageSize 每页的条数
+	 * @return 事件的集合
+	 */
+	public List<FirstEventAreaEventTypeDTO> findAllFirstEventsByPage(String typeName,String eventLevel,String areaName,String eventState,int pageNum, int pageSize);
+
+	/**
+	 * 通过事件初报编号获取事件初报实体
+	 * @param eventId 事件初报编号
+	 * @return 事件初报实体
+	 */
+	public FirstEventEntity findEvent(String eventId);
 }

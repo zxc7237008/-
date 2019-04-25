@@ -28,7 +28,7 @@ public class JournalController {
 	private IJournalService ijournalService;
 	
 		
-		@RequestMapping("showjournalListPage")
+		@RequestMapping("gotoJournal")
 	    public ModelAndView showUserListPage(){
 	        ModelAndView modelAndView = new ModelAndView("journal");
 	        int pageNum = 0;
@@ -46,14 +46,24 @@ public class JournalController {
 		
 	    @RequestMapping("JournalchangePage")
 	    @ResponseBody
-	    public PageBean changePage(int pageNum){
-	        int pageSize = 5;
-	        List<JournalEntity> list = ijournalService.showjournalListPage(pageNum,pageSize);
-	        int pageAll = ijournalService.getAllPage(pageSize);
-	        PageBean<JournalEntity> pageBean = new PageBean<>();
-	        pageBean.setList(list);
-	        pageBean.setPageAll(pageAll);
-	        pageBean.setPageNum(pageNum);
+	    public PageBean changePage(int pageNum,String too){
+	    	 List<JournalEntity> list=null;
+	    	 int pageSize = 5;
+	    	 PageBean<JournalEntity> pageBean = new PageBean<>();
+	    	if(too!=null&&!too.equals("")){
+	    		list = ijournalService.showjournalListPageto(too, pageNum, pageSize);
+	    		 int pageAll = ijournalService.getAllPageto(too, pageSize);
+	 	        pageBean.setList(list);
+	 	        pageBean.setPageAll(pageAll);
+	 	        pageBean.setPageNum(pageNum);
+	    	}else{
+	    		 list = ijournalService.showjournalListPage(pageNum,pageSize);
+	    		 int pageAll = ijournalService.getAllPage(pageSize);
+	 	        pageBean.setList(list);
+	 	        pageBean.setPageAll(pageAll);
+	 	        pageBean.setPageNum(pageNum);
+			}
+	       
 	       return  pageBean;
 	    }
 

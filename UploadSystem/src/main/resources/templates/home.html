@@ -19,7 +19,7 @@
     <!-- Google Fonts-->
     <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
-    
+   
 </head>
 <body>
     <div id="wrapper">
@@ -56,7 +56,7 @@
 				<a th:href="@{#}">
 					<div>
 						<i class="fa fa-envelope fa-fw"></i> 未处理信息
-						<span class="pull-right text-muted small">10</span>
+						<span class="pull-right text-muted small" id="UNInformation">10</span>
 					</div>
 				</a>
 			</li>
@@ -69,24 +69,24 @@
                 <ul class="nav" id="main-menu">
 
                     
-                    <li>
-                        <a th:href="@{ui-elements.html}" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
-                    </li>
-					<li>
-                        <a th:href="@{chart.html}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
-                    </li>
-                                 
-                    <li>
-                        <a th:href="@{table.html}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
+                                      <li>
+                        <a th:href="@{gotoMainPage}" class="active-menu waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
                     </li>
                     <li>
-                        <a th:href="@{form.html}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
+                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
                     </li>
 					<li>
-                        <a class="waves-effect waves-dark" th:href="@{index.html}"><i class="fa fa-dashboard"></i> 统计分析</a>
+                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
                     </li>
-					<li>
-                        <a class="waves-effect waves-dark" th:href="@{#}"><i class="fa fa-edit"></i> 用户管理</a>
+                    <li>
+                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                    </li>
+                    
+                    <li>
+                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
+                    </li>
+                    <li>
+                        <a th:href="@{gotoUserManage}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
                     </li>
                          
                 </ul>
@@ -103,7 +103,7 @@
 				</h1>
 					<!-- 小导航栏  -->
 					<ol class="breadcrumb">
-					  <li><a th:href="@{#}">主界面</a></li>
+					  <li><a th:href="@{home.html}">主界面</a></li>
 					  <li class="active">事件列表展示</li>
 					</ol> 									
 			</div>
@@ -116,42 +116,43 @@
 					   <div style="margin-top: 10px;">
 							
 							<div class="btn-group">
-							  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle">事件类型 <span class="caret"></span></button>
-							  <ul class="dropdown-menu">
-								<li><a th:href="@{#}">群体事件</a></li>
-								<li><a th:href="@{#}">斗殴事件</a></li>
-								<li><a th:href="@{#}">抢劫事件</a></li>
-								<li class="divider"></li>
-								
+							  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" id="eventType">事件类型<span class="caret"></span></button>
+							  <ul class="dropdown-menu" >
+							  	<select name="eventTypeSelect" class="form-control col s10 " multiple="multiple" style="height: 100px" >
+							  		<option value="0">事件类型</option>
+									<option th:each="enventType,listate:${eventlist}"><span th:text="${enventType.typeName}"></span></option>
+								</select>
 							  </ul>
+								
 							</div>
 							<div style="margin:5px;" class="btn-group">
-							  <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle">事件等级 <span class="caret"></span></button>
+							  <button data-toggle="dropdown" class="btn btn-danger dropdown-toggle" id="eventLevel">事件等级<span class="caret"></span></button>
 							  <ul class="dropdown-menu">
-								<li><a th:href="@{#}">一级事件</a></li>
-								<li><a th:href="@{#}">二级事件</a></li>
-								<li><a th:href="@{#}">三级事件</a></li>
-								<li class="divider"></li>
-								
+								<select name="eventLevelSelect" class="form-control col s10 " multiple="multiple" style="height: 100px">
+									<option value="0">事件等级</option>
+									<option value="1">一级事件</option>
+									<option value="2">二级事件</option>
+									<option value="3">三级事件</option>
+								</select>
 							  </ul>
 							</div>
 						   <div style="margin:5px;" class="btn-group">
-							  <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle">区域 <span class="caret"></span></button>
+							  <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="eventArea">区域<span class="caret"></span></button>
 							  <ul class="dropdown-menu">
-								<li><a th:href="@{#}">金牛区</a></li>
-								<li><a th:href="@{#}">武侯区</a></li>
-								<li><a th:href="@{#}">成华区</a></li>
-								<li class="divider"></li>
+							  	<select name="eventAreaSelect" class="form-control col s10 " multiple="multiple" style="height: 100px" >
+							  		<option value="0">区域</option>
+									<option th:each="eventArea,listate:${areaList}"><span th:text="${eventArea.areaName}"></span></option>
+								</select>
 								
 							  </ul>
 							</div>
 							<div style="margin:5px;" class="btn-group">
-							  <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle">事件状态 <span class="caret"></span></button>
+							  <button data-toggle="dropdown" class="btn btn-warning dropdown-toggle" id="eventState">事件状态<span class="caret"></span></button>
 							  <ul class="dropdown-menu">
-								<li><a th:href="@{#}">未处理</a></li>
-								<li><a th:href="@{#}">处理中</a></li>
-								<li><a th:href="@{#}">结束</a></li>
-								<li class="divider"></li>
+								<select name="eventStateSelect"  class="form-control col s10 " multiple="multiple" style="height: 100px">
+									<option value="0">事件状态</option>
+									<option th:each="State,listate:${stateList}"><span th:text="${State.eventState}"></span></option>
+								</select>
 								
 							  </ul>
 							</div>
@@ -159,7 +160,7 @@
 				<div class="card">
                         <div class="card-action">
                             <strong class="left">事件列表</strong>
-							<a th:href="@{table.html}" class="waves-effect waves-light btn right">添加事件</a>
+							<a th:href="@{addEventType.html}" class="waves-effect waves-light btn right">添加事件</a>
                         </div>
                         <div class="card-content">
                             <div class="table-responsive">
@@ -177,77 +178,44 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="center">杀人蜂事件</td>
-                                            <td class="center">动物</td>
-                                            <td class="center">3级</td>
-                                            <td class="center">卧龙岗</td>
-                                            <td class="center">妞妞</td>
-                                            <td class="center">13712938642</td>
-                                            <td class="center">未上报</td>
+                                        <tr th:each="dto,trstate:${dtoList}">
+                                            <td class="center" th:text="${dto.eventName}"></td>
+                                            <td class="center" th:text="${dto.typeName}"></td>
+                                            <td class="center" th:text="${dto.eventLevel}"></td>
+                                            <td class="center" th:text="${dto.areaName}"></td>
+                                            <td class="center" th:text="${dto.discoverer}"></td>
+                                            <td class="center" th:text="${dto.discovererTel}"></td>
+                                            <td class="center" th:text="${dto.eventState}"></td>
                                             <td class="col-md-4">
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">上报</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
+                                            	<div th:if="${dto.eventState eq '未处理'}">
+                                            		<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">上报</a>
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
+                                            	</div>
+												<div th:if="${dto.eventState eq '处理中'}">
+                                            		<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
+                                            	</div>
+                                            	<div th:if="${dto.eventState eq '结束'}">
+													<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
+                                            	</div>
 											</td>
                                         </tr>
-                                        <tr>
-                                            <td class="center">滇西偷窃事件</td>
-                                            <td class="center">盗窃</td>
-                                            <td class="center">3级</td>
-                                            <td class="center">春熙路</td>
-                                            <td class="center">张三</td>
-                                            <td class="center">12382736481</td>
-                                            <td class="center">未上报</td>
-                                            <td class="col-md-4">
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">删除</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">修改</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">上报</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="center">青羊区火灾事件</td>
-                                            <td class="center">火灾</td>
-                                            <td class="center">3级</td>
-                                            <td class="center">青羊区88号</td>
-                                            <td class="center">王大妈</td>
-                                            <td class="center">1242221214</td>
-                                            <td class="center">已上报</td>
-                                            <td class="col-md-4">
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">续报</a>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="center">朗沃学生罢课事件</td>
-                                            <td class="center">罢课事件</td>
-                                            <td class="center">3级</td>
-                                            <td class="center">共和村88号</td>
-                                            <td class="center">胡一可</td>
-                                            <td class="center">12378394738</td>
-                                            <td class="center">已上报</td>
-                                            <td class="col-md-4">
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">续报</a>
-											</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="center">四川大学学生游行事件</td>
-                                            <td class="center">游行事件</td>
-                                            <td class="center">2级</td>
-                                            <td class="center">四川大学</td>
-                                            <td class="center">张治中</td>
-                                            <td class="center">13789237328</td>
-                                            <td class="center">已结束</td>
-                                            <td class="col-md-4">
-												<a th:href="@{table.html}" class="waves-effect waves-light btn">查看</a>
-											</td>
-                                        </tr>
-                                        
                                     </tbody>
                                 </table>
+                                <!-- 分页  -->
+                                <div>
+                                	<input type="hidden" value="0" id="pageNum"/>
+									<input type="hidden" id="pageAll"/>
+									<button type="button" class="btn btn-info" value="首页" name="operation">首页</button>
+									<button type="button" class="btn btn-info" value="上一页" name="operation">上一页</button>
+									<button type="button" class="btn btn-info" value="下一页" name="operation">下一页</button>
+									<button type="button" class="btn btn-info" value="尾页" name="operation">尾页</button>
+									<input type="text" class="form-control" id="tiaozhuan" name="tiaozhuan" placeholder="跳转" style="width: 27px;display: inline" />
+									<button type="button"  class="btn btn-info" value="跳转" name="operation">跳转</button>
+                                </div>
                             </div>                            
                         </div>
                     </div>						
@@ -261,12 +229,6 @@
 				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
 			</footer>
      </div>
-            <!-- /. PAGE INNER  -->
-<!--         </div> -->
-        <!-- /. PAGE WRAPPER  -->
-    <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
     <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
 	
 	<!-- Bootstrap Js -->
@@ -288,7 +250,154 @@
 	
     <!-- Custom Js -->
     <script th:src="@{static/assets/js/custom.js}"></script> 
- 
+ 	 <script type="text/javascript">
+    	$(function() {
+			/* 获取事件类型 事件等级 地区 状态值在按钮中显示 */
+			$("[name=eventLevelSelect]").change(eventLevelEvt);
+			$("[name=eventTypeSelect]").change(eventTypeEvt);
+			$("[name=eventAreaSelect]").change(eventAreaEvt);
+			$("[name=eventStateSelect]").change(eventStateEvt);
+			
+			/* 分页 */
+			$("[name=operation]").click(page);
+			
+			/* 未处理信息查询 */
+			$.getJSON("findUNInformation",{eventState:"1"},function(data){
+				var value = $("#UNInformation").text(data);
+			});
+			
+		});
+    	
+    	/* 事件类型 */
+		function eventTypeEvt() {
+			var value = $("[name=eventTypeSelect] option:selected").text();
+			$("#eventType").text(value);
+			page();
+		}
+		/* 事件等级  */
+		function eventLevelEvt(){
+			var value = $("[name=eventLevelSelect] option:selected").text();
+			$("#eventLevel").text(value);
+			page();
+		}
+		
+		/* 地区 */
+		function eventAreaEvt() {
+			var value = $("[name=eventAreaSelect] option:selected").text();
+			$("#eventArea").text(value);
+			page();
+		}
+		/* 状态 */
+		function eventStateEvt() {
+			var value = $("[name=eventStateSelect] option:selected").text();
+			$("#eventState").text(value);
+			page();
+		}
+		
+		function getList(){
+			var eventTypeValue = $("#eventType").text();
+			var eventLevelValue = $("#eventLevel").text();
+			var eventAreaValue = $("#eventArea").text();
+			var eventStateValue = $("#eventState").text();
+			var pageNum=parseInt($("#pageNum").val());
+			$.getJSON("findFirstEventsByEventTypeEventLevelEventAreaState",{typeName:eventTypeValue,eventLevel:eventLevelValue,
+				areaName:eventAreaValue,eventState:eventStateValue,pageNum:pageNum},showHomeEvent);
+		}
+		
+		/* 分页 */
+		//<![CDATA[
+		function page() {
+			
+			 var btn=this.value;
+              var pageNum=parseInt($("#pageNum").val());
+             
+              var pageAll=parseInt($("#pageAll").val());
+              
+              if(btn=="首页"){
+            	  pageNum=0;
+              }else if(btn=="上一页"){
+            	  pageNum=pageNum-1;
+                  if(pageNum<0){
+                	  pageNum=0;
+                  }
+              }else if(btn=="下一页"){
+            	  pageNum+=1;
+                  if(pageNum>(pageAll-1)){
+                	  pageNum=pageAll-1;
+                  }
+                  
+              }else if(btn=="尾页"){
+            	  pageNum=pageAll-1;
+              }else if(btn=="跳转"){
+            	  pageNum=parseInt($("#tiaozhuan").val());
+            	  pageNum=pageNum-1;
+            	  if(pageNum>(pageAll-1)){
+            		  pageNum=pageAll-1;
+            	  }else if(pageNum<0){
+                	  pageNum=0;
+                  }
+			  }
+              	var eventTypeValue = $("#eventType").text();
+	  			var eventLevelValue = $("#eventLevel").text();
+	  			var eventAreaValue = $("#eventArea").text();
+	  			var eventStateValue = $("#eventState").text();
+                $.getJSON("findEventTypeLists",{pageNum:pageNum,typeName:eventTypeValue,eventLevel:eventLevelValue,
+        				areaName:eventAreaValue,eventState:eventStateValue},showHomeEvent);
+
+		}
+		//]]>
+		
+		//<![CDATA[
+		function showHomeEvent(data) {
+			var $tbody = $("tbody");
+			$tbody.empty();
+			$.each(data.list,function(i,e){
+				var eventName = e.eventName;
+				var typeName = e.typeName;
+				var eventLevel = e.eventLevel;
+				var areaName = e.areaName;
+				var discoverer = e.discoverer;
+				var discovererTel = e.discovererTel;
+				var eventState = e.eventState;
+				if(eventState=="未处理"){
+					var  $tr = ("<tr><td class='center'>"+eventName+"</td><td class='center'>"+typeName+"</td>"
+							+ "<td class='center'>"+eventLevel+"</td><td class='center'>"+areaName+"</td>"
+							+ "<td class='center'>"+discoverer+"</td><td class='center'>"+discovererTel+"</td>"
+							+ "<td class='center'>"+eventState+"</td><td class='col-md-4'>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>删除</a>" 
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>修改</a>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>上报</a>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>查看</a>"
+							+ "</td></tr>");
+				}else if(eventState=="处理中"){
+					var  $tr = ("<tr><td class='center'>"+eventName+"</td><td class='center'>"+typeName+"</td>"
+							+ "<td class='center'>"+eventLevel+"</td><td class='center'>"+areaName+"</td>"
+							+ "<td class='center'>"+discoverer+"</td><td class='center'>"+discovererTel+"</td>"
+							+ "<td class='center'>"+eventState+"</td><td class='col-md-4'>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>删除</a>" 
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>修改</a>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>查看</a>"
+							+ "</td></tr>");
+				}else{
+					var  $tr = ("<tr><td class='center'>"+eventName+"</td><td class='center'>"+typeName+"</td>"
+							+ "<td class='center'>"+eventLevel+"</td><td class='center'>"+areaName+"</td>"
+							+ "<td class='center'>"+discoverer+"</td><td class='center'>"+discovererTel+"</td>"
+							+ "<td class='center'>"+eventState+"</td><td class='col-md-4'>"
+							+ "<a th:href='@{#}' class='waves-effect waves-light btn'>查看</a>"
+							+ "</td></tr>");
+				}
+				
+				$tbody.append($tr);
+				
+			});
+			var pageNum = data.pageNum;
+            var pageAll = data.pageAll;
+            //记录数据信息（当前页数和总页数）
+            $("#pageNum").val(pageNum);
+            $("#pageAll").val(pageAll);
+		}
+		//]]>
+    </script>
 
 </body>
 

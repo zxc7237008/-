@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8" />
@@ -68,24 +68,24 @@
                 <ul class="nav" id="main-menu">
 
                     
-                                        <li>
-                        <a th:href="@{gotoMainPage}" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
-                    </li>
                     <li>
-                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
+                        <a href="ui-elements.html" class="active-menu  waves-effect waves-dark"><i class="fa fa-desktop"></i> 主界面</a>
                     </li>
 					<li>
-                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
+                        <a href="chart.html" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 事件初报</a>
+                    </li>
+                                 
+                    <li>
+                        <a href="table.html" class="waves-effect waves-dark"><i class="fa fa-table"></i> 值班安排</a>
                     </li>
                     <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                        <a href="form.html" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 交班安排 </a>
                     </li>
-                    
-                    <li>
-                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
+					<li>
+                        <a class="waves-effect waves-dark" href="index.html"><i class="fa fa-dashboard"></i> 统计分析</a>
                     </li>
-                    <li>
-                        <a th:href="@{gotoUserManage}" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
+					<li>
+                        <a class="waves-effect waves-dark" href="#"><i class="fa fa-edit"></i> 用户管理</a>
                     </li>
                          
                 </ul>
@@ -98,24 +98,22 @@
 		<div id="page-wrapper">
 			<div class="header"> 
 				<h1 class="page-header">
-					管理界面
+					用户信息
 				</h1>
-					
 
 			</div>
 			
 			<div class="col-md-12">
 				<div class="card col-sm-12 ">
                            <br/><br/>
-                           <form th:action="@{/zhuce}" method="post">
                             <div class="card-content ">
                                 <div class="row">
                                     <div class="icon-preview col m2">
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="uname" type="text" class="validate" name="uname"/>
-                                        <label for="user_name"   class="uname">用户名</label>
+                                        <input id="userName" type="text" class="validate" th:text="${}"/>
+                                        <label for="user_name" class="">用户名</label>
                                     </div>
                                 </div>
 								<div class="row">
@@ -123,8 +121,8 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="upasss" type="password" class="validate" name="upasss"/>
-                                        <label for="user_name" class="upasss">密码</label>
+                                        <input id="password" type="text" class="validate" th:text="${}"/>
+                                        <label for="user_name" class="">密码</label>
                                     </div>
 
                                 </div>
@@ -133,8 +131,8 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="utel" type="text" class="validate" name="utel"/>
-                                        <label for="utel" class="utel">电话</label>
+                                        <input id="tel" type="password" class="validate" th:text="${}"/>
+                                        <label for="password" class="">电话</label>
                                     </div>
                                 </div>
 								<div class="row">
@@ -142,17 +140,13 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4 ">
-                                        <input id="umaildox" type="text" class="validate" name="umaildox"/>
-                                        <label for="text" class="umaildox">邮箱</label>
+                                        <input id="email" type="password" class="validate" th:text="${}"/>
+                                        <label for="password" class="">邮箱</label>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                  <input type="submit" class="waves-effect waves-light btn" value="注册"/>
                                 </div>
                                 
                             </div>
-                      </form> 
+                       
             </div>
 		</div>	
 			<!-- 页脚  -->
@@ -162,11 +156,6 @@
         </div>
             <!-- /. PAGE INNER  -->
         </div>
-        <!-- /. PAGE WRAPPER  -->
-    
-    <!-- /. WRAPPER  -->
-    <!-- JS Scripts-->
-    <!-- jQuery Js -->
    <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
 	
 	<!-- Bootstrap Js -->
@@ -188,8 +177,6 @@
 	
     <!-- Custom Js -->
     <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
-    
-	
 
 </body>
 

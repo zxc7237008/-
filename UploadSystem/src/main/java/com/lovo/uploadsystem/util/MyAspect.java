@@ -3,6 +3,9 @@ package com.lovo.uploadsystem.util;
 import java.text.DateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -12,6 +15,8 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.lovo.uploadsystem.entity.JournalEntity;
 import com.lovo.uploadsystem.service.IJournalService;
@@ -45,11 +50,11 @@ public class MyAspect {
 	//添加方法
     if(methodName.contains("save")){
     	 incident = "添加";
-    	if(methodName.contains("Continue")){
+    	if(methodName.contains("Continue")){//续报
     		 incident = incident+"续报";
-    	}if(methodName.contains("Event")){
+    	}if(methodName.contains("Event")){//上报
    		 incident = incident+"上报";
-    	}if(methodName.contains("shiftexchangecontent")){
+    	}if(methodName.contains("shiftexchangecontent")){//日志
       		 incident = incident+"上报日志";
        	}
     	
@@ -61,15 +66,28 @@ public class MyAspect {
     	}	
 	}else if(methodName.contains("delete")){
 		 incident = "删除";
+		 if(methodName.contains("Event")){
+	  		 incident = incident+"上报";
+	    	}	
 	}else if(methodName.contains("shiftexchange")){
-		 incident = "下班";
+		 incident = "下班了";
 	}
     
     if(incident!=null&&!incident.equals("")){
-    	 journalEntity.setIncident(incident);
-    	    journalEntity.setName("duhao");
+    	//获取session
+    	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    	   HttpSession session =request.getSession(); 
+    	   String name = (String) session.getAttribute("testsession");
+    	   System.out.println(name);//占时不知道名字
+    	   
+    	   //把对象放入数据库以及保存在本地txt文档里
+    	   journalEntity.setIncident(incident);
+    	    journalEntity.setName("duhao");//修改的difan
+    	    //把对象保存在数据库中
     	    iJournalService.savejournal(journalEntity);
-    	     System.out.println(methodName+"我是AOP");
+    	    //保存在本地Txt文档里
+    	    WrtieUtil.writeFile(journalEntity);
+    	     
     }
     
     
@@ -78,6 +96,8 @@ public class MyAspect {
 	 
 	 @AfterReturning(pointcut="register()",returning="returnVal")
 	    public void afterReturn(JoinPoint joinPoint,Object returnVal){
+		 
+		 
 		 
 	        System.out.println("AOP 返回值:" + returnVal);
 	       
@@ -96,3 +116,4 @@ public class MyAspect {
 		   return obj;
 	   }
 }
+
