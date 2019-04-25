@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lovo.uploadsystem.dto.KeyAndValueDto;
@@ -216,7 +217,7 @@ public class FirstEventController{
 		return mv;
 	}
 	
-	@RequestMapping("uploadEvent")
+	@RequestMapping("upload")
 	public ModelAndView upload(String eventId) {
 		ModelAndView mv = new ModelAndView("home");
 		
@@ -230,12 +231,22 @@ public class FirstEventController{
 	    FormKeyEntity keys = keyList.get(0);
 		event.setEventState(2);
 		
+		firstEventService.saveEvent(event);
+		
 		Destination destination = new ActiveMQQueue("testQueue");
 		
 		NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
 		
         //将消息放入队列
         jmsTemplate.convertAndSend(destination, message);
+		return mv;
+	}
+	
+	@RequestMapping("del")
+	public ModelAndView delEvent() {
+		ModelAndView mv = new ModelAndView();
+		RedirectView rv = new RedirectView("/home");
+		mv.setView(rv);
 		return mv;
 	}
 	
