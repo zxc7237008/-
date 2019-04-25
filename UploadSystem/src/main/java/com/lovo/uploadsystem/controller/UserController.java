@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.alibaba.fastjson.JSON;
 import com.lovo.uploadsystem.entity.PowerDto;
 import com.lovo.uploadsystem.entity.PowerDtoReslut;
-
 import com.lovo.uploadsystem.entity.UserEntity;
 import com.lovo.uploadsystem.util.StringUtil;
+
+
 
 
 
@@ -51,8 +51,7 @@ public class UserController {
 	@RequestMapping("zhuce")
 	public ModelAndView zhuce(UserEntity  user){
 		ModelAndView mv=new ModelAndView("home");
-		String userStr = JSON.toJSONString(user);
-		UserEntity u = restTemplate.getForEntity("http://SpringBootJ165/{userStr}/1/zhuce",UserEntity.class,userStr).getBody();
+		UserEntity u = restTemplate.getForEntity("http://SpringBootJ165/{user}/1/zhuce",UserEntity.class,user).getBody();
 		return mv;
          
 	}
@@ -61,6 +60,11 @@ public class UserController {
 		return "zhuce";
 	}
 	
-	
+	@RequestMapping("/userInfo")
+	public ModelAndView userInfo() {
+		ModelAndView mv = new ModelAndView("userInfo");
+		//获取用户对象
+		//将用户对象放入到页面中
+		return mv;
+	}
 }
-
