@@ -36,9 +36,9 @@ public class infoDTO {
 					break;
 				}
 			}
-			FirstEventAreaEventTypeDTO dto = new FirstEventAreaEventTypeDTO(FirstEvent.getEventName(),FirstEvent.getEventType().getTypeName() ,
-					resultEventLevel,FirstEvent.getEventArea().getAreaName(),FirstEvent.getDiscoverer(), FirstEvent.getDiscovererTel(),
-					resultEventState);
+			FirstEventAreaEventTypeDTO dto = new FirstEventAreaEventTypeDTO(FirstEvent.getFirstEventNo(),FirstEvent.getEventName(),
+					FirstEvent.getEventType().getTypeName(),resultEventLevel,FirstEvent.getEventArea().getAreaName(),
+					FirstEvent.getDiscoverer(), FirstEvent.getDiscovererTel(),resultEventState);
 			dtoList.add(dto);
 		}
 		return dtoList;
