@@ -38,10 +38,10 @@ public class ContinueController {
 	@ResponseBody
 	@RequestMapping("showMessage")
 	public String showMessage(String id) {
-		System.out.println("进入信息");
+		
 		ContinueEntity c = continueService.showMessage(id);
 		String message = c.getDetailed();
-		System.out.println(message);
+		
 
 		return message;
 	}
