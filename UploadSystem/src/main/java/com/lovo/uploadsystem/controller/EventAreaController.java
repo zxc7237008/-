@@ -17,7 +17,6 @@ import com.lovo.uploadsystem.entity.EventAreaEntity;
 import com.lovo.uploadsystem.entity.JournalEntity;
 import com.lovo.uploadsystem.entity.PageBean;
 import com.lovo.uploadsystem.service.IEventAreaService;
-import com.netflix.infix.lang.infix.antlr.EventFilterParser.in_predicate_return;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

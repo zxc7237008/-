@@ -41,6 +41,7 @@ public class ContinueServiceImpl implements IContinueService {
 		
 	}
 
+		
 	@Override
 	public List<ContinueEntity> findALLContinueEntity(String id,int pageNum, int pageSize) {
 		PageRequest page = new PageRequest(pageNum,pageSize);
@@ -58,6 +59,12 @@ public class ContinueServiceImpl implements IContinueService {
         }
         return alljournalSize;
 		
+	}
+
+	@Override
+	public ContinueEntity showMessage(String id) {
+		
+		return continueDao.findOne(id);
 	}
 
 }

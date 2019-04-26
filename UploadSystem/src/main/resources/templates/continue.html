@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -140,20 +140,19 @@
 		   <span style="width:200px;display:inline-block;"></span>
 			报警人：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.discoverer}"></label><br/><br/>
 								
-		<!--  	事件类型：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventType.typeName}"></label>
+		  	事件类型：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventType.typeName}"></label>
 			<span style="width:200px;display:inline-block;"></span>
-			-->
 			报警人电话：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.discovererTel}"></label><br/><br/>
 								
 			事件等级：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventLevel}"></label>
 			<span style="width:200px;display:inline-block;"></span>
 			详细地址：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.detailAddr}"></label><br/><br/>
-		<!--	
+			
 			发生地区：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.eventArea.areaName}"></label>
 			<span style="width:200px;display:inline-block;"></span>
-			Casualty-->
-			伤亡人数：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.Casualty}"></label>
-              <span style="width:200px;display:inline-block;"></span>
+			伤亡人数：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.Casualty}"></label><br/><br/>
+              
+              
 			上报人员：<label for="password" class="" style="width:200px;font-size:13px;" th:text="${event.reporter}"></label>
                     
                    </div>
@@ -284,6 +283,42 @@
             <!-- /. PAGE INNER  -->
         </div>
         <!-- /. PAGE WRAPPER  -->
+        
+        
+        
+        
+        <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	
+		<div >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h2 class="modal-title" id="myModalLabel">
+					详情信息
+				</h2>
+			</div>
+			<div class="modal-body"  >
+				
+				<textarea id="textarea1" rows="" cols="" style="width: 100%;height:490px;" readonly="readonly" th:value="${message}"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="waves-effect waves-light btn right" data-dismiss="modal">关闭
+				</button>
+				
+			</div>
+		</div><!-- /.modal-content -->
+	
+</div>
+        
+        
+        
+        
+        
+        
+        
+        
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
@@ -315,6 +350,7 @@
 	$(function(){
 		var pageNum=0;
 		var eventNo=$("#eventNo").val();
+		$("table").on("click","a",clickEvt);
 		
 		  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate);
 		  $(":button").click(function (){
@@ -345,10 +381,23 @@
               }
               
               
-              
 		  
 	});
-	})
+		  function clickEvt(){
+			  $.post("showMessage",
+					  {
+				  		id:$(this).prop("id")
+					  },
+					  function(data){
+						
+						$("#textarea1").val(data);
+					  },
+					  "text"
+					  )
+					 
+		  }
+		  
+	});
 	//]]>
 	//<![CDATA[ 
 	function filldate(data){
@@ -375,8 +424,8 @@
                         + "</td><td>" + e.date
                         + "</td><td>" + e.name
                         + "</td><td>" + e.phoneNumber
-                        + "</td><td>" + e.detailed
-                        + "</td><td>" + e.reporter
+                        + "</td><td><a class='waves-effect waves-light btn' data-toggle='modal' data-target='#myModal' id='" + e.rId
+                        + "'>查看详情</a></td><td>" + e.reporter
                         + "</td></tr>";
                     $table.append(dataTr);
                 });
@@ -389,6 +438,8 @@
              $("#pageAll").val(pageAll);
 	}
 	//]]>
+	
+	
     </script>
 
 

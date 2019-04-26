@@ -34,4 +34,11 @@ public interface IContinueService {
 	
 	
 	public int getAllPage(int pageSize,String id);
+	
+	/**
+	 * 根据id查询续报信息
+	 * @param id
+	 * @return 返回一条续报信息
+	 */
+	public ContinueEntity showMessage(String id);
 }

@@ -32,4 +32,10 @@ public class EventTypeServiceImpl implements IEventTypeService{
 	public EventTypeEntity findType(String typeId) {
 		return eventTypeDao.findOne(typeId);
 	}
+
+	@Override
+	public EventTypeEntity saveType(EventTypeEntity eventType) {
+		return eventTypeDao.save(eventType);
+		
+	}
 }
