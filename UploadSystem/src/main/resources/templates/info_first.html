@@ -279,11 +279,11 @@
         <div id="page-wrapper">
 		  <div class="header"> 
                         <h1 class="page-header">
-                            事件初报 <small>First report.</small>
+                            事件初报详情 <small>Info First report.</small>
                         </h1>
 						<ol class="breadcrumb">
 					  <li><a href="#">主页</a></li>
-					  <li class="active"><a href="#">事件初报</a></li>
+					  <li class="active"><a href="#">事件初报详情</a></li>
 					</ol>
 									
 		</div>
@@ -297,24 +297,25 @@
                          事件初报信息
                         </div>        
                          <div class="card-content">
-                         <form th:action="@{/event/saveEvent}">
                              <div class="row">
                                  <div class="input-field col s6">
-                                     <input placeholder="事件名称" id="event_name" name="eventName" type="text" class="validate"/>
+                                 	<input type="hidden" name="firstEventNo" th:value="${event.firstEventNo}"/>
+                                     <input placeholder="事件名称" id="event_name" name="eventName" type="text" class="validate" th:value="${event.eventName}"/>
                                      <label for="event_name" class="active">事件名称</label>
                                  </div>
                                  <div class="input-field col s6">
-                                     <input placeholder="报警人" id="first_name" name="discoverer" type="text" class="validate"/>
+                                     <input placeholder="报警人" id="first_name" name="discoverer" type="text" class="validate" th:value="${event.discoverer}"/>
                                      <label for="first_name" class="active">报警人</label>
                                  </div>
                              </div>
                              <div class="row">
                                  <div class="col-md-6">
                                      <label>事件类型</label>
+                                     <input type="hidden" name="initType"/>
                                      <select name="eventTypeId" class="form-control input-sm"><option value="10">群体性事件</option><option value="25">建筑工程事件</option><option value="50">房屋倒塌事件</option></select>
                                  </div>
                                  <div class="input-field col s6">
-                                     <input placeholder="报警人电话" id="one-tel" name="discovererTel" type="tel" class="validate"/>
+                                     <input placeholder="报警人电话" id="one-tel" name="discovererTel" type="tel" class="validate" th:value="${event.discovererTel}"/>
                                      <label for="one-tel" class="active">报警人电话</label>
                                  </div>
 
@@ -325,9 +326,9 @@
                                      <select name="eventLevel" aria-controls="dataTables-example" class="form-control input-sm"><option value="1">轻度</option><option value="2">中等</option><option value="3">严重</option></select>
                                  </div>
                                  <div class="input-field col s6">
-                                     <input placeholder="伤亡人数" id="casualty" name="casualty" type="text" class="validate" />
-                                     <input type="hidden" name="reporter" value="user"/>
-                                     <label for="casualty" class="active">伤亡人数</label>
+                                     <input placeholder="伤亡人数" id="casualty" name="casualty" type="text" class="validate" th:value="${event.casualty}"/>
+                                     <input type="hidden" name="reporter" th:value="${event.reporter}"/>
+                                     <label for="casualty" class="active" >伤亡人数</label>
                                  </div>
                              </div>
                              <div class="row">
@@ -336,19 +337,20 @@
                                      <select name="eventAreaId" aria-controls="dataTables-example" class="form-control input-sm"></select>
                                  </div>
                                  <div class="input-field col s6">
-                                     <input placeholder="详细地址" id="detail_addr" name="detailAddr" type="text" class="validate"/>
+                                     <input placeholder="详细地址" id="detail_addr" name="detailAddr" type="text" class="validate" th:value="${event.detailAddr}"/>
                                      <label for="detail_addr" class="active">详细地址</label>
                                  </div>
                              </div>
                              <div class="row" id="dynamic">
                              </div>
                              <div class="row">
-                                 <div class="col-md-9"></div>
+                                 <div class="col-md-11"></div>
                                  <input type="hidden" name="btnName"/>
-                                 <div class="col-md-1"><input type="submit" class="waves-effect waves-light btn" value="保存"/></div>
-                                 <div class="col-md-2"><input type="submit" class="waves-effect waves-light btn" value="保存并上报"/></div>
+                                 <div class="col-md-1"><a class="waves-effect waves-light btn">返回</a></div>
                              </div>
-							</form>
+							<input type="hidden"  name="dataLevel" th:value="${event.eventLevel}"/>
+							<input type="hidden" name="dataType" th:value="${event.eventType.typeId}"/>
+							<input type="hidden" name="dataArea" th:value="${event.eventArea.areaId}"/>
 
                          </div>
 						 </div>
@@ -377,18 +379,14 @@
     <script th:src="@{/static/assets/js/custom.js}"></script>
     <script th:inline="javascript">
     	$(function(){
+    		$("input").attr("readonly","readonly");
+    		$("select").attr("disabled","disabled");
     		var type = $("[name=eventTypeId]");
     		
     		$.getJSON("/event/getArea",areaData);
     		$.getJSON("/event/getType",typeData);
     		
-    		type.change(changeEvt);
     		$("[type=submit]").click(clickEvt);
-    		
-    		function changeEvt(){
-    			$.getJSON("/event/getKey",{"typeId":this.value},keyData);
-    			
-    		}
     		
     		function clickEvt(){
     			$("[name=btnName]").val(this.value);
@@ -417,40 +415,79 @@
         		$type.append($option);
     		});
     		
-    		var firstId = $("[name=eventTypeId]:first").val();
+    		<!-- select选中应该选中的option -->
+    		selectedEvt();
     		
-    		$.getJSON("/event/getKey",{"typeId":firstId},keyData);
+    		var firstId = $("[name=eventTypeId]:first").val();
+    		var eventId = $("[name=firstEventNo]").val();
+    		$.getJSON("/event/getKeyAndValue",{"eventId":eventId,"typeId":firstId},keyData);
+    		
     	}
     	
     	<!-- 添加动态模块 -->
     	//<![CDATA[ 
     		function keyData(data){
         		$("#dynamic").empty();
-        		$.each(data,function(i,e){
+        		$.each(data.keyList,function(i,e){
         			var keyList = new Array();
         			keyList.push(e.key1,e.key2,e.key3,e.key4,e.key5,e.key6);
+        			var valueList = new Array();
+        			if(data.value != null){
+	        			valueList.push(data.value.value1,data.value.value2,data.value.value3,data.value.value4,data.value.value5,data.value.value6);
+        			}
         			
         			for(var j = 0,len = keyList.length; j < len; j++){
         			    if(keyList[j] == null || keyList[j].length == 0){
         			    	break;
         			    } else {
-        			    	dynamicAdd(keyList[j],j);
+        			    	dynamicAdd(keyList[j],valueList[j],j);
         			    }
         			}
         			
         		});
+        		
         	}
 			//]]>
     	
     	
     	<!-- 向动态模板添加input表单 -->
     	//<![CDATA[
-    	function dynamicAdd(key,j){
+    	function dynamicAdd(key,value,j){
+    		var val ="value="+value;
+    		if(value == null){
+    			val = "";
+    		}
     		$("#dynamic").append("<div class='input-field col s6'>"+
-            "<input placeholder="+ key +" id="+ key +" name='value"+ (j+1) +"' type='text' class='validate'/>"+
+            "<input readonly='readonly' id="+ key +" name='value"+ (j+1) +"' type='text' class='value'"+ val +" />"+
                 "<label for="+ key +" class='active'>"+ key +"</label></div>");  
     	}
     	//]]>
+    	
+    	<!-- select选中应该选中的option -->
+    	function selectedEvt(){
+    		var dataType = $("[name=dataType]").val();
+    		var dataLevel = $("[name=dataLevel]").val();
+    		var dataArea = $("[name=dataArea]").val();
+    		$("[name=eventTypeId] option").each(function(i,e){
+    			if(this.value == dataType){
+    				$(this).prop("selected","selected");
+    				$("[name=initType]").val(this.value);
+    				return false;
+    			}
+    		});
+    		$("[name=eventLevel] option").each(function(i,e){
+    			if(this.value == dataLevel){
+    				$(this).prop("selected","selected");
+    				return false;
+    			}
+    		});
+    		$("[name=eventAreaId] option").each(function(i,e){
+    			if(this.value == dataArea){
+    				$(this).prop("selected","selected");
+    				return false;
+    			}
+    		});
+    	}
 
     </script>
 </body>

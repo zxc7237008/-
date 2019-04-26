@@ -43,4 +43,22 @@ public interface IFirstEventDao extends CrudRepository<FirstEventEntity, String>
 			" and if(?4 != 0,fe.event_state = ?4 ,1+1)",nativeQuery=true)
 	public List<FirstEventEntity> findAllEventByState(String typeName,String eventLevel,String areaName,int eventState);
 	
+	/**
+	 * 通过事件发生时间和类型统计当前时间段事件总数
+	 * @return 事件总数
+	 */
+	
+	@Query(value="SELECT count(fe.event_name) from t_first_event as fe LEFT JOIN t_event_type as et on et.type_id = fe.fk_type_id " + 
+			"where fe.event_datetime between ?1 and ?2 " + 
+			"and et.type_code = ?3",nativeQuery=true)
+	public int findALLEventNumByTypeAndTime(String beginTime, String endTime, String typeCode);
+	
+	/**
+	 * 统计该地区事件总数
+	 * @return 事件总数
+	 */
+	
+	@Query(value="select count(fe.fk_area_id) from t_first_event as fe LEFT JOIN t_event_area as tea on tea.area_id = fe.fk_area_id " + 
+			"where tea.area_id = ?1",nativeQuery=true)
+	public int findAllventNumByArea(String areaName);
 }
