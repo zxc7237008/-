@@ -19,10 +19,8 @@
     <!-- Google Fonts-->
     <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
-    <link rel="stylesheet" th:href="@{staticResources/bootstrap-3.3.7-dist/css/bootstrap.css}"
-	type="text/css"></link>
-     <script th:src="@{staticResources/jquery-2.1.4.js}"></script>
-     <script th:src="@{staticResources/bootstrap-3.3.7-dist/js/bootstrap.js}"></script>
+	
+	
 </head>
 
 <body>
@@ -121,26 +119,20 @@
 			<div class="form-group">
 				<div class="checkbox">
 					<span style="color: blue;"><b>角色拥有的用户</b></span>
-					<div class="row">
-						
-                          
-							<label class="col-sm-3 control-label h3" th:each="user,ustate:${listUser}">
-							 <input
-								type="checkbox" name="checkedName" checked="checked"
-								th:value="${user.uid}" th:text="${user.uname}" /> 
-							</label>
-                     
-						
-					</div>
-					<hr />
 					<span style="color: blue;"><b>角色没有拥有的用户</b></span>
 					<div class="row">
-					
-
-							<label class="col-sm-3 control-label h3" th:each="u,ustate:${nolistUser}"> <input
-								type="checkbox" name="noCheckedName" th:value="${u.uid}" th:text="${u.uname}" />
-							</label> 
-
+                        <select name="roleUserSelect" class="form-control col s10 " multiple="multiple" style="height: 100px;width: 100px" >
+							<option th:each="user,ustate:${listUser}">
+								<input type="checkbox" name="checkedName"  th:value="${user.uid}" th:text="${user.uname}"/>
+							</option>
+						</select>
+						
+                     	<select name="noRoleUserSelect" class="form-control col s10 " multiple="multiple" style="height: 100px ;width: 100px" >
+							<option th:each="u,ustate:${nolistUser}">
+								<input type="checkbox" name="noCheckedName" th:value="${u.uid}" th:text="${u.uname}" style="display: inline;"/> 
+							</option>
+						</select>
+						
 					</div>
 				</div>
 			</div>
@@ -158,7 +150,7 @@
 		<input type="text" id="addId" name="addName" /> 
 		<input type="text" id="delId" name="delName" /> 
 		<input type="text" th:value="${roleId}" name="roleId"/>
-			<input type="text" th:value="${roleName}" name="roleName"/>
+		<input type="text" th:value="${roleName}" name="roleName"/>
 	</form>
 	</div>
 		</div>	
@@ -194,8 +186,8 @@
 	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
-    
+    <script th:src="@{static/assets/js/custom.js}"></script> 
+	
 	<script type="text/javascript">
 	
 		
