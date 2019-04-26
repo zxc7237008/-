@@ -55,7 +55,7 @@ public class ShiftexchangeController {
 // 	   UserEntity userEntity = (UserEntity) session.getAttribute("User");
 // 	   System.out.println(userEntity.getUname());//占时不知道名字
 		 ModelAndView modelAndView=new ModelAndView();
-		System.out.println(daily);
+		System.out.println(daily);		
 		Uname="duhao";
 		ShiftexchangeEntity shiftexchangeEntity = new ShiftexchangeEntity();
 		shiftexchangeEntity.setName(Uname);

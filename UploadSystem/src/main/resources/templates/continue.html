@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿﻿<!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -284,6 +284,42 @@
             <!-- /. PAGE INNER  -->
         </div>
         <!-- /. PAGE WRAPPER  -->
+        
+        
+        
+        
+        <!-- 模态框（Modal） -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	
+		<div >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h2 class="modal-title" id="myModalLabel">
+					详情信息
+				</h2>
+			</div>
+			<div class="modal-body"  >
+				
+				<textarea id="textarea1" rows="" cols="" style="width: 100%;height:490px;" readonly="readonly" th:value="${message}"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="waves-effect waves-light btn right" data-dismiss="modal">关闭
+				</button>
+				
+			</div>
+		</div><!-- /.modal-content -->
+	
+</div>
+        
+        
+        
+        
+        
+        
+        
+        
     <!-- /. WRAPPER  -->
     <!-- JS Scripts-->
     <!-- jQuery Js -->
@@ -315,6 +351,7 @@
 	$(function(){
 		var pageNum=0;
 		var eventNo=$("#eventNo").val();
+		$("table").on("click","a",clickEvt);
 		
 		  $.getJSON("changePage",{pageNum:pageNum,eventNo:eventNo},filldate);
 		  $(":button").click(function (){
@@ -345,10 +382,23 @@
               }
               
               
-              
 		  
 	});
-	})
+		  function clickEvt(){
+			  $.post("showMessage",
+					  {
+				  		id:$(this).prop("id")
+					  },
+					  function(data){
+						
+						$("#textarea1").val(data);
+					  },
+					  "text"
+					  )
+					 
+		  }
+		  
+	});
 	//]]>
 	//<![CDATA[ 
 	function filldate(data){
@@ -375,8 +425,8 @@
                         + "</td><td>" + e.date
                         + "</td><td>" + e.name
                         + "</td><td>" + e.phoneNumber
-                        + "</td><td>" + e.detailed
-                        + "</td><td>" + e.reporter
+                        + "</td><td><a class='waves-effect waves-light btn' data-toggle='modal' data-target='#myModal' id='" + e.rId
+                        + "'>查看详情</a></td><td>" + e.reporter
                         + "</td></tr>";
                     $table.append(dataTr);
                 });
@@ -389,6 +439,8 @@
              $("#pageAll").val(pageAll);
 	}
 	//]]>
+	
+	
     </script>
 
 
