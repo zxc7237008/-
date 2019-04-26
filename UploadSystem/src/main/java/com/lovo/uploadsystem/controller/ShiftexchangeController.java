@@ -44,10 +44,10 @@ public class ShiftexchangeController {
 		 ModelAndView modelAndView=new ModelAndView();
 		System.out.println(daily);
 		if(daily.equals("wenhao")){
-			RedirectView rv = new RedirectView("showjournalListPage");//重定向的视图
+			RedirectView rv = new RedirectView("gotoJournal");//重定向的视图
 			modelAndView.setView(rv);
 		}else{
-			RedirectView rv = new RedirectView("showjournalListPage");//重定向的视图
+			RedirectView rv = new RedirectView("gotoJournal");//重定向的视图
 			modelAndView.setView(rv);
 		}
         return modelAndView;

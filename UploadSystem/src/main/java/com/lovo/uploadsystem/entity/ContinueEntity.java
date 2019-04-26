@@ -127,6 +127,14 @@ public class ContinueEntity {
 	public void setEvent(FirstEventEntity event) {
 		this.event = event;
 	}
+
+	public String getrId() {
+		return rId;
+	}
+
+	public void setrId(String rId) {
+		this.rId = rId;
+	}
 	
 	
 	

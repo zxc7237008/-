@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +30,17 @@ public class ContinueController {
 	@Autowired
 	public IContinueService continueService;
 	
-	
+	@RequestMapping("showMessage")
+	public ModelAndView showMessage(HttpServletRequest request) {
+		System.out.println("进入信息");
+		ModelAndView mv = new ModelAndView();
+		String id = request.getParameter("id");
+		ContinueEntity c = continueService.showMessage(id);
+		String message = c.getDetailed();
+		System.out.println(message);
+		mv.addObject("message", message);
+		return mv;
+	}
 	
 	
 	
@@ -37,6 +49,7 @@ public class ContinueController {
 	@RequestMapping("showFirstEventMessage")
 	public ModelAndView showFirstEventMessage(@RequestParam("firstEventNo") String firstEventNo) {
 		FirstEventEntity eventList = continueService.findFirstEvent(firstEventNo);
+		
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("continue");
 		mv.addObject("eventList", eventList);
