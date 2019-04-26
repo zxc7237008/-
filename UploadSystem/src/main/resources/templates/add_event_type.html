@@ -7,18 +7,18 @@
     <title>事件类型添加</title>
 	
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
-	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+	<link rel="stylesheet" th:href="@{/static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
     <!-- Bootstrap Styles-->
-    <link th:href="@{static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/static/assets/css/bootstrap.css}" rel="stylesheet" />
     <!-- FontAwesome Styles-->
-    <link th:href="@{static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <link th:href="@{/static/assets/css/font-awesome.css}" rel="stylesheet" />
     <!-- Morris Chart Styles-->
-    <link th:href="@{static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <link th:href="@{/static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
     <!-- Custom Styles-->
-    <link th:href="@{static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <link th:href="@{/static/assets/css/custom-styles.css}" rel="stylesheet" />
     <!-- Google Fonts-->
     <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+    <link rel="stylesheet" th:href="@{/static/assets/js/Lightweight-Chart/cssCharts.css}"/>
     
 </head>
 <body>
@@ -112,70 +112,67 @@
 				<div class="card"> 
 					<div class="card-content"> 
 					<div style="margin-top: 10px;">
-					<div class="card">
                         <div class="card-action">
                             <strong class="left">事件类型添加列表</strong>
                         </div>
                         
-                         <form class="col s12">
-						      <div class="row">
-							      <div class="col s12">
+                         <form th:action="@{/eventType/addType}">
 							      <!-- 添加事件名称 -->
-							      	<div class="col-md-12 left">
+							      	<div class="row">
 							      		<div class="col-md-4"></div>
 							      		<div class="col-md-4">
 							      			<div class="input-field col s10">
-									          <input id="areaName" type="text" class="validate"/>
-									          <label for="areaName" class="">事件类型</label>
+									          <input placeholder="事件类型" id="eventType" name="typeName" type="text" class="validate"/>
+									          <label for="eventType" class="">事件类型</label>
+									        </div>
+							      		</div>
+							      		<div class="col-md-4"></div>
+							      	</div>
+							      	<!-- 添加事件编码 -->
+							      	<div class="row">
+							      		<div class="col-md-4"></div>
+							      		<div class="col-md-4">
+							      			<div class="input-field col s10">
+									          <input placeholder="事件编码" id="typeCode" name="typeCode" type="text" class="validate"/>
+									          <label for="typeCode" class="">事件编码</label>
 									        </div>
 							      		</div>
 							      		<div class="col-md-4"></div>
 							      	</div>
 							      	<!-- 添加的内容 -->
-							      	<div>
+							      	<div class="row">
 							      		<div>
 							      			<div class="col-md-4"></div>
 							      			<div class="col-md-4">
-								      			<div class="input-field col s10">
-										          <input id="areaName" type="text" class="validate"/>
-										          <label for="areaName" class="">新增表单</label>
-										        </div>
+										        <div class="input-field col s10">
+								  					<textarea placeholder="新增事件类型属性" id="textarea1" class="materialize-textarea"></textarea>
+								  					<label for="textarea1">新增事件类型属性</label>
+												</div>
 										        <div>
-										        	<a class="btn-floating disabled"><i class="material-icons">add</i></a>
+										        	<a class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
 										        </div>
 										        
 										        <div>
-								      				<select name="select1" class="form-control col s10 " multiple="multiple" style="height: 150px">
-									      				<option value="apple">苹果</option>
-									      				<option value="apple">橘子</option>
-									      				<option value="apple">西瓜</option>
-									      				<option value="apple">香蕉</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
-									      				<option value="apple">菠萝</option>
+								      				<select name="keys" class="form-control col s10 " multiple="multiple" style="height: 150px">
 									      			</select>
 								      			</div>
+								      			<input type="hidden" name="count"/>
+								      			<p class="left">注：最多可添加6个属性。</p>
+								      			<p class="left">可一次添加多个属性，每个属性换行即可。</p>
+								      			<p class="left">双击已添加属性可删除</p>
 							      			</div>
 							      			<div class="col-md-4"></div>
 							      			
 							      		</div>
 							      	</div>
 							         <!-- 按钮 -->	
-						            <div class="col-md-12">
-						            	<div class="col s10"></div>
-						            	<div class="col s1"><a th:href="@{table.html}" class="waves-effect waves-light btn">确认修改 </a></div>
-							         	<div class="col s1"><a th:href="@{table.html}" class="waves-effect waves-light btn">返回</a></div>
+						            <div class="row">
+						            	<div class="col s8"></div>
+						            	<div class="col s1"><input type="submit"  class="waves-effect waves-light btn" value="确定添加"/></div>
+							         	<div class="col s1"><a th:href="@{/eventType/info}" class="waves-effect waves-light btn">返回</a></div>
 						        	</div>
-							       </div>
-						      </div>
+						        	
 					    </form>
-                        
-                        
-                    </div>						
 				  </div> 
 				</div>
 			  </div>
@@ -186,28 +183,64 @@
 				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
 			</footer>
      </div>
-    <script th:src="@{static/assets/js/jquery-1.10.2.js}"></script>
+    <script th:src="@{/static/assets/js/jquery-1.10.2.js}"></script>
 	
 	<!-- Bootstrap Js -->
-    <script th:src="@{static/assets/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/assets/js/bootstrap.min.js}"></script>
 	
-	<script th:src="@{static/assets/materialize/js/materialize.min.js}"></script>
+	<script th:src="@{/static/assets/materialize/js/materialize.min.js}"></script>
 	
     <!-- Metis Menu Js -->
-    <script th:src="@{static/assets/js/jquery.metisMenu.js}"></script>
+    <script th:src="@{/static/assets/js/jquery.metisMenu.js}"></script>
     <!-- Morris Chart Js -->
-    <script th:src="@{static/assets/js/morris/raphael-2.1.0.min.js}"></script>
-    <script th:src="@{static/assets/js/morris/morris.js}"></script>
+    <script th:src="@{/static/assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{/static/assets/js/morris/morris.js}"></script>
 	
 	
-	<script th:src="@{static/assets/js/easypiechart.js}"></script>
-	<script th:src="@{static/assets/js/easypiechart-data.js}"></script>
+	<script th:src="@{/static/assets/js/easypiechart.js}"></script>
+	<script th:src="@{/static/assets/js/easypiechart-data.js}"></script>
 	
-	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	<script th:src="@{/static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{static/assets/js/custom.js}"></script>  
+    <script th:src="@{/static/assets/js/custom.js}"></script>  
  
+ 	<script type="text/javascript">
+ 		$(function(){
+ 			$("a:has(.material-icons)").click(clickEvt);
+ 			$("[name=keys]").on("dblclick","option",dblclickEvt);
+ 			$("[type=submit]").click(submitEvt);
+ 			
+ 		//<![CDATA[
+ 			function clickEvt(){
+ 				$("option")
+ 				var count = paseInt($("[name=count]"));
+ 				var keys = $("#textarea1").val();
+ 				var keyList = keys.split(/[\n,]/g);
+ 				$("#textarea1").val("");
+ 				
+ 				 for(var i =0;i<keyList.length;i++){
+ 					 if(keyList[i] == ""){
+ 						 continue;
+ 					 }
+ 					var $option = $("<option value="+ keyList[i] +">"+ keyList[i] +"</option>");
+ 	 				$("[name=keys]").append($option);
+ 				 }
+ 				
+ 				
+ 			}
+ 			//]]>
+ 		
+ 			function dblclickEvt(){
+ 				$(this).remove();
+ 			}
+ 			
+ 			function submitEvt(){
+ 				$("option").prop("selected","selected");
+ 			}
+ 		});
+ 		
+ 	</script>
 
 </body>
 
