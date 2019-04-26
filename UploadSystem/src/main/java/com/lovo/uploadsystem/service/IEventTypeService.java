@@ -30,6 +30,6 @@ public interface IEventTypeService {
 	 * 保存事件类型
 	 * @param eventType 事件类型实体
 	 */
-	public void saveType(EventTypeEntity eventType);
+	public EventTypeEntity saveType(EventTypeEntity eventType);
 	
 }

@@ -34,8 +34,8 @@ public class EventTypeServiceImpl implements IEventTypeService{
 	}
 
 	@Override
-	public void saveType(EventTypeEntity eventType) {
-		eventTypeDao.save(eventType);
+	public EventTypeEntity saveType(EventTypeEntity eventType) {
+		return eventTypeDao.save(eventType);
 		
 	}
 }

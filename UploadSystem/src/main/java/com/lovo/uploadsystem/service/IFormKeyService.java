@@ -9,4 +9,10 @@ public interface IFormKeyService {
 	 * @param key 表单实体
 	 */
 	public void saveKey(FormKeyEntity key);
+
+	/**
+	 * 通过事件类型id删除表单
+	 * @param typeId 事件类型id
+	 */
+	public void delKey(String typeId);
 }

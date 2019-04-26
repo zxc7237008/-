@@ -156,6 +156,7 @@
 								      				<select name="keys" class="form-control col s10 " multiple="multiple" style="height: 150px">
 									      			</select>
 								      			</div>
+								      			<input type="hidden" name="count"/>
 								      			<p class="left">注：最多可添加6个属性。</p>
 								      			<p class="left">可一次添加多个属性，每个属性换行即可。</p>
 								      			<p class="left">双击已添加属性可删除</p>
@@ -168,7 +169,7 @@
 						            <div class="row">
 						            	<div class="col s8"></div>
 						            	<div class="col s1"><input type="submit"  class="waves-effect waves-light btn" value="确定添加"/></div>
-							         	<div class="col s1"><a th:href="@{/home}" class="waves-effect waves-light btn">返回</a></div>
+							         	<div class="col s1"><a th:href="@{/eventType/info}" class="waves-effect waves-light btn">返回</a></div>
 						        	</div>
 						        	
 					    </form>
@@ -212,6 +213,8 @@
  			
  		//<![CDATA[
  			function clickEvt(){
+ 				$("option")
+ 				var count = paseInt($("[name=count]"));
  				var keys = $("#textarea1").val();
  				var keyList = keys.split(/[\n,]/g);
  				$("#textarea1").val("");
