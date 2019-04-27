@@ -109,18 +109,18 @@
 			</div>
 			
 			<div class="col-md-12">
-				<div class="card"> 
+				<div class="card">
+					<div class="card-action">
+                            <strong class="left">事件类型修改列表</strong>
+                        </div> 
 									
 					<div class="card-content"> 
 
 					   <div style="margin-top: 10px;">
 							
-				<div class="card">
-                        <div class="card-action">
-                            <strong class="left">事件类型修改列表</strong>
-                        </div>
                         
-                        <form class="col s12">
+                        
+                        <form th:action="@{/eventType/updateType}" method="get">
 						      <div class="row">
 							      <div class="col s12">
 							      <!-- 修改事件名称 -->
@@ -128,44 +128,32 @@
 							      		<div class="col-md-4"></div>
 							      		<div class="col-md-4">
 							      			<div class="input-field col s12">
-									          <input id="areaName" type="text" class="validate"/>
-									          <label for="areaName" class="">事件类型</label>
+							      				<input name="typeId" type="hidden" th:value="${typeId}"/>
+									          <input placeholder="事件类型" id="typeName" name="typeName" type="text" class="validate" th:value="${typeName}" />
+									          <label for="typeName" class="active">事件类型</label>
 									        </div>
 							      		</div>
 							      		<div class="col-md-4"></div>
 							      	</div>
 							      	<!-- 添加的内容 -->
-							      	<div>
-							      		<div class="col-md-6">
-							      			<div class="input-field">
-									          <input id="areaName" type="text" class="validate"/>
-									          <label for="areaName" class="">事件类型1</label>
-									        </div>
-							      		</div>
-							      		<div class="col-md-6">
-							      			<div class="input-field">
-									          <input id="areaName" type="text" class="validate"/>
-									          <label for="areaName" class="">事件类型2</label>
-									        </div>
-							      		</div>
-							      		<div class="col-md-6">
-							      			<div class="input-field">
-									          <input id="areaName" type="text" class="validate"/>
-									          <label for="areaName" class="">事件类型3</label>
-									        </div>
-							      		</div>
+							      	<div id="dynamic">
+							      		
 							      	</div>
+							      	<div class="row">
+							      	<input type="hidden" name="count"/>
+							      		<div class="col-md-3"></div>
+										<a class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
+									</div>
 							         <!-- 按钮 -->	
 						            <div class="col-md-12">
 						            	<div class="col s10"></div>
-						            	<div class="col s1"><a th:href="@{table.html}" class="waves-effect waves-light btn">确认修改 </a></div>
-							         	<div class="col s1"><a th:href="@{table.html}" class="waves-effect waves-light btn">返回</a></div>
+						            	<div class="col s1"><input type="submit" class="waves-effect waves-light btn" value="确认修改" /></div>
+							         	<div class="col s1"><a th:href="@{/eventType/info}" class="waves-effect waves-light btn">返回</a></div>
 						        	</div>
 							       </div>
 						      </div>
 					    </form>
                         
-                    </div>						
 				  </div> 
 				</div>
 			  </div>
@@ -196,9 +184,60 @@
 	<script th:src="@{/static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{/static/assets/js/custom.js}"></script>  
- 
-
+    <script th:src="@{/static/assets/js/custom.js}"></script> 
+    
+    <script type="text/javascript">
+    	$(function(){
+    		var typeId = $("[name=typeId]").val();
+    		$.getJSON("/event/getKey",{"typeId":typeId},keyData);
+    		
+    		$("a:has(.material-icons)").click(clickEvt);
+    		
+    		//<![CDATA[
+    		function clickEvt(){
+    			$("[type=text]").each(function(i,e){
+    				$("[name=count]").val(i);
+    			});
+    			var count = $("[name=count]").val();
+    			var n = parseInt(count);
+    			if(n < 6){
+    				dynamicAdd("",n);
+    			}
+    		}
+    		//]]>
+    		
+    	});
+    	
+    	<!-- 添加动态模块 -->
+    	//<![CDATA[ 
+    		function keyData(data){
+        		$("#dynamic").empty();
+        		$.each(data,function(i,e){
+        			var keyList = new Array();
+        			keyList.push(e.key1,e.key2,e.key3,e.key4,e.key5,e.key6);
+        			
+        			for(var j = 0,len = keyList.length; j < len; j++){
+        			    if(keyList[j] == null || keyList[j].length == 0){
+        			    	break;
+        			    } else {
+        			    	dynamicAdd(keyList[j],j);
+        			    }
+        			}
+        			
+        		});
+        	}
+			//]]>
+    	
+    		<!-- 向动态模板添加input表单 -->
+        	//<![CDATA[
+        	function dynamicAdd(key,j){
+        		$("#dynamic").append("<div class='input-field col s6'>"+
+                "<input placeholder='属性"+ (j+1) +"' id="+ (j+1) +" name='key"+ (j+1) +"' type='text' value='"+ key +"' class='validate'/>"+
+                    "<label for="+ (j+1) +" class='active'>属性"+ (j+1) +"</label></div>");  
+        	}
+        	//]]>
+    </script>
+     
 </body>
 
 </html>

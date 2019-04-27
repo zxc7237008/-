@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -226,5 +225,12 @@ public class FirstEventServiceImpl implements IFirstEventService{
 		
 		return map;
 	}
+	@Transactional
+	@Override
+	public void delEvent(String eventId) {
+		firstEventDao.delete(eventId);
+		
+	}
+
 	
 }
