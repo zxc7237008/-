@@ -49,39 +49,26 @@ public class ChartController {
 		int eventNum = firstEventService.findAllventNumByArea(areaId);
 		
 		return eventNum;
-		
 	}
 	
 	@ResponseBody
-	@RequestMapping("getEventByTypeAndTime")
-	private List<Map<String, Object>> getEventByTypeAndTime(String year) {
+	@RequestMapping("getEventByType")
+	private Map<String, Object> getEventByType() {
 		
-		List<Map<String, Object>> list = new ArrayList<>();
+		Map<String, Object> map = firstEventService.findAllEventNumByType();
 		
-		List<YearDto> yearList = ListUtil.getYearList();
-		
-		List<EventTypeEntity> eventList = eventTypeService.findAllEventTypes();
-		
-		for (YearDto yearDto : yearList) {
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			
-			String beginTime = year + yearDto.getBeginTime();
-			
-			String endTime = year + yearDto.getEndTime();
-			
-			for (EventTypeEntity eventTypeEntity : eventList) {
-				
-				String typeCode = eventTypeEntity.getTypeCode();
-				
-				map.put(eventTypeEntity.getTypeName(), firstEventService.findALLEventNumByTypeAndTime(beginTime, endTime, typeCode));
-			}
-			
-			list.add(map);
-			
-		}
-		
-		return list;
-		
+		return map;
 	}
+	
+	@ResponseBody
+	@RequestMapping("getEventByTime")
+	private List<Integer> getEventByTime(String beginTime, String endTime) {
+		
+		List<Integer> eventNum = firstEventService.findAllEventNumByTime();
+		
+		return eventNum;
+	}
+	
+	
+	
 }

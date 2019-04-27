@@ -1,7 +1,9 @@
 package com.lovo.uploadsystem.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -9,10 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lovo.uploadsystem.dao.IFirstEventDao;
+import com.lovo.uploadsystem.dto.YearDto;
+import com.lovo.uploadsystem.entity.EventTypeEntity;
 import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
 import com.lovo.uploadsystem.entity.StateEntity;
+import com.lovo.uploadsystem.service.IEventTypeService;
 import com.lovo.uploadsystem.service.IFirstEventService;
+import com.lovo.uploadsystem.util.ListUtil;
 import com.lovo.uploadsystem.util.infoDTO;
 
 
@@ -21,7 +27,9 @@ public class FirstEventServiceImpl implements IFirstEventService{
 	
 	@Autowired
 	private IFirstEventDao firstEventDao;
-
+	@Autowired
+	private IEventTypeService eventTypeService;
+	
 	
 	@Override
 	public void saveEvent(FirstEventEntity event) {
@@ -162,18 +170,61 @@ public class FirstEventServiceImpl implements IFirstEventService{
 	public FirstEventEntity findEvent(String eventId) {
 		return firstEventDao.findOne(eventId);
 	}
-
-	@Override
-	public int findALLEventNumByTypeAndTime(String beginTime, String endTime, String typeCode) {
-
-		return firstEventDao.findALLEventNumByTypeAndTime(beginTime, endTime, typeCode);
-	}
-
+	
 	@Override
 	public int findAllventNumByArea(String areaName) {
 		
 		return firstEventDao.findAllventNumByArea(areaName);
 	}
 
+	@Override
+	public List<Integer> findAllEventNumByTime() {
+		
+		List<Integer> eventList = new ArrayList<>();
+		
+		List<YearDto>list = ListUtil.getYearList();
+		
+		for (YearDto yearDto : list) {
+			
+			int eventNum = firstEventDao.findAllEventNumByTime(yearDto.getBeginTime(), yearDto.getEndTime());
+
+			eventList.add(eventNum);
+		}
+		
+		return eventList;
+	
+	}
+
+	@Override
+	public Map<String,Object> findAllEventNumByType() {
+
+		List<Integer> list = new ArrayList<>();
+		
+		//获取所有事件类型集合
+		List<EventTypeEntity> eventTypeList = eventTypeService.findAllEventTypes();
+		
+		List<String> eventTypeNames = new ArrayList<>();
+		
+		for (EventTypeEntity eventTypeEntity : eventTypeList) {
+			
+			eventTypeNames.add(eventTypeEntity.getTypeName());
+		}
+		
+		for (EventTypeEntity eventTypeEntity : eventTypeList) {
+			
+			String typeName = eventTypeEntity.getTypeName();
+			
+			int count = firstEventDao.findAllEventNumByType(typeName);
+			
+			list.add(count);
+		}
+		//获取对应事件类型的案发量
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("eventTypeList", eventTypeNames);
+		map.put("list", list);
+		
+		return map;
+	}
 	
 }

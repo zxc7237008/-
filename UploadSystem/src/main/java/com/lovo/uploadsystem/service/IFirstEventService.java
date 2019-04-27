@@ -1,6 +1,7 @@
 package com.lovo.uploadsystem.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
@@ -58,21 +59,25 @@ public interface IFirstEventService {
 	 * @return 事件初报实体
 	 */
 	public FirstEventEntity findEvent(String eventId);
-	
-	
+
 	/**
-	 * 通过事件发生时间和类型统计当前时间段事件总数
-	 * @param beginTime 起始时间;endTime 结尾时间; typeCode 事件编码
+	 * 根据统计当前事件类型的事件总数
+	 * @param typeCode 事件类型编码
 	 * @return 事件总数
 	 */
-	public int findALLEventNumByTypeAndTime(String beginTime, String endTime, String typeCode);
+	public Map<String, Object> findAllEventNumByType();
 	
+	/**
+	 * 统计当前时间段的事件总数
+	 * @param beginTime 起始时间;endTime 结尾时间
+	 * @return 事件总数
+	 */
+	public List<Integer>findAllEventNumByTime();
 	/**
 	 * 统计该地区事件总数
 	 * @param areaName 事件发生区域
 	 * @return 事件总数
 	 */
-	
 	public int findAllventNumByArea(String areaName);
 	
 }
