@@ -96,7 +96,7 @@
                              <div class="row">
                                  <div class="col-md-11"></div>
                                  <input type="hidden" name="btnName"/>
-                                 <div class="col-md-1"><a class="waves-effect waves-light btn">返回</a></div>
+                                 <div class="col-md-1"><a class="waves-effect waves-light btn" th:href="@{/home}">返回</a></div>
                              </div>
 							<input type="hidden"  name="dataLevel" th:value="${event.eventLevel}"/>
 							<input type="hidden" name="dataType" th:value="${event.eventType.typeId}"/>

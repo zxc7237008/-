@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.lovo.uploadsystem.entity.JournalEntity;
 import com.lovo.uploadsystem.entity.PageBean;
+import com.lovo.uploadsystem.entity.UserEntity;
 import com.lovo.uploadsystem.service.IJournalService;
 
 
@@ -29,7 +31,7 @@ public class JournalController {
 	
 		
 		@RequestMapping("gotoJournal")
-	    public ModelAndView showUserListPage(){
+	    public ModelAndView showUserListPage(HttpServletRequest rq){
 	        ModelAndView modelAndView = new ModelAndView("journal");
 	        int pageNum = 0;
 	        int pageSize = 5;
@@ -40,6 +42,18 @@ public class JournalController {
 	        pageBean.setPageNum(pageNum);
 	        pageBean.setPageAll(pageAll);
 	        modelAndView.addObject("pageBean",pageBean);
+	        
+	       //需要登录用户传过来
+//	        HttpSession session =request.getSession(); 
+//		 	   UserEntity userEntity = (UserEntity) session.getAttribute("User");
+	        
+	        //需要删除的代码
+	        UserEntity userEntity = new UserEntity();
+	        userEntity.setUname("duhao111");
+	        userEntity.setUpasss("123");
+	        rq.getSession().setAttribute("User", userEntity);
+	        //需要删除的代码结尾
+	        modelAndView.addObject("user",userEntity);
 	        return modelAndView;
 	    }
 	 
@@ -68,6 +82,8 @@ public class JournalController {
 	    }
 
 
+	    
+	    
 	  
 
 }

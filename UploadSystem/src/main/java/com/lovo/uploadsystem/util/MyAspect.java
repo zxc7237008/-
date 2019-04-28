@@ -19,9 +19,14 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.lovo.uploadsystem.entity.JournalEntity;
+import com.lovo.uploadsystem.entity.UserEntity;
 import com.lovo.uploadsystem.service.IJournalService;
 
-
+/**
+ * 文浩
+ * @author 文浩
+ *
+ */
 
 @Component //通知spring来管理
 @Aspect  //切面
@@ -71,18 +76,27 @@ public class MyAspect {
 	    	}	
 	}else if(methodName.contains("shiftexchange")){
 		 incident = "下班了";
+	}else if(methodName.contains("login")){
+		 incident = "登录";
 	}
     
     if(incident!=null&&!incident.equals("")){
     	//获取session
     	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     	   HttpSession session =request.getSession(); 
-    	   String name = (String) session.getAttribute("testsession");
-    	   System.out.println(name);//占时不知道名字
-    	   
+    	   UserEntity user =  (UserEntity) session.getAttribute("User");
+    	   System.out.println("aop"+user.getUname()+"22222222222222");//占时不知道名字
     	   //把对象放入数据库以及保存在本地txt文档里
     	   journalEntity.setIncident(incident);
+    	   
+    	   
+    	   //需要删除的代码
     	    journalEntity.setName("duhao");//修改的difan
+    	    //需要删除的代码结尾
+    	    
+    	    
+    	    //需要放行的代码
+//    	    journalEntity.setName(user.getUname());//修改的difan
     	    //把对象保存在数据库中
     	    iJournalService.savejournal(journalEntity);
     	    //保存在本地Txt文档里
@@ -93,10 +107,14 @@ public class MyAspect {
     
    
 	 }
-	 
+	 //如果登录不放入session  就在这里获取
 	 @AfterReturning(pointcut="register()",returning="returnVal")
 	    public void afterReturn(JoinPoint joinPoint,Object returnVal){
-		 
+		 //获取session
+   	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+   	   HttpSession session =request.getSession(); 
+   	   UserEntity user =  (UserEntity) session.getAttribute("userentity");
+   	   System.out.println(user.getUname());//占时不知道名字
 		 
 		 
 	        System.out.println("AOP 返回值:" + returnVal);
