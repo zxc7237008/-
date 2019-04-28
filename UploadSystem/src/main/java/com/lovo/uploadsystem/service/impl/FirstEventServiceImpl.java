@@ -178,14 +178,14 @@ public class FirstEventServiceImpl implements IFirstEventService{
 
 	@Override
 	public List<Integer> findAllEventNumByTime() {
+		String year = "2019";
 		
 		List<Integer> eventList = new ArrayList<>();
-		
 		List<YearDto>list = ListUtil.getYearList();
 		
 		for (YearDto yearDto : list) {
 			
-			int eventNum = firstEventDao.findAllEventNumByTime(yearDto.getBeginTime(), yearDto.getEndTime());
+			int eventNum = firstEventDao.findAllEventNumByTime(year + yearDto.getBeginTime(), year + yearDto.getEndTime());
 
 			eventList.add(eventNum);
 		}

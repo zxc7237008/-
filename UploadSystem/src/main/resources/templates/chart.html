@@ -89,7 +89,7 @@
    		// 指定图表的配置项和数据
    		myChart.setOption({
 		
-			title:{text:'统计数据'},
+			title:{text:'类型统计数据'},
 			tooltip:{},
 			legend:{data:['事件类型']},
 			xAxis: {data: []},
@@ -111,29 +111,109 @@
    			}
    		});
 	</script>
-		<script type="text/javascript">
-    	// 基于准备好的dom，初始化echarts实例
-    	var myChart = echarts.init(document.getElementById('pie'));
-   		// 指定图表的配置项和数据
-   		var option = {
-            title:{
-                text:'统计数据'
-            },            
-            series:[{
-            	name: '事件总数',
-                type:'pie',    
-                radius:'60%', 
-                data:[
-                    {value:5,name:'一季度'},
-                    {value:20,name:'二季度'},
-                    {value:36,name:'三季度'},
-                    {value:10,name:'四季度'}
-                ]
-            }]
-        };
+	<script type="text/javascript">
+		// 基于准备好的dom，初始化echarts实例
+		var myChart = echarts.init(document.getElementById('pie'));
+		// 指定图表的配置项和数据
+		myChart.setOption ({
+		    backgroundColor: '#2c343c',
 
-    	// 使用刚指定的配置项和数据显示图表。
-    	myChart.setOption(option);
+		    title: {
+		        text: '时间统计数据',
+		        left: 'center',
+		        top: 20,
+		        textStyle: {
+		            color: '#ccc'
+		        }
+		    },
+
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+		    },
+
+		    visualMap: {
+		        show: false,
+		        min: 80,
+		        max: 600,
+		        inRange: {
+		            colorLightness: [0,1]
+		        }
+		    },
+		    series : [
+		        {
+		            name:'访问来源',
+		            type:'pie',
+		            radius : '55%',
+		            center: ['50%', '50%'],
+		            data: (function(){
+		            	              var arr=[];
+		            	              $.ajax({
+		            	                   type : "post",
+		            	                   async : false, //同步执行
+		            	                   url : "../getEventByTime",
+		            	                   data : {},
+		            	                   success : function(data) {
+		            	                
+		            	                   arr = data;
+		            	                                          
+		            	                  },
+		            	                      error : function(errorMsg) {
+		            	                          alert("不好意思,图表请求数据失败啦!");
+		            	                           myChart.hideLoading();
+		            	                         }
+		            	                 })
+		            	                   return arr;
+		            	                })() .sort(function (a, b) { return a.value - b.value; }),
+		            roseType: 'radius',
+		            label: {
+		                normal: {
+		                    textStyle: {
+		                        color: 'rgba(255, 255, 255, 0.3)'
+		                    }
+		                }
+		            },
+		            labelLine: {
+		                normal: {
+		                    lineStyle: {
+		                        color: 'rgba(255, 255, 255, 0.3)'
+		                    },
+		                    smooth: 0.2,
+		                    length: 10,
+		                    length2: 20
+		                }
+		            },
+		            itemStyle: {
+		                normal: {
+		                    color: '#c23531',
+		                    shadowBlur: 200,
+		                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+		                }
+		            },
+
+		            animationType: 'scale',
+		            animationEasing: 'elasticOut',
+		            animationDelay: function (idx) {
+		                return Math.random() * 200;
+		            }
+		        }
+		    ]
+		});
+		 myChart.setOption(option); 
+		/* $.ajax({
+   			url:"../getEventByTime",
+   			async:false,
+   			cache:false,
+   			success:function(data){
+   				myChart.setOption({
+   					
+   					series:[{data: data}]
+   				});
+   			},
+   			error:function(error){
+   				console.log(error);
+   			}
+   		}); */
 	</script>
 </body>
 
