@@ -50,7 +50,7 @@ public class EventTypeServiceImpl implements IEventTypeService{
 		
 		//获取总页数
 		int n =(int)eventTypeDao.count();
-		int pageAll = n/pageSize;
+		int pageAll = (n+pageSize-1)/pageSize;
 		page.setPageAll(pageAll);
 		
 		//按分页获取list

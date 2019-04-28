@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title></title>
+</head>
+	<div th:fragment="nav">
+			<nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+
+                    
+                                        <li>
+                        <a th:href="@{/home}" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/event/first}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
+                    </li>
+					<li>
+                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
+                    </li>
+                    <li>
+                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                    </li>
+                    
+                    <li>
+                        <a th:href="@{/showChart}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
+                    </li>
+                    <li>
+                        <a th:href="@{gotoUserManage}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
+                    </li>
+                    <li class="w">
+                        <a  class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> 事件类型维护<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            <li>
+                                <a th:href="@{/eventType/info}">详情</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/eventType/add}">添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                         
+                </ul>
+
+            </div>
+
+        </nav>
+		</div>
+</html>
