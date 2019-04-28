@@ -147,24 +147,22 @@
 		            radius : '55%',
 		            center: ['50%', '50%'],
 		            data: (function(){
-		            	              var arr=[];
-		            	              $.ajax({
-		            	                   type : "post",
-		            	                   async : false, //同步执行
-		            	                   url : "../getEventByTime",
-		            	                   data : {},
-		            	                   success : function(data) {
-		            	                
-		            	                   arr = data;
-		            	                                          
-		            	                  },
-		            	                      error : function(errorMsg) {
-		            	                          alert("不好意思,图表请求数据失败啦!");
-		            	                           myChart.hideLoading();
-		            	                         }
-		            	                 })
-		            	                   return arr;
-		            	                })() .sort(function (a, b) { return a.value - b.value; }),
+           	              var arr=[];
+           	              $.ajax({
+           	                   type : "post",
+           	                   async : false, //同步执行
+           	                   url : "../getEventByTime",
+           	                   data : {},
+           	                   success : function(data) {
+           	                   arr = data;
+           	                  },
+        	                      error : function(errorMsg) {
+        	                          alert("不好意思,图表请求数据失败啦!");
+        	                           myChart.hideLoading();
+        	                         }
+           	                 })
+           	                   return arr;
+           	                })().sort(function (a, b) { return a.value - b.value; }),
 		            roseType: 'radius',
 		            label: {
 		                normal: {
@@ -199,7 +197,7 @@
 		        }
 		    ]
 		});
-		 myChart.setOption(option); 
+		
 		/* $.ajax({
    			url:"../getEventByTime",
    			async:false,
