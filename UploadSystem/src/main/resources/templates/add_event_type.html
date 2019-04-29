@@ -22,78 +22,10 @@
     
 </head>
 <body>
-    <div id="wrapper">
-    	<!-- 开始导航栏模块 -->
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-        	<!-- 开始upload-system模块 -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand waves-effect waves-dark" th:href="@{ui-elements.html}"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
-				
-				<div id="sideNav" th:href="@{#}"><i class="material-icons dp48">toc</i></div>
-            </div>
-			<!-- 结束upload-system模块 -->
-            <ul class="nav navbar-top-links navbar-right"> 
-				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>张三</b> <i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
-        </nav>
-	
-		<ul id="dropdown1" class="dropdown-content">
-			<li><a th:href="@{#}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
-			</li> 
-			<li><a th:href="@{#}"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
-			</li>
-		</ul>
-		<ul id="dropdown2" class="dropdown-content w250">
-			
-			<li >
-				<a th:href="@{#}">
-					<div>
-						<i class="fa fa-envelope fa-fw"></i> 未处理信息
-						<span class="pull-right text-muted small">10</span>
-					</div>
-				</a>
-			</li>
-		</ul>
-		</div>
+    <div th:include="header::header"></div>
 		<!-- 结束导航栏模块 -->
 	   <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-
-                    
-                                        <li>
-                        <a th:href="@{gotoMainPage}" class="active-menu waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
-                    </li>
-					<li>
-                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
-                    </li>
-                    
-                    <li>
-                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoUserManage}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
-                    </li>
-                         
-                </ul>
-
-            </div>
-
-        </nav>
+        <div th:include="nav::nav"></div>
         <!-- /. NAV SIDE  -->
       
 		<div id="page-wrapper">
@@ -157,6 +89,11 @@
 									      			</select>
 								      			</div>
 								      			<input type="hidden" name="count"/>
+								      			<div id="p-div">
+									      			<p id="tip1" class="left">最多可添加6个属性。</p>
+									      			<p class="left">可一次添加多个属性，每个属性换行即可。</p>
+									      			<p class="left">双击已添加属性可删除</p>
+								      			</div>
 								      			<p class="left">注：最多可添加6个属性。</p>
 								      			<p class="left">可一次添加多个属性，每个属性换行即可。</p>
 								      			<p class="left">双击已添加属性可删除</p>
@@ -203,7 +140,11 @@
 	<script th:src="@{/static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{/static/assets/js/custom.js}"></script>  
+    <script th:src="@{/static/assets/js/custom.js}"></script>
+    
+    <!-- My menu -->
+    <script th:src="@{/static/my-menu.js}"></script>  
+    <script th:src="@{/static/assets/js/custom.js}"></script>
  
  	<script type="text/javascript">
  		$(function(){
@@ -213,12 +154,30 @@
  			
  		//<![CDATA[
  			function clickEvt(){
- 				$("option")
- 				var count = paseInt($("[name=count]"));
+ 				$("option").each(function(i,e){
+ 					$("[name=count]").val(i);
+ 				});
+ 				var count = $("[name=count]").val();
+ 				var c;
+ 				if(count == ""){
+ 					c = 0;
+ 				} else {
+ 					c = parseInt(count)+1;
+ 				}
+ 				
  				var keys = $("#textarea1").val();
  				var keyList = keys.split(/[\n,]/g);
+ 				/* 重置textarea状态 */
  				$("#textarea1").val("");
+ 				$("#textarea1").height("20px");
  				
+ 				/* 如果添加的option超过6个则不添加 */
+ 				var num = keyList.length + c;
+ 				if(num > 6){
+ 					$("#tip1").css("color","red");
+ 					return;
+ 				}
+ 				$("#tip1").css("color","black");
  				 for(var i =0;i<keyList.length;i++){
  					 if(keyList[i] == ""){
  						 continue;
@@ -239,6 +198,15 @@
  				$("option").prop("selected","selected");
  			}
  		});
+ 		
+ 		
+ 			function dblclickEvt(){
+ 				$(this).remove();
+ 			}
+ 			
+ 			function submitEvt(){
+ 				$("option").prop("selected","selected");
+ 			}
  		
  	</script>
 

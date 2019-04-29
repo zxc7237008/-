@@ -3,6 +3,7 @@ package com.lovo.uploadsystem.service;
 import java.util.List;
 
 import com.lovo.uploadsystem.entity.EventTypeEntity;
+import com.lovo.uploadsystem.entity.PageBean;
 
 
 public interface IEventTypeService {
@@ -31,5 +32,12 @@ public interface IEventTypeService {
 	 * @param eventType 事件类型实体
 	 */
 	public EventTypeEntity saveType(EventTypeEntity eventType);
+
+	/**
+	 * 分页查找事件类型
+	 * @param pageNum
+	 * @return
+	 */
+	public PageBean<EventTypeEntity> findTypeByPage(int pageNum,int pageSize);
 	
 }

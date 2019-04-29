@@ -61,6 +61,13 @@ public class UserController {
 		return "zhuce";
 	}
 	
+	@RequestMapping("/userInfo")
+	public ModelAndView userInfo() {
+		ModelAndView mv = new ModelAndView("userInfo");
+		//获取用户对象
+		//将用户对象放入到页面中
+		return mv;
+	}
 	
 }
 
