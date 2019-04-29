@@ -122,7 +122,7 @@ public class ContinueController {
 		ContinueEntity c = continueService.saveContinueEntity(continueEntity,eventNo);
 		 
 		//将消息放入队列
-		 Destination destination = new ActiveMQQueue("testQueue");
+		 Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
 		 NeedResubmitDto dto = new NeedResubmitDto(c.getrId(),eventNo,c.getLevel(),c.getNumber()+"",c.getDetailed(),c.getReporter(),c.getPhoneNumber(),c.getDate());
 		 String message = JSONChange.objToJson(dto);
 		 jmsTemplate.convertAndSend(destination, message);

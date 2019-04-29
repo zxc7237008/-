@@ -85,5 +85,11 @@ public interface IFirstEventService {
 	 * @param eventId 初报事件编号
 	 */
 	public void delEvent(String eventId);
+
+	/**
+	 *  结束事件
+	 * @param message
+	 */
+	public void endEvent(String message);
 	
 }
