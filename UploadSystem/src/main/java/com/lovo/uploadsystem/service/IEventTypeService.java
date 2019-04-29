@@ -40,10 +40,5 @@ public interface IEventTypeService {
 	 */
 	public PageBean<EventTypeEntity> findTypeByPage(int pageNum,int pageSize);
 	
-	/**
-	 * 分页查找事件类型
-	 * @param pageNum
-	 * @return
-	 */
-	public PageBean<EventTypeEntity> findTypeByPage(int pageNum,int pageSize);
+
 }

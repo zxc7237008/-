@@ -17,12 +17,12 @@ import com.lovo.uploadsystem.service.IFirstEventService;
 @Controller
 public class ChartController {
 	@Autowired
-	private IFirstEventService firstEventService;
+	IFirstEventService firstEventService;
 	@Autowired
-	private IEventTypeService eventTypeService;
+	IEventTypeService eventTypeService;
 	
 	@RequestMapping("showChart")
-	private ModelAndView showChart() {
+	ModelAndView showChart() {
 
 		ModelAndView mv = new ModelAndView("chart");
 		
@@ -31,7 +31,7 @@ public class ChartController {
 	}
 	
 	@RequestMapping("map")
-	private ModelAndView map() {
+	ModelAndView map() {
 
 		ModelAndView mv = new ModelAndView("map");
 		
@@ -41,7 +41,7 @@ public class ChartController {
 	
 	@ResponseBody
 	@RequestMapping("getEventByArea")
-	private int getEventByArea(String areaId) {
+	int getEventByArea(String areaId) {
 		
 		int eventNum = firstEventService.findAllventNumByArea(areaId);
 		
@@ -50,7 +50,7 @@ public class ChartController {
 	
 	@ResponseBody
 	@RequestMapping("getEventByType")
-	private Map<String, Object> getEventByType() {
+	Map<String, Object> getEventByType() {
 		
 		Map<String, Object> map = firstEventService.findAllEventNumByType();
 		
@@ -59,7 +59,7 @@ public class ChartController {
 	
 	@ResponseBody
 	@RequestMapping("getEventByTime")
-	private List<PieDto> getEventByTime(String beginTime, String endTime) {
+	List<PieDto> getEventByTime(String beginTime, String endTime) {
 		
 		List<Integer> eventNum = firstEventService.findAllEventNumByTime();
 		
