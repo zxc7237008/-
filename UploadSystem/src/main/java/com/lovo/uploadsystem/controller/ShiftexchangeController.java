@@ -77,8 +77,8 @@ public class ShiftexchangeController {
 	
 	
 	
-	@RequestMapping("gotoregister")
-    public ModelAndView gotoregister(){
+	@RequestMapping("gotolog")
+    public ModelAndView gotolog(){
         ModelAndView modelAndView = new ModelAndView("log");
         int pageNum = 0;
         int pageSize = 5;
