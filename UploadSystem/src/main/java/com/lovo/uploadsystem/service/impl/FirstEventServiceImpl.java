@@ -231,6 +231,12 @@ public class FirstEventServiceImpl implements IFirstEventService{
 		firstEventDao.delete(eventId);
 		
 	}
+	@Transactional
+	@Override
+	public void endEvent(String eventId) {
+		firstEventDao.endEvent(eventId);
+		
+	}
 
 	
 }

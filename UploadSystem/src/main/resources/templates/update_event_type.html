@@ -22,78 +22,10 @@
     
 </head>
 <body>
-    <div id="wrapper">
-    	<!-- 开始导航栏模块 -->
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-        	<!-- 开始upload-system模块 -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand waves-effect waves-dark" th:href="@{ui-elements.html}"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
-				
-				<div id="sideNav" th:href="@{#}"><i class="material-icons dp48">toc</i></div>
-            </div>
-			<!-- 结束upload-system模块 -->
-            <ul class="nav navbar-top-links navbar-right"> 
-				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>张三</b> <i class="material-icons right">arrow_drop_down</i></a></li>
-            </ul>
-        </nav>
-	
-		<ul id="dropdown1" class="dropdown-content">
-			<li><a th:href="@{#}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
-			</li> 
-			<li><a th:href="@{#}"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
-			</li>
-		</ul>
-		<ul id="dropdown2" class="dropdown-content w250">
-			
-			<li >
-				<a th:href="@{#}">
-					<div>
-						<i class="fa fa-envelope fa-fw"></i> 未处理信息
-						<span class="pull-right text-muted small">10</span>
-					</div>
-				</a>
-			</li>
-		</ul>
-		</div>
+    <div th:include="header::header"></div>
 		<!-- 结束导航栏模块 -->
 	   <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-
-                    
-                                        <li>
-                        <a th:href="@{gotoMainPage}" class="active-menu waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoFirstEventRep}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
-                    </li>
-					<li>
-                        <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
-                    </li>
-                    
-                    <li>
-                        <a th:href="@{gotoChartPage}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoUserManage}" class="waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
-                    </li>
-                         
-                </ul>
-
-            </div>
-
-        </nav>
+        <div th:include="nav::nav"></div>
         <!-- /. NAV SIDE  -->
       
 		<div id="page-wrapper">
@@ -142,7 +74,8 @@
 							      	<div class="row">
 							      	<input type="hidden" name="count"/>
 							      		<div class="col-md-3"></div>
-										<a class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
+										<a id="add" class="btn-floating waves-effect waves-light"><i class="material-icons">add</i></a>
+										<a id="del" class="btn-floating red"><i class="material-icons dp48">delete</i></a>
 									</div>
 							         <!-- 按钮 -->	
 						            <div class="col-md-12">
@@ -184,14 +117,18 @@
 	<script th:src="@{/static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{/static/assets/js/custom.js}"></script> 
+    <script th:src="@{/static/assets/js/custom.js}"></script>
+    
+     <!-- Custom Js -->
+    <script th:src="@{/static/my-menu.js}"></script>
     
     <script type="text/javascript">
     	$(function(){
     		var typeId = $("[name=typeId]").val();
     		$.getJSON("/event/getKey",{"typeId":typeId},keyData);
     		
-    		$("a:has(.material-icons)").click(clickEvt);
+    		$("#add").click(clickEvt);
+			$("#del").click(delEvt);    		
     		
     		//<![CDATA[
     		function clickEvt(){
@@ -205,6 +142,17 @@
     			}
     		}
     		//]]>
+    		
+    		function delEvt(){
+    			$("[type=text]").each(function(i,e){
+    				$("[name=count]").val(i);
+    			});
+    			var count = $("[name=count]").val();
+    			var n = parseInt(count);
+    			if(n > 0){
+    				$("[type=text]:last").parent().remove();
+    			}
+    		}
     		
     	});
     	

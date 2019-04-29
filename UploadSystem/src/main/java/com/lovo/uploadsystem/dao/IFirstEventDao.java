@@ -3,6 +3,7 @@ package com.lovo.uploadsystem.dao;
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -69,4 +70,8 @@ public interface IFirstEventDao extends CrudRepository<FirstEventEntity, String>
 	@Query(value="select count(fe.fk_area_id) from t_first_event as fe LEFT JOIN t_event_area as tea on tea.area_id = fe.fk_area_id " + 
 			"where tea.area_id = ?1",nativeQuery=true)
 	public int findAllventNumByArea(String areaName);
+	
+	@Modifying
+	@Query(value="UPDATE `t_first_event` SET `event_state`='3' WHERE (`first_event_no`= ?1)",nativeQuery=true)
+	public void endEvent(String eventId);
 }

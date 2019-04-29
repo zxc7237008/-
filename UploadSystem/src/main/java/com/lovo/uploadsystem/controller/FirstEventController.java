@@ -271,4 +271,13 @@ public class FirstEventController{
 		return mv;
 	}
 	
+	@ResponseBody
+	@RequestMapping("test")
+	public String test(String eventId) {
+		Destination destination = new ActiveMQQueue("sendMessageToUploadSystem");
+		String message = eventId;
+		jmsTemplate.convertAndSend(destination, message);
+		return "first_report";
+	}
+	
 }
