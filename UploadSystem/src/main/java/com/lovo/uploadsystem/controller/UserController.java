@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.lovo.uploadsystem.dto.PowerDto;
 import com.lovo.uploadsystem.dto.PowerDtoReslut;
+
 import com.lovo.uploadsystem.entity.UserEntity;
 import com.lovo.uploadsystem.util.StringUtil;
 
@@ -60,13 +61,6 @@ public class UserController {
 		return "zhuce";
 	}
 	
-	@RequestMapping("/userInfo")
-	public ModelAndView userInfo() {
-		ModelAndView mv = new ModelAndView("userInfo");
-		//获取用户对象
-		//将用户对象放入到页面中
-		return mv;
-	}
 	
 }
 

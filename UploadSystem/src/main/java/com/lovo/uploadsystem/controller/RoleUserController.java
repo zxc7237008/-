@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -49,24 +50,18 @@ public class RoleUserController {
 		}
 		
 
-		/**
-		 * //修改角色拥有的用户
-		 * @param roleName 角色名
-		 * @param roleId 角色ID
-		 * @param addName 添加的用户ID字符串
-		 * @param delName  删除的用户ID字符串
-		 * @return
-		 * @throws IOException 
-		 * @throws JsonMappingException 
-		 * @throws JsonParseException 
-		 */
+		
 		@RequestMapping("updateRoleUser")
 		public ModelAndView  updateRoleUser(String roleName,String roleId,String addName,String delName) throws JsonParseException, JsonMappingException, IOException{
-			
-		
+			if(addName == null || "".equals(addName)) {
+				addName = "0";
+			}
+			if(delName == null || "".equals(delName)) {
+				delName = "0";
+			}
 			//重新查询
 			ModelAndView mv=new ModelAndView("user_role");
-			String  listJson = restTemplate.getForEntity("http://SpringBootJ165/{roleName}/{roleId}{addName}{delName}/gotoRoleUser",String.class,roleName,roleId,addName,delName).getBody();
+			String  listJson = restTemplate.getForEntity("http://SpringBootJ165/{roleName}/{roleId}/{addName}/{delName}/updateRoleUser",String.class,roleName,roleId,addName,delName).getBody();
 			UserRoleDto dto = new UserRoleDto();	
 			dto =  (UserRoleDto) JSONChange.jsonToObj(dto, listJson);
 			
@@ -82,5 +77,20 @@ public class RoleUserController {
 			 
 			return mv;
 		}
+	
+		
+		@RequestMapping("delRole")
+		public ModelAndView delRole(String roleId) {
+			
+			RedirectView rv=new RedirectView("gotosavaRole");
+			ModelAndView mv=new ModelAndView();
+			mv.setView(rv);
+			 restTemplate.getForEntity("http://SpringBootJ165/{roleId}/delRole",String.class,roleId).getBody();	
+			
+			return mv;
+			
+		}
+	
+		
 		
 }

@@ -19,10 +19,6 @@
     <!-- Google Fonts-->
     <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
     <link rel="stylesheet" th:href="@{static/assets/js/Lightweight-Chart/cssCharts.css}"/>
-    <link rel="stylesheet" th:href="@{staticResources/bootstrap-3.3.7-dist/css/bootstrap.css}"
-	type="text/css"></link>
-     <script th:src="@{staticResources/jquery-2.1.4.js}"></script>
-     <script th:src="@{staticResources/bootstrap-3.3.7-dist/js/bootstrap.js}"></script>
 </head>
 
 <body>
@@ -122,13 +118,20 @@
 				<div class="checkbox">
 					<span style="color: blue;"><b>角色拥有的权限</b></span>
 					<div class="row">
-						
-                          
-							<label class="col-sm-3 control-label h3" th:each="power,ustate:${listRolePower}">
+					
+							<!-- <label class="col-sm-3 control-label h3" th:each="power,ustate:${listRolePower}">
 							 <input
 								type="checkbox" name="checkedName" checked="checked"
 								th:value="${power.pid}" th:text="${power.pname}" /> 
+							</label> -->
+							 
+							 <span th:each="power,ustate:${listRolePower}">
+							<input type="checkbox" th:id="${power.pid}" name="checkedName" th:value="${power.pid}" checked="checked" />
+							<label th:for="${power.pid}" th:text="${power.pname}">
+							
 							</label>
+							</span>
+							
                      
 						
 					</div>
@@ -137,9 +140,18 @@
 					<div class="row">
 					
 
-							<label class="col-sm-3 control-label h3" th:each="power,ustate:${noListRolePower}"> <input
+							<!-- <label class="col-sm-3 control-label h3" th:each="power,ustate:${noListRolePower}"> <input
 								type="checkbox" name="noCheckedName" th:value="${power.pid}" th:text="${power.pname}" />
-							</label> 
+							</label>  -->
+							
+							
+							
+							 <span th:each="power,ustate:${noListRolePower}">
+							<input type="checkbox" th:id="${power.pid}" name="noCheckedName" th:value="${power.pid}" />
+							<label th:for="${power.pid}" th:text="${power.pname}">
+							
+							</label>
+							</span>
 
 					</div>
 				</div>
@@ -154,7 +166,7 @@
 		</div>
 	</div>
 <div style="display: none;">
-	<form th:action="@{userrole}" method="post" id="addordelformId" >
+	<form th:action="@{updateRolePower}" method="post" id="addordelformId" >
 		<input type="text" id="addId" name="addName" /> 
 		<input type="text" id="delId" name="delName" /> 
 		<input type="text" th:value="${roleId}" name="roleId"/>
@@ -194,7 +206,7 @@
 	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{static/assets/js/custom-scripts.js}"></script> 
+    <script th:src="@{static/assets/js/custom.js}"></script> 
     
 	<script type="text/javascript">
 	
@@ -220,6 +232,8 @@
 			
 			$("#addordelformId").submit();
 		}
+		
+		
 	</script>
 </body>
 

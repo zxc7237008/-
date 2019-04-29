@@ -114,14 +114,14 @@
 					<label for="roleName" class="col-sm-2 control-label">角色名</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="roleName"
-							name="roleName" placeholder="请输入角色名"></input>
+							name="roleName" placeholder="请输入角色名" required="required" ></input>
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="roleDescribe" class="col-sm-2 control-label">角色描述</label>
 					<div class="col-sm-4">
 						<input type="text" class="form-control" id="roleDescribe"
-							name="roleDescribe" placeholder="请输入角色描述"></input>
+							name="roleDescribe" placeholder="请输入角色描述" required="required"></input>
 					</div>
 				</div>
 				<div class="form-group">
@@ -147,13 +147,12 @@
 							<th class="col-sm-2" th:text="${role.roleName}"></th>
 							<th class="col-sm-2" th:text="${role.roleDescribe}"></th>
 							<th class="col-sm-2"><a
-								th:href="@{${role.roleId}/deleteRole}"
+								th:href="|javascript:delRole('${role.roleId}')|"
 								class="btn btn-danger active" role="button">删除角色</a></th>
 							<th class="col-sm-2"><a th:onclick="|javascript:userF('${role.roleName}','${role.roleId}')|" 
 								href="javascript:void(0)"
 								class="btn btn-primary active" role="button">维护用户</a></th>
-							<th class="col-sm-2"><a
-								th:onclick="|javascript:powerF('${role.roleName}','${role.roleId}')|"
+							<th class="col-sm-2"><a th:onclick="|javascript:powerF('${role.roleName}','${role.roleId}')|"
 								href="javascript:void(0)"
 								class="btn btn-primary active" role="button">维护权限</a></th>
 						</tr>
@@ -166,9 +165,12 @@
 	       <input type="text" id="roleNameId" name="roleName"></input>
 	         <input type="text" id="roleId" name="roleId"></input>
 	    </form>
-	    <form action="@{gotoRolePower}" method="post" id="gotoRolePowerId">
+	    <form th:action="@{gotoRolePower}" method="post" id="gotoRolePowerId">
 	       <input type="text" id="rolePName" name="roleName"></input>
 	         <input type="text" id="rolePId" name="roleId"></input>
+	    </form>
+	    <form th:action="@{delRole}" method="post" id="delRole">
+	         <input type="text" id="delRoleId" name="roleId"></input>
 	    </form>
 	</div>
 		
@@ -221,6 +223,11 @@
 		   $("#rolePId").val(roleId);
 		   
 		   $("#gotoRolePowerId").submit();
+	   }
+	   function delRole(roleId){
+		   $("#delRoleId").val(roleId);
+		   
+		   $("#delRole").submit();
 	   }
 	</script>
 	
