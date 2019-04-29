@@ -11,6 +11,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/websocket")
 @Component
 public class IWebSocketServer {
+	
     //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static int onlineCount = 0;
     //concurrent包的线程安全Set，用来存放每个客户端对应的MyWebSocket对象。
@@ -19,9 +20,9 @@ public class IWebSocketServer {
     //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private Session session;
 
-    @JmsListener(destination = "queue")
+    @JmsListener(destination = "sendMessageToUploadSystem")
     public void receiveQueue(String message) {
-        System.out.println("监听queue=============监听queue");
+        System.out.println("接收到的数据======================"+message);
         //收到数据，保存数据库
 
         //把数据通过ws传到页面上

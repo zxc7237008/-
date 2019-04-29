@@ -31,6 +31,7 @@ import com.lovo.uploadsystem.service.IEventTypeService;
 import com.lovo.uploadsystem.service.IFirstEventService;
 import com.lovo.uploadsystem.service.IFormValueService;
 import com.lovo.uploadsystem.util.FirstEvent2DtoUtil;
+import com.lovo.uploadsystem.util.JSONChange;
 @RequestMapping("event/")
 @Controller
 public class FirstEventController{
@@ -162,9 +163,11 @@ public class FirstEventController{
 		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
-			Destination destination = new ActiveMQQueue("testQueue");
+			Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
 			
-			NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+			NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+			
+			String message = JSONChange.objToJson(dto);
 			
 	        //将消息放入队列
 	        jmsTemplate.convertAndSend(destination, message);
@@ -206,9 +209,11 @@ public class FirstEventController{
 		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
-			Destination destination = new ActiveMQQueue("testQueue");
+			Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
 			
-			NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+			NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+			
+			String message = JSONChange.objToJson(dto);
 			
 	        //将消息放入队列
 	        jmsTemplate.convertAndSend(destination, message);
@@ -225,7 +230,7 @@ public class FirstEventController{
 	}
 	
 	@RequestMapping("upload")
-	public ModelAndView upload(String eventId) {
+	public ModelAndView upload(String eventId) throws JsonProcessingException {
 		ModelAndView mv = new ModelAndView();
 		RedirectView rv = new RedirectView("/home");
 		mv.setView(rv);
@@ -242,9 +247,11 @@ public class FirstEventController{
 		
 		firstEventService.saveEvent(event);
 		
-		Destination destination = new ActiveMQQueue("testQueue");
+		Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
 		
-		NoDealWithDto message = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+		NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
+		
+		String message = JSONChange.objToJson(dto);
 		
         //将消息放入队列
         jmsTemplate.convertAndSend(destination, message);
