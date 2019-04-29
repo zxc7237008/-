@@ -5,7 +5,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>事件续报</title>
+    <title>事件初报信息</title>
 	
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
 	<link rel="stylesheet" th:href="@{static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
@@ -116,7 +116,7 @@
 		<div id="page-wrapper">
 			<div class="header"> 
 				<h1 class="page-header">
-					事件续报
+					事件初报信息展示
 				</h1>
 					<!-- 小导航栏  -->
 					<ol class="breadcrumb">
@@ -197,76 +197,12 @@
 							<span style="width:80px;display:inline-block;" id="show"></span>
 							<button type="button" class="waves-effect waves-light btn" value="下一页" name="operation">下一页</button>
 							<button type="button" class="waves-effect waves-light btn" value="尾页" name="operation">尾页</button>
-							
-							
 							<input type="text" class="form-control" id="tiaozhuan" name="tiaozhuan" placeholder="输入跳转页面" style="width: 85px;display: inline" />
 							<button type="button" class="waves-effect waves-light btn" value="跳转" name="operation">跳转</button>
 					</div>
                     </div>	
                     
-<!--添加续报-->
-				
-			   				<div class="card">
-                        <div class="card-action" id="c">
-                            <strong class="left">添加续报</strong>
-							
-                        </div>
-                        <div class="card-content">
-                            <div class="table-responsive">
-                            <form th:action="@{saveContinue}" method="post">
-                           <div class="card-content">
-                                
-                               <div class="row">
-                                    <div class="col-md-1">
-                                     <label>事件等级</label>
-                                     <select name="level" aria-controls="dataTables-example" class="form-control input-sm">
-                                     <option value="1">轻度</option>
-                                     <option value="2">中等</option>
-                                     <option value="3">严重</option>
-                                     </select>
-                                    </div>
-								</div>
 
-                                
-                                <div class="row">
-                                   
-                                    <div class="input-field col s6">
-                                        <input id="number" type="text" class="validate" name="number" required="required" maxlength="11"/>
-                                        <label for="password" class="" style="font-size:13px;">伤亡人数</label>
-                                        
-                                    </div>
-                                    <div class="input-field col s5">
-                                        <input id="detailed" type="text" class="validate" name="detailed" required="required"/>
-                                        <label for="password" class="" style="font-size:13px;">详情描述</label>
-                                    </div>
-                                </div>
-								
-								<div class="row">
-                                   
-                                    <div class="input-field col s6">
-                                        <input id="name" type="text" class="validate" name="name" required="required" maxlength="16"/>
-                                        <label for="password" class="" style="font-size:13px;">报警人</label>
-                                    </div>
-                                    <div class="input-field col s5">
-                                        <input id="phoneNumber" type="text" class="validate" name="phoneNumber" required="required" maxlength="13"/>
-                                        <label for="password" class="" style="font-size:13px;">报警人电话</label>
-                                    </div>
-                                    <input type="hidden" name="reporter" value="李四"/>
-                                </div>
-                               
-                                    <input type="hidden" name="eventNo" th:value="${firstEventNo}" />
-                                
-                              
-
-                            </div>
-								
-						<div class="card-action">
-							<input  type="submit" class="waves-effect waves-light btn right" value="添加续报"/>
-                        </div>
-                        </form>
-                      </div>  
-                    </div>		
-                  </div>
 			    
 			   
 						
