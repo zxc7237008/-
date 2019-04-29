@@ -17,7 +17,7 @@ public interface IJournalDao extends CrudRepository<JournalEntity, Integer>{
 	   * @param pageable
 	   * @return
 	   */
-	@Query("select j from JournalEntity j" )
+	@Query("select j from JournalEntity j order by j desc" )
 	List<JournalEntity> showjournalListPage(Pageable pageable);
 
 	@Query("select j from JournalEntity j where j.name=?1 or j.incident=?1 ")
