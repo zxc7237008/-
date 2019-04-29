@@ -35,10 +35,10 @@ public class MyAspect {
 	@Autowired
 	private IJournalService iJournalService;
 	
-	@Pointcut("execution(* com.lovo.statisticanalysis.controller.*.*(..))")
+	@Pointcut("execution(* com.lovo.uploadsystem.controller.*.*(..))")
 	public void mypoint(){};
 	
-	@Pointcut("execution(* com.lovo.statisticanalysis.controller.*.login*(..))")
+	@Pointcut("execution(* com.lovo.uploadsystem.controller.*.login*(..))")
 	public void register(){};
 	
 	 @Before("mypoint()")
@@ -85,7 +85,7 @@ public class MyAspect {
     	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     	   HttpSession session =request.getSession(); 
     	   UserEntity user =  (UserEntity) session.getAttribute("User");
-    	   System.out.println("aop"+user.getUname()+"22222222222222");//占时不知道名字
+//    	   System.out.println("aop"+user.getUname()+"22222222222222");//占时不知道名字
     	   //把对象放入数据库以及保存在本地txt文档里
     	   journalEntity.setIncident(incident);
     	   
@@ -107,19 +107,19 @@ public class MyAspect {
     
    
 	 }
-	 //如果登录不放入session  就在这里获取
-	 @AfterReturning(pointcut="register()",returning="returnVal")
-	    public void afterReturn(JoinPoint joinPoint,Object returnVal){
-		 //获取session
-   	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-   	   HttpSession session =request.getSession(); 
-   	   UserEntity user =  (UserEntity) session.getAttribute("userentity");
-   	   System.out.println(user.getUname());//占时不知道名字
-		 
-		 
-	        System.out.println("AOP 返回值:" + returnVal);
-	       
-	    }
+//	 //如果登录不放入session  就在这里获取
+//	 @AfterReturning(pointcut="register()",returning="returnVal")
+//	    public void afterReturn(JoinPoint joinPoint,Object returnVal){
+//		 //获取session
+//   	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//   	   HttpSession session =request.getSession(); 
+//   	   UserEntity user =  (UserEntity) session.getAttribute("userentity");
+//   	   System.out.println(user.getUname());//占时不知道名字
+//		 
+//		 
+//	        System.out.println("AOP 返回值:" + returnVal);
+//	       
+//	    }
 	 
 	 @Around("mypoint()")
 	   public Object rmessage(ProceedingJoinPoint join){

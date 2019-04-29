@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -269,7 +269,7 @@
                             <div class="card-content">
                                 <div class="row">
                                     <div class="icon-preview col m2">
-                                        <i class="material-icons dp48">perm_identity</i>
+                                        <i class="material-icons dp48">帐号</i>
                                     </div>
                                     <div class="input-field col s9">
                                     <input type="test" th:value="${user.uname}" id="username"  name="username" readOnly="readonly"/>
@@ -279,7 +279,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="icon-preview col m2">
-                                        <i class="material-icons dp48">lock_open</i>
+                                        <i class="material-icons dp48">密码</i>
                                     </div>
                                     <div class="input-field col s9">
                                         <input id="password" type="password" class="validate"  name="password" required="required"/>
@@ -325,15 +325,16 @@
                          </table>		
 							<input type="hidden" th:value="${pageBean.pageNum}" id="pageNum"/>
 							<input type="hidden" th:value="${pageBean.pageAll}" id="pageAll"/>
-							<button type="button" class="btn btn-info" value="首页" name="operation">首页</button>
-							<button type="button" class="btn btn-info" value="上一页" name="operation">上一页</button>
-							<button type="button" class="btn btn-info" value="下一页" name="operation">下一页</button>
-							<button type="button" class="btn btn-info" value="尾页" name="operation">尾页</button>
-							<button type="button"  class="btn btn-info" value="跳转" name="operation">跳转</button>
-							 <input type="text" class="form-control" id="tiaozhuan" name="tiaozhuan" placeholder="请输入跳转页面"/>
-							 <button type="button"  class="btn btn-info" value="查找" name="operation">查找</button>
-							 <input type="text" class="form-control" id="chazhao" name="chazhao" placeholder="请输入查找信息"/>
+							<button type="button" class="waves-effect waves-light btn" value="首页" name="operation">首页</button>
+							<button type="button" class="waves-effect waves-light btn" value="上一页" name="operation">上一页</button>
 							<span class=" btn-info" id="span"></span>
+							<button type="button" class="waves-effect waves-light btn" value="下一页" name="operation">下一页</button>
+							<button type="button" class="waves-effect waves-light btn" value="尾页" name="operation">尾页</button>
+							<button type="button"  class="waves-effect waves-light btn" value="跳转" name="operation">跳转</button>
+							 <input type="text" class="form-control" id="tiaozhuan" name="tiaozhuan" placeholder="请输入跳转页面"/>
+							 <button type="button"  class="waves-effect waves-light btn" value="查找" name="operation">查找</button>
+							 <input type="text" class="form-control" id="chazhao" name="chazhao" placeholder="请输入查找信息"/>
+							
 	
 					</div></div></div>
 				 <footer><p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p></footer>
@@ -392,6 +393,7 @@
               }else if(btn=="上一页"){
             	  pageNum=pageNum-1;
                   if(pageNum<0){
+                	  alert("到头啦");
                 	  pageNum=0;
                   }
                   $.getJSON("JournalchangePage",{pageNum:pageNum,too:too},filldate)
@@ -399,6 +401,7 @@
             	  pageNum+=1;
                   if(pageNum>(pageAll-1)){
                 	  pageNum=pageAll-1;
+                	  alert("超出当前最大页码");
                   }
                   
                   $.getJSON("JournalchangePage",{pageNum:pageNum,too:too},filldate)
@@ -410,14 +413,17 @@
             	  pageNum=pageNum-1;
             	  if(pageNum>(pageAll-1)){
             		  pageNum=pageAll-1;
+            		  alert("超出当前最大页码");
             	  }else if(pageNum<0){
                 	  pageNum=0;
+                	  alert("到头啦");
                   }
             	  
                   $.getJSON("JournalchangePage",{pageNum:pageNum,too:too},filldate)
               }else if(btn=="查找"){
             	  too=$("#chazhao").val();
-            	  
+            		  pageNum=0;
+            	
                   $.getJSON("JournalchangePage",{pageNum:pageNum,too:too},filldate)
               }
               
@@ -446,11 +452,12 @@
                 });
              var pageNum = data.pageNum;
              var pageAll = data.pageAll;
-             //渲染 “第2页/共11页” 信息
-             $("#span").html("第" + (pageNum+1) + "页/共" + pageAll + "页");
+            
              //记录数据信息（当前页数和总页数）
              $("#pageNum").val(pageNum);
              $("#pageAll").val(pageAll);
+             //渲染 “第2页/共11页” 信息
+             $("#span").html("第" + (pageNum+1) + "页/共" + pageAll + "页");
 	}
 	//]]>
     </script>
