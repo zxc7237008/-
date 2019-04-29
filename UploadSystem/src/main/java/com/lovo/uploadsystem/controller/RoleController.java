@@ -16,8 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.lovo.uploadsystem.entity.PowerDto;
-
+import com.lovo.uploadsystem.dto.PowerDto;
 import com.lovo.uploadsystem.entity.RoleEntity;
 import com.lovo.uploadsystem.util.JSONChange;
 

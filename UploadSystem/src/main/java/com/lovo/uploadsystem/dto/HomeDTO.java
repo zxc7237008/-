@@ -1,6 +1,11 @@
-package com.lovo.uploadsystem.entity;
+package com.lovo.uploadsystem.dto;
 
 import java.util.List;
+
+import com.lovo.uploadsystem.entity.EventAreaEntity;
+import com.lovo.uploadsystem.entity.EventTypeEntity;
+import com.lovo.uploadsystem.entity.PageBean;
+import com.lovo.uploadsystem.entity.StateEntity;
 
 public class HomeDTO {
 	private List<EventTypeEntity> eventlist;

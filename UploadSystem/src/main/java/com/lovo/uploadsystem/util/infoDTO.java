@@ -3,7 +3,7 @@ package com.lovo.uploadsystem.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
+import com.lovo.uploadsystem.dto.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
 
 

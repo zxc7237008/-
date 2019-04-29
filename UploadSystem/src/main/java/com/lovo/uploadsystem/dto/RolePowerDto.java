@@ -1,6 +1,8 @@
-package com.lovo.uploadsystem.entity;
+package com.lovo.uploadsystem.dto;
 
 import java.util.List;
+
+import com.lovo.uploadsystem.entity.PowerEntity;
 
 public class RolePowerDto {
 	//该角色拥有的权限

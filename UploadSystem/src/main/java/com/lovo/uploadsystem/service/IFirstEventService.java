@@ -3,7 +3,7 @@ package com.lovo.uploadsystem.service;
 import java.util.List;
 import java.util.Map;
 
-import com.lovo.uploadsystem.entity.FirstEventAreaEventTypeDTO;
+import com.lovo.uploadsystem.dto.FirstEventAreaEventTypeDTO;
 import com.lovo.uploadsystem.entity.FirstEventEntity;
 import com.lovo.uploadsystem.entity.StateEntity;
 

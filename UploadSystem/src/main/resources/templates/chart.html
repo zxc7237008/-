@@ -24,10 +24,11 @@
     <div id="wrapper">
 	   <!--/. NAV TOP  -->
         <!--/. NAV TOP  -->
-       <div th:include="navigation :: myfooter"  >
+       <div th:include="nav :: nav" >
        
        		
        </div>
+       <div th:include="header :: header" ></div>
        
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
@@ -82,7 +83,7 @@
 	
     <!-- Custom Js -->
     <script th:src="@{static/assets/js/custom.js}"></script> 
- 
+ 	<script th:src="@{static/my-menu.js}"></script>
 	<script type="text/javascript">
     	// 基于准备好的dom，初始化echarts实例
     	var myChart = echarts.init(document.getElementById('bar'));

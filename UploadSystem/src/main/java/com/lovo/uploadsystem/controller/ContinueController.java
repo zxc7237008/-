@@ -47,6 +47,29 @@ public class ContinueController {
 	}
 	
 	
+	//显示初报信息和续报信息
+		@RequestMapping("goToContinue")
+		public ModelAndView goToContinue(@RequestParam("firstEventNo") String firstEventNo) {
+			FirstEventEntity eventList = continueService.findFirstEvent(firstEventNo);
+			
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName("continue");
+			mv.addObject("eventList", eventList);
+			mv.addObject("firstEventNo",firstEventNo);
+			
+			int pageNum = 0;
+	        int pageSize = 5;
+	        int pageAll = continueService.getAllPage(pageSize,firstEventNo);
+			List<ContinueEntity> continueList = continueService.findALLContinueEntity(firstEventNo,pageNum,pageSize);
+			
+			PageBean<ContinueEntity> pageBean = new PageBean<>();
+	        pageBean.setList(continueList);
+	        pageBean.setPageNum(pageNum);
+	        pageBean.setPageAll(pageAll);
+	        mv.addObject("pageBean",pageBean);
+
+			return mv;
+		}
 	
 	
 	//显示初报信息和续报信息
@@ -55,7 +78,7 @@ public class ContinueController {
 		FirstEventEntity eventList = continueService.findFirstEvent(firstEventNo);
 		
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("continue");
+		mv.setViewName("showFirstMessage");
 		mv.addObject("eventList", eventList);
 		mv.addObject("firstEventNo",firstEventNo);
 		

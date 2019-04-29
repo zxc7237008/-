@@ -302,6 +302,34 @@
 				areaName:eventAreaValue,eventState:eventStateValue,pageNum:pageNum},showHomeEvent);
 		}
 		
+		
+		
+		var websocket =  null ;
+
+		// 判断当前浏览器是否支持WebSocket
+		if ('WebSocket' in window){
+		websocket =  new WebSocket("ws://localhost:8881/websocket");
+		}
+		else {
+		alert('Not support websocket')
+		}
+
+
+		// 接收到消息的webSocket回调方法
+		websocket.onmessage =  function (event){
+			getList();
+		}
+
+		// 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+		window.onbeforeunload =  function (){
+		websocket.close();
+		}
+
+		// 关闭连接
+		function closeWebSocket(){
+		websocket.close();
+		}
+
 		/* 分页 */
 		//<![CDATA[
 		function page() {

@@ -1,4 +1,4 @@
-package com.lovo.uploadsystem.entity;
+package com.lovo.uploadsystem.dto;
 
 import java.util.List;
 

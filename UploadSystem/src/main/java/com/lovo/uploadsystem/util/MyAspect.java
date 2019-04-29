@@ -35,10 +35,10 @@ public class MyAspect {
 	@Autowired
 	private IJournalService iJournalService;
 	
-	@Pointcut("execution(* com.lovo.statisticanalysis.controller.*.*(..))")
+	@Pointcut("execution(* com.lovo.uploadsystem.controller.*.*(..))")
 	public void mypoint(){};
 	
-	@Pointcut("execution(* com.lovo.statisticanalysis.controller.*.login*(..))")
+	@Pointcut("execution(* com.lovo.uploadsystem.controller.*.login*(..))")
 	public void register(){};
 	
 	 @Before("mypoint()")
