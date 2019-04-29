@@ -22,8 +22,17 @@
 					<li>
                         <a th:href="@{gotoRoster}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
                     </li>
-                    <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
+                    <li class="w">
+                        <a  class="waves-effect waves-dark"><i class="fa fa-sitemap"></i> 交班安排<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse" aria-expanded="false" style="height: 0px;">
+                            <li>
+                                <a th:href="@{/gotoJournal}">交班管理</a>
+                            </li>
+                            <li>
+                                <a th:href="@{/gotolog}">日志查看</a>
+                            </li>
+                            
+                        </ul>
                     </li>
                     
                     <li>
@@ -43,6 +52,10 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a th:href="@{/eventArea}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 区域维护</a>
+                    </li>
+                    
                          
                 </ul>
 

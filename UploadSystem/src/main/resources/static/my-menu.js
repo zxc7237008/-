@@ -12,6 +12,8 @@ $("li a").each(function(i, e){
 		
 		if(li.prop("class") == "w"){
 			li.prop("class","active");
+			li.children().eq(1).addClass("in");
+			li.children().eq(1).height("80px");
 		}
 	}
 	
