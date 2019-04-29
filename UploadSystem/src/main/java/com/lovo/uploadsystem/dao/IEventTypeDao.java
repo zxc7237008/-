@@ -12,4 +12,5 @@ public interface IEventTypeDao extends CrudRepository<EventTypeEntity, String>{
 
 	@Query(value="SELECT * FROM `t_event_type` LIMIT ?1, ?2",nativeQuery=true)
 	List<EventTypeEntity> getTypeByPage(int startIndex,int pageSize);
+
 }

@@ -32,6 +32,13 @@ public interface IEventTypeService {
 	 * @param eventType 事件类型实体
 	 */
 	public EventTypeEntity saveType(EventTypeEntity eventType);
+
+	/**
+	 * 分页查找事件类型
+	 * @param pageNum
+	 * @return
+	 */
+	public PageBean<EventTypeEntity> findTypeByPage(int pageNum,int pageSize);
 	
 	/**
 	 * 分页查找事件类型
