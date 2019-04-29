@@ -25,11 +25,9 @@
 	   <!--/. NAV TOP  -->
         <!--/. NAV TOP  -->
        <div th:include="nav :: nav" >
-       
-       		
        </div>
-       <div th:include="header :: header" ></div>
-       
+       <div th:include="header :: header" >
+       </div>
         <!-- /. NAV SIDE  -->
         <div id="page-wrapper">
 		  <div class="header"> 
@@ -135,8 +133,8 @@
 
 		    visualMap: {
 		        show: false,
-		        min: 80,
-		        max: 600,
+		        min: 0,
+		        max: 20,
 		        inRange: {
 		            colorLightness: [0,1]
 		        }

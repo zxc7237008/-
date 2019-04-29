@@ -29,7 +29,7 @@ public interface IEventAreaDao extends CrudRepository<EventAreaEntity, String>{
 	 * @param id
 	 */
 	@Modifying
-	@Query("delete from EventAreaEntity e where e.id=?1")
+	@Query("delete from EventAreaEntity e where e.areaId=?1")
 	public void  delectEvenAreato(String id);
 	
 }

@@ -63,7 +63,7 @@ public class EventAreaController {
 		public ModelAndView delectEventArea(HttpServletRequest request){
 	ModelAndView modelAndView = new ModelAndView();
 		 String id =(request.getParameter("id"));
-		 System.out.println(id);
+//		 System.out.println(id);
 		 iEventAreaService.delectEvenArea(id);
 		 RedirectView rv = new RedirectView("eventArea");//重定向的视图
 		 modelAndView.setView(rv);
