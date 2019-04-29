@@ -3,10 +3,12 @@ package com.lovo.uploadsystem.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lovo.uploadsystem.entity.EventTypeEntity;
 import com.lovo.uploadsystem.entity.FormKeyEntity;
+import com.lovo.uploadsystem.entity.PageBean;
 import com.lovo.uploadsystem.service.IEventTypeService;
 import com.lovo.uploadsystem.service.IFormKeyService;
 
@@ -91,5 +93,12 @@ public class EventTypeController {
 		keys.setEventType(type);
 		formKeyService.saveKey(keys);
 		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping("getType")
+	public PageBean<EventTypeEntity> getType(int pageNum){
+		PageBean<EventTypeEntity> page = eventTypeService.findTypeByPage(pageNum,5);
+		return page;
 	}
 }
