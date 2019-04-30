@@ -25,12 +25,12 @@
 			<!-- 结束upload-system模块 -->
             <ul class="nav navbar-top-links navbar-right"> 
 				<li><a class="dropdown-button waves-effect waves-dark" data-activates="dropdown2"><i class="fa fa-bell fa-fw"></i> <i class="material-icons right">arrow_drop_down</i></a></li>
-				<li><a class="dropdown-button waves-effect waves-dark" th:href="@{#!}" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b>张三</b> <i class="material-icons right">arrow_drop_down</i></a></li>
+				<li><a class="dropdown-button waves-effect waves-dark" data-activates="dropdown1"><i class="fa fa-user fa-fw"></i> <b id="username"></b> <i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </nav>
 	
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a th:href="@{#}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
+			<li><a th:href="@{/userInfo}"><i class="fa fa-user fa-fw"></i> 个人信息</a>
 			</li> 
 			<li><a th:href="@{#}"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
 			</li>

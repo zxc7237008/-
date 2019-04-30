@@ -148,6 +148,7 @@
  
  	<script type="text/javascript">
  		$(function(){
+ 			$("input").prop("required","required");
  			$("a:has(.material-icons)").click(clickEvt);
  			$("[name=keys]").on("dblclick","option",dblclickEvt);
  			$("[type=submit]").click(submitEvt);

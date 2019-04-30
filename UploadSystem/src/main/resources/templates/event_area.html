@@ -186,14 +186,14 @@
 	//<![CDATA[ 
 	function filldate(data){
                 var $table=$("table");
-                var $head=$("<tr><th>地区名字</th><th>操作</th></tr>")
+                var $head=$("<tr><th class='center'>地区名字</th></tr>")
                 $table.empty();
                 $table.append($head);
 
                 $.each(data.list, function (i,e) {
-              			var dataTr = "<tr><td>" + e.areaName
-              			+ "</td><td><a href=delectEventArea?id=" + e.areaId
-						+ ">删除</a></td>" +
+              			var dataTr = "<tr><td class='center'>" + e.areaName
+              		
+						+ "</td>" +
                         + "</tr>";
                     $table.append(dataTr);
                 });

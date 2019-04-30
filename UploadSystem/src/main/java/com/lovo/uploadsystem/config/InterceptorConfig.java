@@ -15,7 +15,10 @@ public class InterceptorConfig extends WebMvcConfigurerAdapter{
 	//添加多个拦截器
 	public void addInterceptors(InterceptorRegistry registry) {
 		//注册权限的拦截器
-		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login").excludePathPatterns("/gotoLogin");
+		registry.addInterceptor(new MyInterceptor()).addPathPatterns("/**").excludePathPatterns("/login")
+		.excludePathPatterns("/gotoLogin").excludePathPatterns("/unauthorized")
+		.excludePathPatterns("/500").excludePathPatterns("/getUserList")
+		.excludePathPatterns("/findUNInformation");
 	}
 
 	//静态资源的放行

@@ -31,7 +31,7 @@ public class JournalController {
 	
 		
 		@RequestMapping("gotoJournal")
-	    public ModelAndView showUserListPage(HttpServletRequest rq){
+	    public ModelAndView showUserListPage(HttpSession session){
 	        ModelAndView modelAndView = new ModelAndView("journal");
 	        int pageNum = 0;
 	        int pageSize = 5;
@@ -44,14 +44,10 @@ public class JournalController {
 	        modelAndView.addObject("pageBean",pageBean);
 	        
 	       //需要登录用户传过来
-//	        HttpSession session =request.getSession(); 
-//		 	   UserEntity userEntity = (UserEntity) session.getAttribute("User");
+	        UserEntity userEntity = (UserEntity) session.getAttribute("user");
 	        
 	        //需要删除的代码
-	        UserEntity userEntity = new UserEntity();
-	        userEntity.setUname("duhao111");
-	        userEntity.setUpasss("123");
-	        rq.getSession().setAttribute("User", userEntity);
+	        
 	        //需要删除的代码结尾
 	        modelAndView.addObject("user",userEntity);
 	        return modelAndView;

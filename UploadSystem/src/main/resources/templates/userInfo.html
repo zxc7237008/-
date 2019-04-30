@@ -1,5 +1,5 @@
 ﻿﻿﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8" />
@@ -23,76 +23,8 @@
 
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-default top-navbar" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle waves-effect waves-dark" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand waves-effect waves-dark" th:href="@{home}"><i class="large material-icons">insert_chart</i> <strong>upload-system</strong></a>
-				
-            </div>
-
-            <ul class="nav navbar-top-links navbar-right"> 
-				
-            </ul>
-        </nav>
-		<!-- Dropdown Structure -->
-<ul id="dropdown1" class="dropdown-content">
-	
-</ul>
-<ul id="dropdown2" class="dropdown-content w250">
-						
-	<li>
-		
-	</li>
-	<li class="divider"></li>
-                       
-</ul>
-<ul id="dropdown3" class="dropdown-content dropdown-tasks w250">
-	
-</ul>   
-<ul id="dropdown4" class="dropdown-content dropdown-tasks w250">
-  <li>
-		
-	</li>
-	<li class="divider"></li>
-                       
-</ul>  
-	   <!--/. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-
-                    
-                   <li>
-                        <a th:href="@{home}" class="waves-effect waves-dark"><i class="fa fa-dashboard"></i> 主界面</a>
-                    </li>
-                    <li>
-                        <a th:href="@{event/first}" class="waves-effect waves-dark"><i class="fa fa-desktop"></i> 事件初报</a>
-                    </li>
-					<li>
-                        <a th:href="@{showRosterListPage}" class="waves-effect waves-dark"><i class="fa fa-bar-chart-o"></i> 值班安排</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoJournal}" class="waves-effect waves-dark"><i class="fa fa-qrcode"></i> 交班安排</a>
-                    </li>
-                    
-                    <li>
-                        <a th:href="@{showChart}" class="waves-effect waves-dark"><i class="fa fa-table"></i> 统计分析</a>
-                    </li>
-                    <li>
-                        <a th:href="@{gotoUserManage}" class="active-menu waves-effect waves-dark"><i class="fa fa-edit"></i> 用户管理 </a>
-                    </li>
-                         
-                </ul>
-
-            </div>
-
-        </nav>
-        <!-- /. NAV SIDE  -->
+        <div th:include="header::header"></div>
+        <div th:include="nav::nav"></div>
       
 		<div id="page-wrapper">
 			<div class="header"> 
@@ -111,7 +43,7 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="userName" type="text" class="validate" />
+                                        <input id="userName" type="text" class="validate" th:value="${session.user.uname}" />
                                         <label for="user_name" class="">用户名</label>
                                     </div>
                                 </div>
@@ -120,7 +52,7 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="password" type="text" class="validate" />
+                                        <input id="password" type="text" class="validate" th:value="${session.user.upasss}"/>
                                         <label for="user_name" class="">密码</label>
                                     </div>
 
@@ -130,7 +62,7 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4">
-                                        <input id="tel" type="password" class="validate" />
+                                        <input id="tel" type="text" class="validate" th:value="${session.user.utel}" />
                                         <label for="password" class="">电话</label>
                                     </div>
                                 </div>
@@ -139,7 +71,7 @@
                                         <i class="material-icons dp48"></i>
                                     </div>
                                     <div class="input-field col s4 ">
-                                        <input id="email" type="password" class="validate" />
+                                        <input id="email" type="text" class="validate" th:value="${session.user.umaildox}" />
                                         <label for="password" class="">邮箱</label>
                                     </div>
                                 </div>
@@ -175,7 +107,10 @@
 	<script th:src="@{static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
 	
     <!-- Custom Js -->
-    <script th:src="@{static/assets/js/custom.js}"></script> 
+    <script th:src="@{static/assets/js/custom.js}"></script>
+    
+     <!-- My menu -->
+    <script th:src="@{static/my-menu.js}"></script>
 
 </body>
 

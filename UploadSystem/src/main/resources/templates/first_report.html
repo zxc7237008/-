@@ -50,7 +50,7 @@
                          <form th:action="@{/event/saveEvent}">
                              <div class="row">
                                  <div class="input-field col s6">
-                                     <input placeholder="事件名称" id="event_name" name="eventName" type="text" class="validate"/>
+                                     <input placeholder="事件名称" id="event_name" name="eventName" type="text" class="validate" />
                                      <label for="event_name" class="active">事件名称</label>
                                  </div>
                                  <div class="input-field col s6">
@@ -76,7 +76,7 @@
                                  </div>
                                  <div class="input-field col s6">
                                      <input placeholder="伤亡人数" id="casualty" name="casualty" type="text" class="validate" />
-                                     <input type="hidden" name="reporter" value="user"/>
+                                     <input type="hidden" name="reporter" th:value="${session.user.uname}"/>
                                      <label for="casualty" class="active">伤亡人数</label>
                                  </div>
                              </div>
@@ -131,6 +131,7 @@
     
     <script th:inline="javascript">
     	$(function(){
+    		$("input").prop("required","required");
     		var type = $("[name=eventTypeId]");
     		
     		$.getJSON("/event/getArea",areaData);

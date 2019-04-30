@@ -8,10 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +40,7 @@ public class MyAspect {
 	@Pointcut("execution(* com.lovo.uploadsystem.controller.*.login*(..))")
 	public void register(){};
 	
-	 @Before("mypoint()")
+	 @After("mypoint()")
 	 public void message(JoinPoint join){
 
     String methodName=	join.getSignature().getName();
@@ -84,19 +83,19 @@ public class MyAspect {
     	//获取session
     	  HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     	   HttpSession session =request.getSession(); 
-    	   UserEntity user =  (UserEntity) session.getAttribute("User");
+    	   UserEntity user =  (UserEntity) session.getAttribute("user");
 //    	   System.out.println("aop"+user.getUname()+"22222222222222");//占时不知道名字
     	   //把对象放入数据库以及保存在本地txt文档里
     	   journalEntity.setIncident(incident);
     	   
     	   
     	   //需要删除的代码
-    	    journalEntity.setName("duhao");//修改的difan
+    	 
     	    //需要删除的代码结尾
     	    
     	    
     	    //需要放行的代码
-//    	    journalEntity.setName(user.getUname());//修改的difan
+    	    journalEntity.setName(user.getUname());//修改的difan
     	    //把对象保存在数据库中
     	    iJournalService.savejournal(journalEntity);
     	    //保存在本地Txt文档里

@@ -29,7 +29,7 @@ public class ShiftexchangeController {
 	@Autowired
 	private IShiftexchangeService iShiftexchangeService;
 	
-	private String Uname;
+	
 	
 
 	//交班按钮
@@ -37,7 +37,7 @@ public class ShiftexchangeController {
     public ModelAndView shiftexchange(String password,HttpServletRequest request){
 		 ModelAndView modelAndView=null;
 	 	   HttpSession session =request.getSession(); 
-	 	   UserEntity userEntity = (UserEntity) session.getAttribute("User");
+	 	   UserEntity userEntity = (UserEntity) session.getAttribute("user");
 	 	   System.out.println("交班方法里面"+userEntity.getUname());//占时不知道名字
 	 	   System.out.println("交班方法里面"+password);
 	 	   String userpassword= userEntity.getUpasss();
@@ -46,7 +46,9 @@ public class ShiftexchangeController {
 		if(password.equals(userpassword)){
 	         modelAndView = new ModelAndView("login");
 	         //删除session里面存在的用户
-	         session.removeAttribute("User");
+	         session.removeAttribute("user");
+	         session.removeAttribute("userList");
+	         
 			}else {
 				ModelAndView modelAndView1 = new ModelAndView();
 				RedirectView rv = new RedirectView("gotoJournal");//重定向的视图
@@ -62,7 +64,7 @@ public class ShiftexchangeController {
     public ModelAndView saveshiftexchangecontent(String daily, HttpServletRequest request){
 		 
  	   HttpSession session =request.getSession(); 
- 	   UserEntity userEntity = (UserEntity) session.getAttribute("User");
+ 	   UserEntity userEntity = (UserEntity) session.getAttribute("user");
  	   System.out.println(userEntity.getUname());//占时不知道名字
 		 ModelAndView modelAndView=new ModelAndView();
 		 ShiftexchangeEntity shiftexchangeEntity = new ShiftexchangeEntity();

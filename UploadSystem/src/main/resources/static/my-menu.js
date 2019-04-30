@@ -1,11 +1,11 @@
-var url = window.location.href;
+var url = window.location.pathname;
 $("li:has(ul)").each(function(i,e){
 	$(this).prop("class","w");
 });
 $("li a").each(function(i, e){
 	
 	var thisUrl = $(this).prop("href");
-	if(thisUrl == url){
+	if(thisUrl.indexOf(url) != -1){
 		$(this).addClass("active-menu");
 		
 		var li = $(this).parent().parent().parent();
@@ -23,4 +23,11 @@ $("li a").each(function(i, e){
 /* 未处理信息查询 */
 $.getJSON("/findUNInformation",{eventState:"1"},function(data){
 	var value = $("#UNInformation").text(data);
+});
+
+$.getJSON("/getUserList",function(data){
+	$.each(data,function(i,e){
+		$("#username").text(e.userName);
+		return false;
+	});
 });
