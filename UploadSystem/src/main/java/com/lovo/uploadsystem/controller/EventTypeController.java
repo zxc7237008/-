@@ -39,6 +39,17 @@ public class EventTypeController {
 		return mv;
 	}
 	
+	@RequestMapping("check")
+	public ModelAndView check(String typeId) {
+		ModelAndView mv = new ModelAndView("info_event_type");
+		
+		EventTypeEntity type =eventTypeService.findType(typeId);
+		String typeName = type.getTypeName();
+		mv.addObject("typeId",typeId);
+		mv.addObject("typeName",typeName);
+		return mv;
+	}
+	
 	@RequestMapping("add")
 	public String add() {
 		return "add_event_type";

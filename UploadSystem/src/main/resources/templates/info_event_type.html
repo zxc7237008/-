@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!-- <html xmlns="http://www.w3.org/1999/xhtml"> -->
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>事件类型修改</title>
+	
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet"/>
+	<link rel="stylesheet" th:href="@{/static/assets/materialize/css/materialize.min.css}" media="screen,projection" />
+    <!-- Bootstrap Styles-->
+    <link th:href="@{/static/assets/css/bootstrap.css}" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link th:href="@{/static/assets/css/font-awesome.css}" rel="stylesheet" />
+    <!-- Morris Chart Styles-->
+    <link th:href="@{/static/assets/js/morris/morris-0.4.3.min.css}" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link th:href="@{/static/assets/css/custom-styles.css}" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{/static/assets/js/Lightweight-Chart/cssCharts.css}"/>
+    
+</head>
+<body>
+    <div th:include="header::header"></div>
+		<!-- 结束导航栏模块 -->
+	   <!--/. NAV TOP  -->
+        <div th:include="nav::nav"></div>
+        <!-- /. NAV SIDE  -->
+      
+		<div id="page-wrapper">
+			<div class="header"> 
+				<h1 class="page-header">
+					事件类型修改
+				</h1>
+					<!-- 小导航栏  -->
+					<ol class="breadcrumb">
+					  <li><a th:href="@{/eventType/info}">事件类型维护</a></li>
+					  <li class="active">事件类型</li>
+					</ol> 									
+			</div>
+			
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-action">
+                            <strong class="left">事件类型修改列表</strong>
+                        </div> 
+									
+					<div class="card-content"> 
+
+					   <div style="margin-top: 10px;">
+							
+                        
+                        
+                        <form th:action="@{/eventType/updateType}" method="get">
+						      <div class="row">
+							      <div class="col s12">
+							      <!-- 修改事件名称 -->
+							      	<div class="col-md-12 left">
+							      		<div class="col-md-4"></div>
+							      		<div class="col-md-4">
+							      			<div class="input-field col s12">
+							      				<input name="typeId" type="hidden" th:value="${typeId}"/>
+									          <input placeholder="事件类型" id="typeName" name="typeName" type="text" class="validate" th:value="${typeName}" />
+									          <label for="typeName" class="active">事件类型</label>
+									        </div>
+							      		</div>
+							      		<div class="col-md-4"></div>
+							      	</div>
+							      	<!-- 添加的内容 -->
+							      	<div id="dynamic">
+							      		
+							      	</div>
+							         <!-- 按钮 -->	
+						            <div class="col-md-12">
+						            	<div class="col s10"></div>
+							         	<div class="col s1"><a th:href="@{/eventType/info}" class="waves-effect waves-light btn">返回</a></div>
+						        	</div>
+							       </div>
+						      </div>
+					    </form>
+                        
+				  </div> 
+				</div>
+			  </div>
+            </div>
+			
+			<!-- 页脚  -->
+			<footer>
+				<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" th:href="@{http://sc.chinaz.com/moban/}">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+			</footer>
+     </div>
+    <script th:src="@{/static/assets/js/jquery-1.10.2.js}"></script>
+	
+	<!-- Bootstrap Js -->
+    <script th:src="@{/static/assets/js/bootstrap.min.js}"></script>
+	
+	<script th:src="@{/static/assets/materialize/js/materialize.min.js}"></script>
+	
+    <!-- Metis Menu Js -->
+    <script th:src="@{/static/assets/js/jquery.metisMenu.js}"></script>
+    <!-- Morris Chart Js -->
+    <script th:src="@{/static/assets/js/morris/raphael-2.1.0.min.js}"></script>
+    <script th:src="@{/static/assets/js/morris/morris.js}"></script>
+	
+	
+	<script th:src="@{/static/assets/js/easypiechart.js}"></script>
+	<script th:src="@{/static/assets/js/easypiechart-data.js}"></script>
+	
+	<script th:src="@{/static/assets/js/Lightweight-Chart/jquery.chart.js}"></script>
+	
+    <!-- Custom Js -->
+    <script th:src="@{/static/assets/js/custom.js}"></script>
+    
+     <!-- Custom Js -->
+    <script th:src="@{/static/my-menu.js}"></script>
+    
+    <script type="text/javascript">
+    	$(function(){
+    		$("input").attr("readonly","readonly");
+    		var typeId = $("[name=typeId]").val();
+    		$.getJSON("/event/getKey",{"typeId":typeId},keyData);
+    		
+    		
+    	});
+    	
+    	<!-- 添加动态模块 -->
+    	//<![CDATA[ 
+    		function keyData(data){
+        		$("#dynamic").empty();
+        		$.each(data,function(i,e){
+        			var keyList = new Array();
+        			keyList.push(e.key1,e.key2,e.key3,e.key4,e.key5,e.key6);
+        			
+        			for(var j = 0,len = keyList.length; j < len; j++){
+        			    if(keyList[j] == null || keyList[j].length == 0){
+        			    	break;
+        			    } else {
+        			    	dynamicAdd(keyList[j],j);
+        			    }
+        			}
+        			
+        		});
+        	}
+			//]]>
+    	
+    		<!-- 向动态模板添加input表单 -->
+        	//<![CDATA[
+        	function dynamicAdd(key,j){
+        		$("#dynamic").append("<div class='input-field col s6'>"+
+                "<input readonly='readonly' placeholder='属性"+ (j+1) +"' id="+ (j+1) +" name='key"+ (j+1) +"' type='text' value='"+ key +"' class='validate'/>"+
+                    "<label for="+ (j+1) +" class='active'>属性"+ (j+1) +"</label></div>");  
+        	}
+        	//]]>
+    </script>
+     
+</body>
+
+</html>

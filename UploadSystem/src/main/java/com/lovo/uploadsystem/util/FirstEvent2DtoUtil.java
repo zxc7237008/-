@@ -23,6 +23,7 @@ public class FirstEvent2DtoUtil {
 		dto.setAlarmAddress(event.getDetailAddr());
 		dto.setEventUploadPeople(event.getReporter());
 		dto.setEventTime(event.getEventDatetime());
+		dto.setEventPeriod(event.getEventState());
 		
 		
 		String[] keyStr = new String[6];

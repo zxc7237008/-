@@ -163,7 +163,9 @@ public class FirstEventController{
 		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
-			Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
+			firstEventService.saveEvent(event);
+			
+			Destination destination = new ActiveMQQueue("uploadEventMessage");
 			
 			NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
 			
@@ -209,7 +211,9 @@ public class FirstEventController{
 		    FormKeyEntity keys = keyList.get(0);
 			event.setEventState(2);
 			
-			Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
+			firstEventService.saveEvent(event);
+			
+			Destination destination = new ActiveMQQueue("uploadEventMessage");
 			
 			NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
 			
@@ -247,7 +251,7 @@ public class FirstEventController{
 		
 		firstEventService.saveEvent(event);
 		
-		Destination destination = new ActiveMQQueue("receiveMessageFromUploadSystem");
+		Destination destination = new ActiveMQQueue("uploadEventMessage");
 		
 		NoDealWithDto dto = FirstEvent2DtoUtil.firstEvent2Dto(event, keys, formValue);
 		
